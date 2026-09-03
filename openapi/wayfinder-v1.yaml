@@ -1,0 +1,495 @@
+openapi: 3.1.0
+info:
+  title: Project Wayfinder Sync API
+  version: 0.1.0
+  description: Optional synchronization and supporter-delegation API. Core readiness remains local-first.
+servers:
+  - url: https://api.wayfinder.example/v1
+security:
+  - bearerAuth: []
+paths:
+  /participants/{participantId}/readiness-plans/{localDate}:
+    get:
+      operationId: getReadinessPlan
+      summary: Get a participant-authorized readiness plan
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - name: localDate
+          in: path
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Readiness plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadinessPlan'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /participants/{participantId}/activities:
+    get:
+      operationId: listActivities
+      summary: List activities in an authorized date window
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Activities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+    post:
+      operationId: createActivity
+      summary: Create an activity when the actor has activity.write
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivityInput'
+      responses:
+        '201':
+          description: Activity created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /participants/{participantId}/wardrobe-items:
+    get:
+      operationId: listWardrobeItems
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+      responses:
+        '200':
+          description: Wardrobe items visible to the actor
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WardrobeItem'
+    post:
+      operationId: createWardrobeItem
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WardrobeItemInput'
+      responses:
+        '201':
+          description: Wardrobe item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WardrobeItem'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /participants/{participantId}/support-relationships:
+    get:
+      operationId: listSupportRelationships
+      summary: List relationships visible to the participant
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+      responses:
+        '200':
+          description: Support relationships
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SupportRelationship'
+    post:
+      operationId: createSupportRelationship
+      summary: Invite a supporter with participant-confirmed capabilities
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupportRelationshipInput'
+      responses:
+        '201':
+          description: Relationship pending acceptance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportRelationship'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /participants/{participantId}/support-relationships/{relationshipId}:
+    delete:
+      operationId: revokeSupportRelationship
+      summary: Revoke a relationship and invalidate its delegated sessions
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - name: relationshipId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Revoked
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /sync/push:
+    post:
+      operationId: pushOperations
+      summary: Idempotently submit local change-log operations
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [deviceId, operations]
+              properties:
+                deviceId:
+                  type: string
+                  format: uuid
+                operations:
+                  type: array
+                  maxItems: 100
+                  items:
+                    $ref: '#/components/schemas/SyncOperation'
+      responses:
+        '200':
+          description: Per-operation results and latest cursor
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [cursor, results]
+                properties:
+                  cursor:
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      required: [operationId, status]
+                      properties:
+                        operationId:
+                          type: string
+                          format: uuid
+                        status:
+                          enum: [applied, duplicate, conflict, rejected]
+                        conflictId:
+                          type: [string, 'null']
+  /sync/pull:
+    get:
+      operationId: pullOperations
+      summary: Pull authorized changes after a server cursor
+      parameters:
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 100
+      responses:
+        '200':
+          description: Change page
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [cursor, hasMore, operations]
+                properties:
+                  cursor:
+                    type: string
+                  hasMore:
+                    type: boolean
+                  operations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SyncOperation'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    ParticipantId:
+      name: participantId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Forbidden:
+      description: Actor lacks an active capability grant
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    NotFound:
+      description: Resource is absent or intentionally undisclosed
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  schemas:
+    ActivityInput:
+      type: object
+      additionalProperties: false
+      required: [title, start, end]
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 120
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        locationLabel:
+          type: [string, 'null']
+          maxLength: 120
+        bringItems:
+          type: array
+          maxItems: 30
+          items:
+            type: string
+            maxLength: 80
+    Activity:
+      allOf:
+        - $ref: '#/components/schemas/ActivityInput'
+        - type: object
+          required: [id, participantId, source, version]
+          properties:
+            id:
+              type: string
+              format: uuid
+            participantId:
+              type: string
+              format: uuid
+            source:
+              enum: [manual, deviceCalendar, supporter]
+            version:
+              type: integer
+              minimum: 1
+    WardrobeItemInput:
+      type: object
+      additionalProperties: false
+      required: [label, category, state]
+      properties:
+        label:
+          type: string
+          minLength: 1
+          maxLength: 80
+        category:
+          enum: [top, bottom, dress, outerwear, footwear, accessory, other]
+        state:
+          enum: [available, laundry, wet, damaged, unavailable]
+        warmth:
+          type: integer
+          minimum: 0
+          maximum: 4
+        rainSuitable:
+          type: boolean
+        sensoryTags:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            maxLength: 40
+    WardrobeItem:
+      allOf:
+        - $ref: '#/components/schemas/WardrobeItemInput'
+        - type: object
+          required: [id, participantId, version]
+          properties:
+            id:
+              type: string
+              format: uuid
+            participantId:
+              type: string
+              format: uuid
+            version:
+              type: integer
+              minimum: 1
+    ReadinessPlan:
+      type: object
+      additionalProperties: false
+      required: [id, participantId, localDate, generatedAt, rulesetVersion, sections]
+      properties:
+        id:
+          type: string
+          format: uuid
+        participantId:
+          type: string
+          format: uuid
+        localDate:
+          type: string
+          format: date
+        generatedAt:
+          type: string
+          format: date-time
+        rulesetVersion:
+          type: string
+        weatherFreshness:
+          enum: [fresh, stale, unavailable]
+        sections:
+          type: array
+          minItems: 4
+          maxItems: 5
+          items:
+            type: object
+            required: [type, summary]
+            properties:
+              type:
+                enum: [weather, activities, outfit, bring, notes]
+              summary:
+                type: string
+              explanation:
+                type: [string, 'null']
+              completed:
+                type: boolean
+    SupportRelationshipInput:
+      type: object
+      additionalProperties: false
+      required: [supporterEmail, capabilities]
+      properties:
+        supporterEmail:
+          type: string
+          format: email
+        capabilities:
+          type: array
+          uniqueItems: true
+          items:
+            enum:
+              - activity.read
+              - activity.write
+              - wardrobe.read
+              - wardrobe.state.write
+              - plan.read
+              - note.write
+        expiresAt:
+          type: [string, 'null']
+          format: date-time
+    SupportRelationship:
+      allOf:
+        - $ref: '#/components/schemas/SupportRelationshipInput'
+        - type: object
+          required: [id, participantId, status, createdAt]
+          properties:
+            id:
+              type: string
+              format: uuid
+            participantId:
+              type: string
+              format: uuid
+            status:
+              enum: [pending, active, revoked, expired]
+            createdAt:
+              type: string
+              format: date-time
+    SyncOperation:
+      type: object
+      additionalProperties: false
+      required: [operationId, participantId, entityType, entityId, action, baseVersion, payloadHash, occurredAt]
+      properties:
+        operationId:
+          type: string
+          format: uuid
+        participantId:
+          type: string
+          format: uuid
+        entityType:
+          type: string
+        entityId:
+          type: string
+          format: uuid
+        action:
+          enum: [create, update, delete]
+        baseVersion:
+          type: integer
+          minimum: 0
+        payload:
+          type: [object, 'null']
+        payloadHash:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+        occurredAt:
+          type: string
+          format: date-time
+    Problem:
+      type: object
+      required: [type, title, status, code]
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+        code:
+          type: string
+        detail:
+          type: string
+        traceId:
+          type: string

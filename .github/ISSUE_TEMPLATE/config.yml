@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security or privacy report
+    url: https://github.com/denmak1974/wayfinder/security/advisories/new
+    about: Report vulnerabilities and personal-data exposure privately.
+  - name: Community discussion
+    url: https://github.com/denmak1974/wayfinder/discussions
+    about: Ask questions and discuss ideas before proposing large changes.

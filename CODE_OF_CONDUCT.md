@@ -121,11 +121,13 @@ Our shared mission should guide our actions.
 
 ## Reporting Concerns
 
-If you experience or witness behavior that violates this Code of Conduct, please open a private issue or contact the project maintainers.
+If you experience or witness behavior that violates this Code of Conduct, contact the project maintainers through GitHub's private reporting channel. Do not place personal or sensitive details in a public issue.
 
 All reports will be reviewed thoughtfully and respectfully.
 
 We are committed to maintaining a safe and inclusive environment for everyone.
+
+Reports will be handled confidentially by maintainers without a conflict of interest. Enforcement decisions may be appealed to uninvolved maintainers.
 
 ---
 
@@ -140,4 +142,3 @@ Project maintainers may take any action necessary to protect the health of the c
 - Removing contributors from the project
 
 Enforcement decisions will be made with the project's values of fairness, respect, and inclusion in mind.
-

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://projectwayfinder.org/schemas/readiness-plan.schema.json",
+  "title": "Project Wayfinder Readiness Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "participantId",
+    "localDate",
+    "generatedAt",
+    "rulesetVersion",
+    "weatherFreshness",
+    "sections"
+  ],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "participantId": { "type": "string", "format": "uuid" },
+    "localDate": { "type": "string", "format": "date" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "rulesetVersion": { "type": "string", "minLength": 1 },
+    "weatherFreshness": {
+      "enum": ["fresh", "stale", "unavailable"]
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "summary", "completed"],
+        "properties": {
+          "type": {
+            "enum": ["weather", "activities", "outfit", "bring", "notes"]
+          },
+          "summary": { "type": "string", "minLength": 1 },
+          "explanation": { "type": ["string", "null"] },
+          "completed": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

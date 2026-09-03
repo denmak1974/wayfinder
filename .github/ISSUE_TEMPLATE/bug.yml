@@ -1,0 +1,50 @@
+name: Bug report
+description: Report behavior that prevents or complicates a Wayfinder task
+title: "[Bug]: "
+labels: ["type:bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: Use synthetic examples. Do not post personal schedules, locations, images, diagnoses, or account information. Report data exposure privately through SECURITY.md.
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: What were you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Device and version
+      placeholder: Android 15, Wayfinder 0.1.0
+  - type: input
+    id: assistive-tech
+    attributes:
+      label: Assistive technology, if relevant
+      placeholder: TalkBack, large text, switch access
+  - type: dropdown
+    id: offline
+    attributes:
+      label: Network state
+      options:
+        - Offline
+        - Online
+        - Unstable
+        - Not sure
+  - type: textarea
+    id: recovery
+    attributes:
+      label: Could you recover or finish the task?

@@ -169,15 +169,19 @@ Focus on strengths, capability, and support.
 
 # Coding Standards
 
-As the project evolves, coding standards and architectural guidance will be documented.
+Detailed coding, testing, documentation, internationalization, and release requirements are documented in [Engineering and Documentation Standards](docs/community/STANDARDS.md).
 
-For now:
+At minimum:
 
 - Keep solutions simple
 - Write readable code
 - Prefer maintainability over cleverness
 - Document important design decisions
-- Add tests where practical
+- Add tests for changed behavior
+- Use synthetic data in tests, screenshots, and examples
+- Describe accessibility, privacy, schema, and migration impacts in each pull request
+
+Commits must include a Developer Certificate of Origin sign-off using `git commit -s`.
 
 ---
 
@@ -198,7 +202,7 @@ Disagreements are inevitable.
 
 Disrespect is not.
 
-A formal Code of Conduct will be published as the project grows.
+Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ---
 

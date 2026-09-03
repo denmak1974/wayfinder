@@ -151,6 +151,35 @@ The best solutions will come from people who live them every day.
 
 ---
 
+## Project Foundation
+
+The initial product and engineering foundation is now available:
+
+| Area | Document |
+| --- | --- |
+| Product vision, personas, stories, backlog, and 90-day roadmap | [Product foundation](docs/product/PRODUCT.md) |
+| Solution architecture, technology stack, Azure, local-first, mobile, and AI | [Solution architecture](docs/architecture/ARCHITECTURE.md) |
+| Domain entities and data ownership | [Data model](docs/architecture/DATA_MODEL.md) |
+| API contract | [OpenAPI](openapi/wayfinder-v1.yaml) |
+| Accessibility requirements | [Accessibility architecture](docs/design/ACCESSIBILITY.md) |
+| Privacy and threat model | [Privacy and security](docs/security/PRIVACY-THREAT-MODEL.md) |
+| Engineering and documentation standards | [Engineering standards](docs/community/STANDARDS.md) |
+| Governance | [GOVERNANCE.md](GOVERNANCE.md) |
+
+Editable architecture diagrams are in [`docs/diagrams`](docs/diagrams). They can be opened with [Microsoft Excalidraw](https://aka.ms/excalidraw).
+
+### Interactive prototype
+
+Open the self-contained [Daily Readiness Assistant prototype](prototypes/daily-readiness.html). It uses synthetic data and demonstrates:
+
+- the calm five-section Today screen;
+- outfit alternatives with plain-language explanations;
+- bring-item tracking;
+- display personalization; and
+- a bounded help flow that keeps the participant in control.
+
+---
+
 ## Guiding Principle
 
 Every proposed feature should answer a single question:
@@ -167,21 +196,20 @@ Project Status: Early Foundation
 
 Current focus:
 
-- Establish project vision
-- Define MVP requirements
+- Validate the MVP with neurodiverse adults
 - Build Daily Readiness Assistant
-- Establish contribution model
-- Create accessibility-first design principles
+- Implement the offline vertical slice
+- Establish the first community advisory group
 
 ---
 
 ## Contributing
 
-Wayfinder is in its earliest stages.
+Wayfinder is in its foundation stage.
 
 If this mission resonates with you, we would love your ideas, feedback, and future contributions.
 
-Contribution guidelines will be published as the project evolves.
+Read [CONTRIBUTING.md](CONTRIBUTING.md), the [Code of Conduct](CODE_OF_CONDUCT.md), and the [accessibility reporting guide](ACCESSIBILITY.md) before contributing.
 
 ---
 

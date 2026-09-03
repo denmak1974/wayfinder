@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Wayfinder - Daily Readiness Prototype</title>
+  <link rel="icon" href="data:,">
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button,
+    summary,
+    input[type="checkbox"] {
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    summary:focus-visible,
+    input:focus-visible {
+      outline: 3px solid var(--cp-link);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -5rem;
+      z-index: 10;
+      padding: 0.75rem 1rem;
+      border-radius: 0.625rem;
+      background: var(--cp-accent);
+      color: var(--cp-accent-fg);
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .app-shell {
+      width: min(100%, 70rem);
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .prototype-note {
+      margin: 0 0 1rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface-soft);
+      color: var(--cp-text-muted);
+      font-size: 0.95rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+    }
+
+    .wayfinder-mark {
+      display: grid;
+      width: 3rem;
+      height: 3rem;
+      place-items: center;
+      border: 2px solid var(--cp-accent);
+      border-radius: 50%;
+      color: var(--cp-accent);
+    }
+
+    .icon {
+      width: 1.75rem;
+      height: 1.75rem;
+      flex: none;
+    }
+
+    .settings-button,
+    .secondary-button,
+    .primary-button,
+    .quiet-button {
+      min-height: 3rem;
+      min-width: 3rem;
+      border-radius: 0.625rem;
+      padding: 0.75rem 1rem;
+      font-weight: 650;
+    }
+
+    .settings-button,
+    .secondary-button,
+    .quiet-button {
+      border: 2px solid var(--cp-border-strong);
+      background: var(--cp-surface);
+      color: var(--cp-text);
+    }
+
+    .primary-button {
+      border: 2px solid var(--cp-accent);
+      background: var(--cp-accent);
+      color: var(--cp-accent-fg);
+    }
+
+    .primary-button:hover {
+      border-color: var(--cp-accent-hover);
+      background: var(--cp-accent-hover);
+    }
+
+    .quiet-button {
+      border-color: var(--cp-border);
+      font-weight: 600;
+    }
+
+    .settings-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero {
+      margin-bottom: 1rem;
+      padding: clamp(1rem, 4vw, 2rem);
+      border: 1px solid var(--cp-border);
+      border-radius: 16px;
+      background: var(--cp-surface);
+    }
+
+    .eyebrow {
+      margin: 0 0 0.25rem;
+      color: var(--cp-text-muted);
+      font-weight: 650;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 7vw, 3.5rem);
+      line-height: 1.1;
+    }
+
+    .date-line {
+      margin: 0.75rem 0 0;
+      color: var(--cp-text-muted);
+      font-size: 1.1rem;
+    }
+
+    .change-notice {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-top: 1.25rem;
+      padding: 1rem;
+      border-left: 5px solid var(--cp-warning);
+      border-radius: 0.625rem;
+      background: var(--cp-surface-soft);
+    }
+
+    .change-notice p {
+      margin: 0;
+    }
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .plan-card {
+      min-width: 0;
+      padding: 1.25rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 16px;
+      background: var(--cp-surface);
+    }
+
+    .plan-card.outfit-card {
+      grid-row: span 2;
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-heading h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .card-icon {
+      display: grid;
+      width: 3rem;
+      height: 3rem;
+      place-items: center;
+      border-radius: 0.625rem;
+      background: var(--cp-accent-soft);
+      color: var(--cp-accent);
+    }
+
+    .large-number {
+      margin: 0;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 750;
+      line-height: 1;
+    }
+
+    .weather-summary {
+      margin: 0.5rem 0 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .muted {
+      color: var(--cp-text-muted);
+    }
+
+    .source-line {
+      margin: 1rem 0 0;
+      color: var(--cp-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .activity-list,
+    .bring-list,
+    .outfit-list {
+      display: grid;
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .activity {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.9rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface-soft);
+    }
+
+    .activity time {
+      font-weight: 750;
+    }
+
+    .activity strong {
+      display: block;
+      font-size: 1.05rem;
+    }
+
+    .outfit-visual {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .garment {
+      display: grid;
+      min-height: 7rem;
+      place-items: center;
+      padding: 0.75rem;
+      border: 2px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface-soft);
+      text-align: center;
+      font-weight: 650;
+    }
+
+    .garment svg {
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-bottom: 0.35rem;
+      color: var(--cp-text-muted);
+    }
+
+    .outfit-actions,
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    details {
+      margin-top: 1rem;
+      border-top: 1px solid var(--cp-border);
+      padding-top: 0.75rem;
+    }
+
+    summary {
+      min-height: 3rem;
+      padding: 0.65rem 0;
+      color: var(--cp-link);
+      font-weight: 650;
+    }
+
+    details p {
+      margin: 0.5rem 0;
+    }
+
+    .check-row {
+      display: flex;
+      min-height: 3.25rem;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+    }
+
+    .check-row input {
+      width: 1.5rem;
+      height: 1.5rem;
+      accent-color: var(--cp-accent);
+    }
+
+    .check-row:has(input:checked) {
+      border-color: var(--cp-success);
+      background: var(--cp-surface-soft);
+    }
+
+    .notes-card {
+      grid-column: 1 / -1;
+    }
+
+    .notes-card p {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .status-summary {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 2px solid var(--cp-border);
+      border-radius: 16px;
+      background: var(--cp-bg-elevated);
+    }
+
+    .status-summary h2,
+    .status-summary p {
+      margin: 0;
+    }
+
+    .status-summary p {
+      margin-top: 0.35rem;
+      color: var(--cp-text-muted);
+    }
+
+    .settings-panel {
+      width: min(92vw, 34rem);
+      border: 2px solid var(--cp-border-strong);
+      border-radius: 16px;
+      padding: 0;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+    }
+
+    .settings-panel::backdrop {
+      background: var(--cp-overlay);
+    }
+
+    .dialog-inner {
+      padding: 1.5rem;
+    }
+
+    .dialog-inner h2 {
+      margin-top: 0;
+    }
+
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      min-height: 4rem;
+      border-top: 1px solid var(--cp-border);
+    }
+
+    .setting-row input {
+      width: 1.5rem;
+      height: 1.5rem;
+      accent-color: var(--cp-accent);
+    }
+
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    body.large-text {
+      font-size: 1.2rem;
+    }
+
+    body.strong-focus .plan-card,
+    body.strong-focus .hero,
+    body.strong-focus .status-summary {
+      border-width: 3px;
+      border-color: var(--cp-border-strong);
+    }
+
+    body.simple-view .optional-detail,
+    body.simple-view .source-line {
+      display: none;
+    }
+
+    @media (max-width: 48rem) {
+      .plan-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .plan-card.outfit-card {
+        grid-row: auto;
+      }
+
+      .notes-card {
+        grid-column: auto;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .settings-button span {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      button {
+        transition: background-color 120ms ease, border-color 120ms ease;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#today-plan">Skip to today's plan</a>
+  <div class="app-shell">
+    <p class="prototype-note">
+      Interactive concept using synthetic information. No data leaves this page.
+    </p>
+
+    <header class="topbar">
+      <div class="brand" aria-label="Project Wayfinder">
+        <span class="wayfinder-mark" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="m14.5 9.5-2 5-5 2 2-5 5-2Z"></path>
+          </svg>
+        </span>
+        <span>Project Wayfinder</span>
+      </div>
+      <button class="settings-button" id="open-settings" type="button" aria-haspopup="dialog">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.11.37.32.72.6 1 .3.28.68.42 1.1.4H21v4h-.09a1.7 1.7 0 0 0-1.51.6Z"></path>
+        </svg>
+        <span>Display settings</span>
+      </button>
+    </header>
+
+    <main id="today-plan">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Your daily readiness plan</p>
+        <h1 id="page-title">Good morning, Jordan</h1>
+        <p class="date-line">Thursday, September 3</p>
+        <div class="change-notice" role="status">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 9v4m0 4h.01"></path>
+            <path d="M10.3 3.7 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0Z"></path>
+          </svg>
+          <p><strong>One thing changed:</strong> Rain may start at 1:00 PM. Bring your umbrella when you leave.</p>
+        </div>
+      </section>
+
+      <div class="plan-grid">
+        <section class="plan-card" aria-labelledby="weather-title">
+          <div class="card-heading">
+            <span class="card-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 13a4 4 0 1 0-7.8-1.2A3 3 0 0 0 8 18h8a2.5 2.5 0 0 0 0-5Z"></path>
+                <path d="m9 20-1 2m5-2-1 2m5-2-1 2"></path>
+              </svg>
+            </span>
+            <h2 id="weather-title">Weather</h2>
+          </div>
+          <p class="large-number">12<sup aria-label="degrees Celsius">°C</sup></p>
+          <p class="weather-summary">Cool now. Rain likely after lunch.</p>
+          <p class="optional-detail muted">High 15°C · 70% chance of rain after 1:00 PM</p>
+          <p class="source-line">Updated 12 minutes ago</p>
+        </section>
+
+        <section class="plan-card outfit-card" aria-labelledby="outfit-title">
+          <div class="card-heading">
+            <span class="card-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3a4 4 0 0 1-8 0Z"></path>
+              </svg>
+            </span>
+            <h2 id="outfit-title">Recommended outfit</h2>
+          </div>
+
+          <div class="outfit-visual" id="outfit-visual" aria-label="Recommended clothing">
+            <div class="garment">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3a4 4 0 0 1-8 0Z"></path>
+              </svg>
+              <span>Grey shirt</span>
+            </div>
+            <div class="garment">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3h8l1 18h-5l-1-11-1 11H5L8 3Z"></path>
+              </svg>
+              <span>Blue jeans</span>
+            </div>
+            <div class="garment">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3"></path>
+                <path d="M12 4v16"></path>
+              </svg>
+              <span>Rain jacket</span>
+            </div>
+            <div class="garment">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 13c3 0 5-2 6-6l3 4c2 2 4 3 7 3v5H4v-6Z"></path>
+              </svg>
+              <span>Running shoes</span>
+            </div>
+          </div>
+
+          <p id="outfit-summary"><strong>Ready to wear:</strong> All four items are available.</p>
+          <div class="outfit-actions">
+            <button class="primary-button" id="choose-outfit" type="button">Choose this outfit</button>
+            <button class="secondary-button" id="show-other" type="button">Show another</button>
+          </div>
+          <details class="optional-detail">
+            <summary>Why this outfit?</summary>
+            <p id="outfit-reason">It is warm enough for 12°C, works for walking, and includes a waterproof layer for the afternoon rain.</p>
+          </details>
+        </section>
+
+        <section class="plan-card" aria-labelledby="activities-title">
+          <div class="card-heading">
+            <span class="card-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                <path d="M16 3v4M8 3v4M3 10h18"></path>
+              </svg>
+            </span>
+            <h2 id="activities-title">Today's activities</h2>
+          </div>
+          <ol class="activity-list">
+            <li class="activity">
+              <time datetime="2026-09-03T10:00">10:00 AM</time>
+              <span><strong>Dentist</strong><span class="muted">Leave home by 9:15 AM</span></span>
+            </li>
+            <li class="activity">
+              <time datetime="2026-09-03T14:00">2:00 PM</time>
+              <span><strong>Grocery shopping</strong><span class="muted">About 45 minutes</span></span>
+            </li>
+          </ol>
+        </section>
+
+        <section class="plan-card" aria-labelledby="bring-title">
+          <div class="card-heading">
+            <span class="card-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 8h12l1 13H5L6 8Z"></path>
+                <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+              </svg>
+            </span>
+            <h2 id="bring-title">Bring with you</h2>
+          </div>
+          <ul class="bring-list">
+            <li>
+              <label class="check-row">
+                <input type="checkbox" data-ready-item="Umbrella">
+                <span><strong>Umbrella</strong><br><span class="muted optional-detail">Rain after lunch</span></span>
+              </label>
+            </li>
+            <li>
+              <label class="check-row">
+                <input type="checkbox" data-ready-item="Health card">
+                <span><strong>Health card</strong><br><span class="muted optional-detail">For the dentist</span></span>
+              </label>
+            </li>
+            <li>
+              <label class="check-row">
+                <input type="checkbox" data-ready-item="Grocery list">
+                <span><strong>Grocery list</strong><br><span class="muted optional-detail">Saved on your phone</span></span>
+              </label>
+            </li>
+          </ul>
+        </section>
+
+        <section class="plan-card notes-card" aria-labelledby="notes-title">
+          <div class="card-heading">
+            <span class="card-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22a10 10 0 1 0-10-10 12 12 0 0 0 1 4l-1 6 6-1a12 12 0 0 0 4 1Z"></path>
+                <path d="M8 12h8M8 8h5M8 16h6"></path>
+              </svg>
+            </span>
+            <h2 id="notes-title">What to expect</h2>
+          </div>
+          <p>The dentist visit is a regular cleaning. It should take about 40 minutes. Rain may begin while you are shopping.</p>
+        </section>
+      </div>
+
+      <section class="status-summary" aria-labelledby="ready-title">
+        <h2 id="ready-title">You are getting ready</h2>
+        <p id="progress-text" aria-live="polite">0 of 3 bring-items are ready.</p>
+        <div class="footer-actions">
+          <button class="primary-button" id="finish-plan" type="button">I understand today's plan</button>
+          <button class="quiet-button" id="ask-help" type="button">I want help with one part</button>
+        </div>
+      </section>
+      <p class="visually-hidden" id="announcer" aria-live="polite"></p>
+    </main>
+  </div>
+
+  <dialog class="settings-panel" id="settings-dialog" aria-labelledby="settings-title">
+    <div class="dialog-inner">
+      <h2 id="settings-title">Display settings</h2>
+      <p class="muted">Preview changes immediately. These settings change presentation, not your plan.</p>
+      <label class="setting-row">
+        <span><strong>Show less detail</strong><br><span class="muted">Keep only the main answer</span></span>
+        <input id="simple-view" type="checkbox">
+      </label>
+      <label class="setting-row">
+        <span><strong>Larger text</strong><br><span class="muted">Increase text throughout the plan</span></span>
+        <input id="large-text" type="checkbox">
+      </label>
+      <label class="setting-row">
+        <span><strong>Stronger card outlines</strong><br><span class="muted">Make sections easier to separate</span></span>
+        <input id="strong-focus" type="checkbox">
+      </label>
+      <div class="dialog-actions">
+        <button class="primary-button" id="close-settings" type="button">Done</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="settings-panel" id="help-dialog" aria-labelledby="help-title">
+    <div class="dialog-inner">
+      <h2 id="help-title">Choose what you want help with</h2>
+      <p>You stay on this plan. In the full app, you could ask a trusted supporter about one section without sharing anything else.</p>
+      <div class="outfit-actions">
+        <button class="secondary-button help-choice" type="button">Outfit</button>
+        <button class="secondary-button help-choice" type="button">Activities</button>
+        <button class="secondary-button help-choice" type="button">Bring-items</button>
+      </div>
+      <div class="dialog-actions">
+        <button class="primary-button" id="close-help" type="button">Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    const body = document.body;
+    const settingsDialog = document.querySelector("#settings-dialog");
+    const helpDialog = document.querySelector("#help-dialog");
+    const announcer = document.querySelector("#announcer");
+    const outfits = [
+      {
+        items: ["Grey shirt", "Blue jeans", "Rain jacket", "Running shoes"],
+        reason: "It is warm enough for 12°C, works for walking, and includes a waterproof layer for the afternoon rain."
+      },
+      {
+        items: ["Navy sweater", "Black pants", "Rain jacket", "Walking shoes"],
+        reason: "This is a warmer option. Every item is available and the shoes are comfortable for grocery shopping."
+      }
+    ];
+    let outfitIndex = 0;
+
+    document.querySelector("#open-settings").addEventListener("click", () => {
+      settingsDialog.showModal();
+    });
+
+    document.querySelector("#close-settings").addEventListener("click", () => {
+      settingsDialog.close();
+    });
+
+    document.querySelector("#simple-view").addEventListener("change", (event) => {
+      body.classList.toggle("simple-view", event.target.checked);
+    });
+
+    document.querySelector("#large-text").addEventListener("change", (event) => {
+      body.classList.toggle("large-text", event.target.checked);
+    });
+
+    document.querySelector("#strong-focus").addEventListener("change", (event) => {
+      body.classList.toggle("strong-focus", event.target.checked);
+    });
+
+    document.querySelector("#show-other").addEventListener("click", () => {
+      outfitIndex = (outfitIndex + 1) % outfits.length;
+      const outfit = outfits[outfitIndex];
+      const labels = document.querySelectorAll("#outfit-visual .garment span");
+      labels.forEach((label, index) => {
+        label.textContent = outfit.items[index];
+      });
+      document.querySelector("#outfit-reason").textContent = outfit.reason;
+      announcer.textContent = `Another outfit is shown: ${outfit.items.join(", ")}.`;
+    });
+
+    document.querySelector("#choose-outfit").addEventListener("click", (event) => {
+      event.currentTarget.textContent = "Outfit chosen";
+      event.currentTarget.disabled = true;
+      announcer.textContent = "This outfit is chosen for today.";
+    });
+
+    const readyItems = [...document.querySelectorAll("[data-ready-item]")];
+    readyItems.forEach((item) => {
+      item.addEventListener("change", () => {
+        const complete = readyItems.filter((candidate) => candidate.checked).length;
+        document.querySelector("#progress-text").textContent =
+          `${complete} of ${readyItems.length} bring-items are ready.`;
+      });
+    });
+
+    document.querySelector("#finish-plan").addEventListener("click", (event) => {
+      event.currentTarget.textContent = "Today's plan understood";
+      event.currentTarget.disabled = true;
+      document.querySelector("#ready-title").textContent = "You know what today looks like";
+      announcer.textContent = "Today's plan is marked as understood.";
+    });
+
+    document.querySelector("#ask-help").addEventListener("click", () => {
+      helpDialog.showModal();
+    });
+
+    document.querySelector("#close-help").addEventListener("click", () => {
+      helpDialog.close();
+    });
+
+    document.querySelectorAll(".help-choice").forEach((button) => {
+      button.addEventListener("click", () => {
+        helpDialog.close();
+        announcer.textContent =
+          `Help with ${button.textContent.toLowerCase()} would be requested. Nothing was sent in this prototype.`;
+      });
+    });
+  </script>
+</body>
+</html>

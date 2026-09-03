@@ -1,0 +1,47 @@
+name: Independence outcome proposal
+description: Propose a capability tied to a practical independence outcome
+title: "[Outcome]: "
+labels: ["type:feature", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include diagnoses, schedules, locations, wardrobe photos, or other personal information.
+  - type: textarea
+    id: person-task
+    attributes:
+      label: Person and real-world task
+      description: Who needs help doing what?
+    validations:
+      required: true
+  - type: textarea
+    id: independence
+    attributes:
+      label: Independence outcome
+      description: How would this reduce prompting, decisions, barriers, or supporter dependence?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: What lived-experience feedback, observation, or research supports this need?
+  - type: textarea
+    id: simpler
+    attributes:
+      label: Simplest useful solution
+      description: What is the least complex approach that could help every day?
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Accessibility, privacy, and supporter-control risks
+    validations:
+      required: true
+  - type: textarea
+    id: success
+    attributes:
+      label: Observable success
+      description: How will the participant know this helped?
+    validations:
+      required: true
