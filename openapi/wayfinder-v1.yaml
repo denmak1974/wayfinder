@@ -781,6 +781,17 @@ components:
           items:
             type: string
             maxLength: 40
+        fabricMaterials:
+          type: array
+          uniqueItems: true
+          maxItems: 10
+          items:
+            type: string
+            maxLength: 40
+        touchesSkin:
+          type: boolean
+        tagStatus:
+          enum: [unknown, present, removed, tagless]
     WardrobeItem:
       allOf:
         - $ref: '#/components/schemas/WardrobeItemInput'

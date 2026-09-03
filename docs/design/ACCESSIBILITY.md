@@ -24,6 +24,8 @@ Critical morning tasks target enhanced readability and interaction beyond AA whe
 8. Make help available without blocking independent action.
 9. Announce meaningful changes and ignore inconsequential refreshes.
 10. Let the person choose prompt strength and reduce it gradually.
+11. Never equate limited speech with limited comprehension, consent, or decision-making.
+12. When a familiar plan must change, present exactly two valid choices before escalating to supporter help.
 
 ## Visual and interaction requirements
 
@@ -71,11 +73,26 @@ Controlled message templates are localized as complete phrases, not concatenated
 
 Accessibility preferences are functional data, not diagnostic labels.
 
+## Primary fit-model interaction pattern
+
+The first clothing flow is optimized for an adult who independently completes routines when instructions are precise and predictable.
+
+1. Show one short instruction and a recognizable clothing photo.
+2. Offer optional spoken playback of the same words.
+3. If today's needs differ from the familiar or previous-day pattern, show two acceptable alternatives.
+4. Accept a touch choice, pointing-supported choice, changed selection, or help request without requiring spoken explanation.
+5. Exclude any garment that violates configured fabric-contact or tag-status rules.
+6. Let the participant complete all visible steps.
+7. End with an optional **"Finished, please check"** action that requests bounded family review.
+
+The check is not a routine approval gate. The participant's choice remains selected unless a concrete safety, weather, availability, or sensory conflict is explained.
+
 ## Today screen semantics
 
 - Page title: "Today, Thursday, September 3."
 - Each section has a semantic heading and short summary.
 - Outfit photos have user-supplied labels; AI-generated alt text requires confirmation.
+- Two-choice outfit cards expose a complete spoken and text label, not only a photo.
 - Completion controls state item name and current status.
 - Weather includes numbers and words: "12 degrees Celsius. Cool. Rain likely after 1 PM."
 - Changed-plan notices identify what changed, when, and what action is needed.
@@ -93,6 +110,9 @@ A user-facing change is incomplete until:
 - automated semantic checks pass;
 - a manual cognitive walkthrough finds no unexplained state or dead end;
 - advisory users have reviewed material interaction changes.
+- the flow can be completed without expressive speech;
+- hard sensory constraints cannot be bypassed by recommendation ranking; and
+- supporter review begins only after an explicit participant action.
 
 Automated tools find only a subset of barriers. A release requires manual and lived-experience testing.
 

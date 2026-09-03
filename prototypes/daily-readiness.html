@@ -775,9 +775,10 @@
           </div>
 
           <p id="outfit-summary"><strong>Ready to wear:</strong> All four items are available.</p>
+          <p><strong>Sensory check:</strong> Cotton touches skin. Clothing tags are removed.</p>
           <div class="outfit-actions">
             <button class="primary-button" id="choose-outfit" type="button">Choose this outfit</button>
-            <button class="secondary-button" id="show-other" type="button">Show another</button>
+            <button class="secondary-button" id="show-other" type="button">Show my second choice</button>
           </div>
           <details class="optional-detail">
             <summary>Why this outfit?</summary>
@@ -857,7 +858,7 @@
         <h2 id="ready-title">You are getting ready</h2>
         <p id="progress-text" aria-live="polite">0 of 3 bring-items are ready.</p>
         <div class="footer-actions">
-          <button class="primary-button" id="finish-plan" type="button">I understand today's plan</button>
+          <button class="primary-button" id="finish-plan" type="button">Finished, please check</button>
           <button class="quiet-button" id="ask-help" type="button">I want help with one part</button>
         </div>
       </section>
@@ -1004,11 +1005,11 @@
     const outfits = [
       {
         items: ["Soft T-shirt", "Comfortable pants", "Rain jacket", "Walking shoes"],
-        reason: "The soft layer is comfortable for the indoor movie. The waterproof jacket and walking shoes prepare Doug for Trafalgar Park and afternoon rain."
+        reason: "Cotton touches skin and the clothing tags are removed. The soft layer is comfortable for the indoor movie. The waterproof jacket and walking shoes prepare Doug for Trafalgar Park and afternoon rain."
       },
       {
         items: ["Soft long-sleeve shirt", "Stretch pants", "Waterproof shell", "Running shoes"],
-        reason: "This is a warmer alternative for the movie and still supports outdoor walking at Trafalgar Park."
+        reason: "Cotton touches skin and the clothing tags are removed. This is a warmer alternative for the movie and still supports outdoor walking at Trafalgar Park."
       }
     ];
     let outfitIndex = 0;
@@ -1101,10 +1102,13 @@
     });
 
     document.querySelector("#finish-plan").addEventListener("click", (event) => {
-      event.currentTarget.textContent = "Today's plan understood";
+      event.currentTarget.textContent = "Check requested";
       event.currentTarget.disabled = true;
-      document.querySelector("#ready-title").textContent = "You know what today looks like";
-      announcer.textContent = "Today's plan is marked as understood.";
+      document.querySelector("#ready-title").textContent = "Doug finished his plan";
+      document.querySelector("#progress-text").textContent =
+        "A family check was requested. Doug's choices stay selected.";
+      announcer.textContent =
+        "Doug finished and requested a family check. His choices remain selected.";
     });
 
     document.querySelector("#ask-help").addEventListener("click", () => {

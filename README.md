@@ -177,6 +177,7 @@ Open the self-contained [Daily Readiness Assistant prototype](prototypes/daily-r
 - participant-filtered weekly schedule review;
 - Outlook, Google, device, Wayfinder, or ICS destination selection;
 - activity-aware clothing recommendations;
+- two sensory-safe outfit choices and a participant-initiated "Finished, please check" handoff;
 - outfit alternatives with plain-language explanations;
 - bring-item tracking;
 - display personalization; and

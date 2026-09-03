@@ -27,18 +27,36 @@ Personas describe needs, not diagnoses.
 
 | Persona | Context and goals | Needs | Risks to avoid |
 | --- | --- | --- | --- |
-| **Jordan, independent adult** | Lives with light family support and wants fewer morning prompts | Fast visual plan, concrete language, routine, control over supporter access | Childlike tone, hidden monitoring, too many choices |
+| **Doug, primary fit persona** | Adult living with family support. Independently completes most morning and household routines, sometimes with a prompt. Adept with an iPad. Clothing selection tends to repeat the previous day's pattern unless guidance is clear. | Short readable instructions paired with his own clothing photos; optional spoken prompts; exactly two acceptable choices when a change is needed; cotton against skin and tag-free garments; a participant-initiated **"Finished, please check"** handoff | Childlike tone; treating limited speech as limited understanding or consent; too many choices; abrupt correction; hidden family control; recommending a sensory-incompatible item |
 | **Maya, variable-energy adult** | Manages ADHD, sensory preferences, and inconsistent executive function | Flexible reminders, low-friction capture, sensory-aware clothing, recovery from missed steps | Shame, streak pressure, noisy notifications |
-| **Sam, emerging-independent adult** | Practices daily living skills with a supporter | Guided choices, pictures, repetition, gradual fading of prompts | Supporter taking over, abrupt removal of help |
-| **Riley, family supporter** | Helps prepare activities and wardrobe data | Delegated editing, clear status, rapid corrections | Becoming the product's primary user, overbroad access |
+| **Riley, family checker** | Helps configure wardrobe and schedule information, remains available when Doug asks, and performs a final check after Doug says he is finished | A bounded review request, the reason for a recommendation, ability to flag safety or missing information, and no need to redo completed steps | Becoming the product's primary user; routine approval gates; overriding an acceptable choice; overbroad access |
 | **Alex, professional supporter** | Works with several people under explicit consent | Separate relationships, auditability, bounded notes | Clinical records creep, cross-person data leakage |
 | **Taylor, community contributor** | Builds accessible modules or translations | Clear contracts, test fixtures, governance, accessible contribution path | Architecture complexity, inaccessible review process |
+
+### Fit-model boundary
+
+Doug is the primary fit model for the first Daily Readiness clothing flow. This means the first release should work exceptionally well for his confirmed functional needs; it does not mean one person's preferences represent all autistic or neurodiverse adults.
+
+The fit model was described through family observation. Product decisions must also be validated with Doug using accessible choice-making, task observation, and his actions or communication as evidence. Wayfinder must not interpret limited speech as agreement, refusal, comprehension, or incapacity.
+
+### Doug-derived interaction requirements
+
+1. **Preserve competence.** Begin with the assumption that Doug will complete the task himself.
+2. **Use a stable sequence.** Show weather, activities, two outfit choices, bring-items, dressing steps, then the optional check request in the same order.
+3. **Make the instruction concrete.** Pair short text with photos of Doug's actual clothing. Spoken playback is available but not required.
+4. **Offer two valid choices.** When today's needs differ from yesterday's pattern or a plan changes, show exactly two sensory-safe, weather-safe alternatives.
+5. **Respect self-advocacy.** Changing clothes, pointing, or repeating a short phrase may communicate a choice or objection. The interface must provide a visible way to select, reject, or ask for help without requiring a sentence.
+6. **Treat sensory rules as constraints.** Garments touching skin must match the configured cotton requirement, and tags must be recorded as removed before recommendation.
+7. **Keep checking participant-initiated.** Doug completes the flow, then chooses **"Finished, please check."** Family review does not silently change his selection.
+8. **Explain necessary changes.** If neither preferred choice is safe or suitable, say why in one short statement, show two replacements, and make family help available.
 
 ## Jobs to be done
 
 - When I wake up, help me see a calm summary of today so I can start without asking someone what to do.
 - When weather or plans change, tell me only what changed and what action I should take.
 - When I choose clothes, show options that are available, weather-suitable, activity-suitable, and sensory-compatible.
+- When today's clothing should differ from yesterday's pattern, show me two acceptable choices instead of only telling me that my choice is wrong.
+- When I have made my choice, let me say "Finished, please check" without giving someone else control of the entire routine.
 - When I leave home, help me remember required items without making me scan a long list.
 - When I need support, let me ask a trusted person without giving up control of my plan.
 - When I need less help over time, allow prompts to fade gradually.
@@ -49,6 +67,8 @@ Personas describe needs, not diagnoses.
 
 - As a participant, I can open directly to today's plan without navigating a dashboard.
 - I can understand each section using text plus optional icons or photos.
+- I can play a short spoken instruction without making audio mandatory.
+- I can respond through touch, pointing, changing my selection, or asking for help; speech is never required.
 - I can see data freshness and the source of a recommendation.
 - I can mark a section done, choose another option, or ask for help.
 - If data is missing, Wayfinder says what is missing and offers a safe next action.
@@ -69,9 +89,11 @@ See [Weekly Schedule Import](WEEKLY_SCHEDULE_IMPORT.md) for the Doug example, re
 ### Digital wardrobe
 
 - I can photograph or select a photo of clothing and confirm the suggested category.
-- I can record category, warmth, rain suitability, formality, sensory tags, and preferred combinations.
+- I can record category, warmth, rain suitability, formality, sensory tags, fabric touching skin, tag status, and preferred combinations.
 - I can mark an item available, in laundry, wet, damaged, or unavailable.
 - Recommendations exclude unavailable items and explain each choice in plain language.
+- Recommendations exclude items that violate hard sensory constraints.
+- I can compare exactly two valid outfits when a change from my familiar pattern is needed.
 - I can save an outfit template and choose it again.
 
 ### Support circle
@@ -81,6 +103,8 @@ See [Weekly Schedule Import](WEEKLY_SCHEDULE_IMPORT.md) for the Doug example, re
 - I can revoke access at any time.
 - A supporter can add an activity or note only when granted that capability.
 - A supporter cannot silently change accessibility, privacy, or consent settings.
+- I can initiate a bounded **"Finished, please check"** request after making my own selections.
+- A family checker can confirm the plan or explain a necessary correction without restarting or taking over the routine.
 
 ### Personalization
 
@@ -146,12 +170,15 @@ See [Weekly Schedule Import](WEEKLY_SCHEDULE_IMPORT.md) for the Doug example, re
 | WF-040 | P0 | Wardrobe | Capture photo and confirm attributes | Builds usable personal wardrobe |
 | WF-041 | P0 | Wardrobe | Availability and laundry state | Avoids impossible recommendations |
 | WF-042 | P0 | Wardrobe | Saved outfit templates | Reduces repeated decisions |
+| WF-043 | P0 | Wardrobe | Enforce fabric-contact and tag-status constraints | Prevents unusable or distressing clothing recommendations |
+| WF-044 | P0 | Wardrobe | Present two valid choices when changing a familiar clothing pattern | Supports flexibility without creating excessive choice |
 | WF-050 | P0 | Engine | Rules for weather, activity, sensory, and availability | Produces practical outfit and bring guidance |
 | WF-051 | P0 | Engine | Conflict and uncertainty explanations | Avoids hidden or invented decisions |
 | WF-060 | P0 | Accessibility | Personalization profile and preview | Person controls cognitive and sensory load |
 | WF-061 | P0 | Accessibility | Screen-reader and switch-control paths | Core task works beyond visual interaction |
 | WF-070 | P0 | Privacy | Local encryption, export, and deletion | Person retains data control |
 | WF-071 | P1 | Support | Invite, permission, audit, and revoke supporter | Support increases agency |
+| WF-072 | P0 | Support | Participant-initiated "Finished, please check" handoff | Keeps task ownership with the participant |
 | WF-080 | P1 | Sync | Optional encrypted change synchronization | Multi-device use without cloud dependency |
 | WF-090 | P0 | Quality | Automated accessibility and rule-engine tests | Critical behavior remains dependable |
 | WF-100 | P1 | Community | Translation and content-pack workflow | Community can extend reach safely |
@@ -210,12 +237,14 @@ Measure within the same person over time; do not compare people competitively.
 | Independent start | At least 20% improvement in mornings started without direct supporter intervention |
 | Confidence | Participant-selected confidence improves by at least 1 point on a 5-point visual scale |
 | Recommendation usefulness | At least 75% of suggested outfits accepted or changed with an understandable reason |
+| Doug fit-model outcome | Doug understands and follows a Wayfinder clothing recommendation on at least 5 of 7 days in a representative week |
 
 ### Guardrail measures
 
 - No critical WCAG 2.2 AA failure in a core flow.
 - No unresolved high-severity privacy or security finding at release.
 - Fewer than 1% of plans contain a recommendation using an unavailable wardrobe item.
+- Zero recommendations violate a configured hard sensory constraint.
 - Zero required analytics, advertising identifiers, location tracking, or data sale.
 - Supporter access changes are always visible to the participant.
 - App remains useful when cloud sync, AI, calendar, or weather is unavailable.

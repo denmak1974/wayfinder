@@ -87,7 +87,9 @@ Future inbound-agent authorization: `id`, participant ID, schedule source ID, op
 
 ### WardrobeItem
 
-`id`, participant ID, local image reference, optional synced object reference, category, layer, warmth, rain suitability, activity suitability, sensory tags, color label, user label, favorite, classifier suggestion metadata, archived timestamp.
+`id`, participant ID, local image reference, optional synced object reference, category, layer, warmth, rain suitability, activity suitability, fabric materials, whether the garment touches skin, tag status (`unknown`, `present`, `removed`, `tagless`), sensory tags, color label, user label, favorite, classifier suggestion metadata, archived timestamp.
+
+Fabric-contact and tag-status requirements can be configured as hard constraints. A hard constraint excludes an item before outfit ranking; it is not a preference that a higher score can override.
 
 ### WardrobeStateEvent
 
