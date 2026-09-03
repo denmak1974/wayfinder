@@ -32,6 +32,8 @@ flowchart LR
 | Identity and consent | Local profile, account linking, support-circle grants | Yes |
 | Accessibility profile | Presentation, language, sensory, prompt, and input preferences | Yes |
 | Activities | Manual and imported schedule items | Yes |
+| Schedule ingestion | File extraction, participant filtering, review, and provenance | Yes |
+| Calendar publication | Outlook, Google, device-calendar, and ICS adapters | Optional alpha |
 | Weather | Normalized forecast and freshness | Yes |
 | Wardrobe | Items, images, attributes, availability, laundry | Yes |
 | Readiness engine | Explainable plan generation | Yes |
@@ -108,6 +110,7 @@ The MVP engine is deterministic and explainable.
 - local date and time;
 - normalized current conditions and forecast windows;
 - activities, locations, mobility expectations, and dress requirements;
+- normalized activity contexts such as active walking, exercise, water, indoor seated, and extended outdoor time;
 - wardrobe availability and item attributes;
 - sensory and presentation preferences;
 - user-approved outfit templates;
@@ -124,6 +127,69 @@ The MVP engine is deterministic and explainable.
 7. Persist the plan and its input snapshot so it is reproducible.
 
 The engine returns alternatives and uncertainty; it does not fabricate missing facts. The same inputs and ruleset version produce the same plan.
+
+## Weekly schedule ingestion
+
+The schedule ingestion pipeline is a provider-neutral anti-corruption layer between location documents and Wayfinder activities.
+
+```mermaid
+flowchart LR
+  S[Location source\nimage, PDF, CSV, ICS, email] --> V[Malware and file validation]
+  V --> X[Structured parser or OCR]
+  X --> F[Participant filter]
+  F --> N[Date, period, and activity normalization]
+  N --> C[Activity-context classifier]
+  C --> R{Policy and confidence}
+  R -->|MVP or exception| H[Participant/supporter review]
+  R -->|Trusted future agent| P[Automatic publication]
+  H --> P
+  P --> W[(Wayfinder activities)]
+  P --> O[Outlook adapter]
+  P --> G[Google adapter]
+  P --> I[ICS/device calendar]
+  W --> E[Readiness engine]
+```
+
+### Import rules
+
+- Prefer ICS, CSV, and XLSX over OCR when the location can provide structured data.
+- The parser may suggest fields; only deterministic validation decides whether an item can auto-publish.
+- Match participants using a location-specific identifier or explicit approved aliases. Never infer identity from similarity alone.
+- Discard non-participant rows as soon as filtering completes.
+- Represent imprecise time as `morning`, `afternoon`, `evening`, or `fullDay` plus an optional location-specific time range.
+- Fingerprint source, participant, local date, period, and normalized title for duplicate detection.
+- Store field-level confidence and provenance for every extracted value.
+- Classify activity context through versioned rules. `unknown` is a valid result.
+
+### Calendar adapters
+
+Expose one internal `CalendarPublisher` contract with Outlook/Microsoft Graph, Google Calendar, device calendar, and ICS implementations. Adapters support create, update, cancel, and reconcile by external event ID. OAuth grants use minimum calendar scopes and are stored independently from Wayfinder sync consent.
+
+Publishing follows an outbox pattern:
+
+1. save the approved activity and publication intent locally;
+2. write to the destination using an idempotency key;
+3. persist the destination event ID and version;
+4. retry transient failures without duplicating events; and
+5. surface permanent failures without removing the local activity.
+
+### Future inbound Scheduling Agent
+
+The inbound agent is an optional automation plane, not an email chatbot. It accepts mail only at opaque participant-specific addresses and evaluates an explicit `ScheduleAutomationPolicy`.
+
+```mermaid
+flowchart LR
+  M[Inbound email] --> A[SPF, DKIM, DMARC\nand allowlist]
+  A --> Q[Attachment quarantine\nmalware and type checks]
+  Q --> P[Schedule ingestion pipeline]
+  P --> D{Policy permits\nno-touch processing?}
+  D -->|yes| C[Calendar + Wayfinder]
+  D -->|no or uncertain| E[Exception queue]
+  C --> N[Participant summary + undo]
+  E --> N
+```
+
+Automatic processing requires a trusted sender, known format, unambiguous participant match, resolved date/period, sufficient field confidence, and participant authorization for the specific destination and change type. Format drift, unexpected deletions, authentication failures, or ambiguity go to an exception queue. The participant can pause or revoke the policy immediately.
 
 ## Azure reference architecture
 

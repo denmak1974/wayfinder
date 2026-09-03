@@ -57,8 +57,14 @@ Personas describe needs, not diagnoses.
 
 - I can add an activity using a short form with title, time, location, and bring-items.
 - I can optionally import device-calendar events after granting permission.
+- I or an authorized supporter can upload a location's weekly image, PDF, spreadsheet, or calendar file and review only my extracted activities.
+- I can choose Wayfinder, Outlook, Google Calendar, a device calendar, or ICS as my preferred schedule destination.
+- If a source says only morning or afternoon, Wayfinder preserves that label rather than inventing a time.
+- My activity type contributes explainable clothing, footwear, and bring-item requirements.
 - I can see current conditions, high/low temperature, precipitation, and notable changes.
 - Weather unavailability does not prevent me from seeing activities and saved wardrobe guidance.
+
+See [Weekly Schedule Import](WEEKLY_SCHEDULE_IMPORT.md) for the Doug example, review workflow, calendar publication, and future inbound email Scheduling Agent.
 
 ### Digital wardrobe
 
@@ -90,6 +96,7 @@ Personas describe needs, not diagnoses.
 | --- | --- |
 | Today screen | One calm, complete morning plan |
 | Manual activities | Useful without external integrations |
+| Reviewed weekly schedule import | Converts a complex location schedule into the participant's own plan |
 | Weather adapter and cache | Clothing and bring-list weather context |
 | Wardrobe capture and editing | Personal, recognizable clothing choices |
 | Availability and laundry state | Recommendations reflect reality |
@@ -103,6 +110,7 @@ Personas describe needs, not diagnoses.
 ### Should have if capacity permits
 
 - Device-calendar read-only import.
+- Outlook, Google Calendar, device-calendar, and ICS publication.
 - Optional encrypted cloud sync.
 - Multiple visual themes and community-translatable icon packs.
 - Gentle change alerts when weather or activities materially change.
@@ -111,6 +119,7 @@ Personas describe needs, not diagnoses.
 ### Explicitly later
 
 - Dynamic plug-in installation.
+- Unreviewed inbound email automation until sender policies, exception handling, and audit controls are proven.
 - Open-ended generative assistant.
 - Automatic purchasing or fashion scoring.
 - Location tracking, geofencing, or background surveillance.
@@ -129,6 +138,10 @@ Personas describe needs, not diagnoses.
 | WF-012 | P0 | Plan | Explain why each recommendation appears | Reduces uncertainty and builds trust |
 | WF-020 | P0 | Activities | Create/edit daily activities and bring-items | Plan works without integrations |
 | WF-021 | P1 | Activities | Read-only device-calendar connector | Reduces duplicate setup |
+| WF-022 | P0 | Activities | Import and review a participant's rows from a weekly location schedule | Removes repeated schedule interpretation and copying |
+| WF-023 | P1 | Activities | Publish approved activities to the preferred calendar without duplicates | Keeps the person's existing planning system current |
+| WF-024 | P1 | Activities | Convert activity context into clothing and bring-item constraints | Prepares the person for what they will actually do |
+| WF-025 | P2 | Automation | Receive trusted location schedules through a participant-controlled email agent | Removes recurring supporter administration |
 | WF-030 | P0 | Weather | Provider adapter, cache, and stale-state UI | Weather informs preparation without fragility |
 | WF-040 | P0 | Wardrobe | Capture photo and confirm attributes | Builds usable personal wardrobe |
 | WF-041 | P0 | Wardrobe | Availability and laundry state | Avoids impossible recommendations |
@@ -167,6 +180,7 @@ Personas describe needs, not diagnoses.
 ### Days 43-70: Real-life pilot
 
 - Add calendar import behind explicit permission.
+- Pilot reviewed weekly schedule extraction and preferred-calendar publication before enabling automatic inbound agents.
 - Add supporter delegation, audit history, and revocation.
 - Add optional sync service and conflict-safe change log.
 - Pilot with 8-12 participant/supporter pairs for two weeks.

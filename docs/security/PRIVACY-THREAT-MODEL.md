@@ -32,6 +32,11 @@ Data crossing a boundary requires an authenticated actor, authorized purpose, en
 | Device loss | Local plan and schedule exposed | OS device security, encrypted DB, keystore key, remote cloud-session revoke |
 | Sync replay or duplication | Operation applied twice | UUID operation IDs, payload hash, idempotency ledger, monotonic cursor |
 | Malicious calendar content | Event text attempts code/markup injection | Treat provider content as untrusted, encode output, sanitize controlled notes |
+| Multi-person schedule leakage | Doug's import retains other attendees' names | Filter to the authorized participant immediately, encrypt quarantine, prohibit names in logs and notifications, delete the source on schedule |
+| Misidentified participant | OCR confuses Doug with another person | Location-specific identifier/aliases, field confidence, no fuzzy auto-accept, exception review |
+| Email sender spoofing | Attacker mails false activities to an inbound agent | Opaque address, sender allowlist, SPF/DKIM/DMARC checks, known-format policy, anomaly quarantine |
+| Malicious attachment | Email contains active content or malware | Attachment type allowlist, size limit, sandboxed parsing, malware scan, no macro/script execution |
+| Calendar overwrite | Import unexpectedly moves or cancels accepted events | Source versioning, external ID reconciliation, policy-bounded actions, audit, notification, undo |
 | Supply-chain compromise | Contributor dependency executes malicious code | Lockfiles, provenance, review, scanning, minimal CI permissions, signed release |
 | Plug-in overreach | Module reads unrelated schedules | Capability manifest, isolated storage, deny-by-default API, registry review |
 | AI privacy loss | Image retained by provider | Separate opt-in, metadata stripping, no training, retention contract, delete after inference |
@@ -45,6 +50,7 @@ Data crossing a boundary requires an authenticated actor, authorized purpose, en
 - Supporter web sessions use phishing-resistant MFA where available.
 - API authorization evaluates participant, relationship, capability, entity, purpose, and grant status.
 - Never infer permission from family relationship, shared email domain, device ownership, or calendar access.
+- Automatic schedule processing requires a separate location-specific policy; possession of the inbound address alone grants no authority.
 - Reauthentication is required to add a supporter, broaden access, export all data, or delete cloud data.
 
 ## Cryptography and secrets
@@ -63,6 +69,16 @@ Data crossing a boundary requires an authenticated actor, authorized purpose, en
 - Generate an SBOM, scan dependencies and containers, sign releases, and publish checksums.
 - Protect branches, require reviewed pull requests, pin GitHub Actions to immutable revisions, and restrict workflow permissions.
 - Use synthetic fixtures in tests and demos. Never copy production records.
+- Parse inbound documents in an isolated worker with no participant-database credentials and a strict time, memory, page, and decompression budget.
+
+## Inbound schedule retention
+
+- Reject unsupported or unauthenticated mail before participant processing.
+- Retain original multi-person attachments only in encrypted quarantine for the shortest configured recovery window, recommended maximum seven days.
+- Persist Doug's normalized activities and field provenance, not unrelated rows or participant lists.
+- Redact sender message bodies from routine logs and notifications.
+- Allow the participant to see which location supplied an event, what changed, and how to undo it.
+- Do not use received schedules, names, or attachments for model training.
 
 ## Incident priorities
 

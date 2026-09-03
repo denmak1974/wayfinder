@@ -142,6 +142,13 @@
       margin-bottom: 1rem;
     }
 
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
     .brand {
       display: flex;
       align-items: center;
@@ -335,6 +342,10 @@
       font-weight: 750;
     }
 
+    .activity .period {
+      font-weight: 750;
+    }
+
     .activity strong {
       display: block;
       font-size: 1.05rem;
@@ -441,6 +452,8 @@
 
     .settings-panel {
       width: min(92vw, 34rem);
+      max-height: 90vh;
+      overflow: auto;
       border: 2px solid var(--cp-border-strong);
       border-radius: 16px;
       padding: 0;
@@ -477,8 +490,111 @@
 
     .dialog-actions {
       display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
       justify-content: flex-end;
       margin-top: 1rem;
+    }
+
+    .schedule-panel {
+      width: min(96vw, 62rem);
+    }
+
+    .schedule-step {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 16px;
+      background: var(--cp-bg-elevated);
+    }
+
+    .schedule-step h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.15rem;
+    }
+
+    .schedule-source {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .file-input {
+      max-width: 100%;
+      min-height: 3rem;
+      padding: 0.65rem;
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+    }
+
+    .import-status {
+      margin: 0.75rem 0 0;
+      padding: 0.75rem;
+      border-left: 5px solid var(--cp-success);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+    }
+
+    .schedule-list {
+      display: grid;
+      gap: 0.65rem;
+      margin: 0.75rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .schedule-event {
+      display: grid;
+      grid-template-columns: auto minmax(8rem, 0.8fr) minmax(14rem, 2fr);
+      gap: 0.75rem;
+      align-items: start;
+      padding: 0.75rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+    }
+
+    .schedule-event input {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-top: 0.15rem;
+      accent-color: var(--cp-accent);
+    }
+
+    .schedule-event strong,
+    .schedule-event span {
+      display: block;
+    }
+
+    .context-chip {
+      display: inline-block;
+      width: fit-content;
+      margin-top: 0.35rem;
+      padding: 0.2rem 0.5rem;
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 999px;
+      background: var(--cp-surface-soft);
+      color: var(--cp-text);
+      font-size: 0.85rem;
+      font-weight: 650;
+    }
+
+    .destination-select {
+      width: 100%;
+      min-height: 3rem;
+      margin-top: 0.5rem;
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0.625rem;
+      padding: 0.65rem;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+    }
+
+    .agent-note {
+      border-left: 5px solid var(--cp-accent);
     }
 
     .visually-hidden {
@@ -526,7 +642,19 @@
         align-items: flex-start;
       }
 
-      .settings-button span {
+      .top-actions {
+        flex-direction: column;
+      }
+
+      .schedule-event {
+        grid-template-columns: auto 1fr;
+      }
+
+      .schedule-event > :last-child {
+        grid-column: 2;
+      }
+
+      .settings-button .compact-label {
         position: absolute;
         width: 1px;
         height: 1px;
@@ -550,7 +678,7 @@
   <a class="skip-link" href="#today-plan">Skip to today's plan</a>
   <div class="app-shell">
     <p class="prototype-note">
-      Interactive concept using synthetic information. No data leaves this page.
+      Interactive concept using a privacy-minimized Doug example. No data leaves this page.
     </p>
 
     <header class="topbar">
@@ -563,26 +691,31 @@
         </span>
         <span>Project Wayfinder</span>
       </div>
-      <button class="settings-button" id="open-settings" type="button" aria-haspopup="dialog">
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.11.37.32.72.6 1 .3.28.68.42 1.1.4H21v4h-.09a1.7 1.7 0 0 0-1.51.6Z"></path>
-        </svg>
-        <span>Display settings</span>
-      </button>
+      <div class="top-actions">
+        <button class="primary-button" id="open-schedule" type="button" aria-haspopup="dialog">
+          Add weekly schedule
+        </button>
+        <button class="settings-button" id="open-settings" type="button" aria-haspopup="dialog">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.11.37.32.72.6 1 .3.28.68.42 1.1.4H21v4h-.09a1.7 1.7 0 0 0-1.51.6Z"></path>
+          </svg>
+          <span class="compact-label">Display settings</span>
+        </button>
+      </div>
     </header>
 
     <main id="today-plan">
       <section class="hero" aria-labelledby="page-title">
         <p class="eyebrow">Your daily readiness plan</p>
-        <h1 id="page-title">Good morning, Jordan</h1>
+        <h1 id="page-title">Good morning, Doug</h1>
         <p class="date-line">Thursday, September 3</p>
         <div class="change-notice" role="status">
           <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 9v4m0 4h.01"></path>
             <path d="M10.3 3.7 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0Z"></path>
           </svg>
-          <p><strong>One thing changed:</strong> Rain may start at 1:00 PM. Bring your umbrella when you leave.</p>
+          <p><strong>Your Hub schedule is ready:</strong> You have a movie this morning and Trafalgar Park this afternoon. Rain may start after lunch.</p>
         </div>
       </section>
 
@@ -618,13 +751,13 @@
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3a4 4 0 0 1-8 0Z"></path>
               </svg>
-              <span>Grey shirt</span>
+              <span>Soft T-shirt</span>
             </div>
             <div class="garment">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M8 3h8l1 18h-5l-1-11-1 11H5L8 3Z"></path>
               </svg>
-              <span>Blue jeans</span>
+              <span>Comfortable pants</span>
             </div>
             <div class="garment">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -637,7 +770,7 @@
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M4 13c3 0 5-2 6-6l3 4c2 2 4 3 7 3v5H4v-6Z"></path>
               </svg>
-              <span>Running shoes</span>
+              <span>Walking shoes</span>
             </div>
           </div>
 
@@ -648,7 +781,7 @@
           </div>
           <details class="optional-detail">
             <summary>Why this outfit?</summary>
-            <p id="outfit-reason">It is warm enough for 12°C, works for walking, and includes a waterproof layer for the afternoon rain.</p>
+            <p id="outfit-reason">The soft layer is comfortable for the indoor movie. The waterproof jacket and walking shoes prepare Doug for Trafalgar Park and afternoon rain.</p>
           </details>
         </section>
 
@@ -664,12 +797,12 @@
           </div>
           <ol class="activity-list">
             <li class="activity">
-              <time datetime="2026-09-03T10:00">10:00 AM</time>
-              <span><strong>Dentist</strong><span class="muted">Leave home by 9:15 AM</span></span>
+              <span class="period">Morning</span>
+              <span><strong>Film.ca Scoob movie</strong><span class="muted">Indoor seated activity · Hub schedule</span></span>
             </li>
             <li class="activity">
-              <time datetime="2026-09-03T14:00">2:00 PM</time>
-              <span><strong>Grocery shopping</strong><span class="muted">About 45 minutes</span></span>
+              <span class="period">Afternoon</span>
+              <span><strong>Trafalgar Park</strong><span class="muted">Outdoor walking · Hub schedule</span></span>
             </li>
           </ol>
         </section>
@@ -693,14 +826,14 @@
             </li>
             <li>
               <label class="check-row">
-                <input type="checkbox" data-ready-item="Health card">
-                <span><strong>Health card</strong><br><span class="muted optional-detail">For the dentist</span></span>
+                <input type="checkbox" data-ready-item="Water bottle">
+                <span><strong>Water bottle</strong><br><span class="muted optional-detail">Suggested for Trafalgar Park</span></span>
               </label>
             </li>
             <li>
               <label class="check-row">
-                <input type="checkbox" data-ready-item="Grocery list">
-                <span><strong>Grocery list</strong><br><span class="muted optional-detail">Saved on your phone</span></span>
+                <input type="checkbox" data-ready-item="Hub day bag">
+                <span><strong>Hub day bag</strong><br><span class="muted optional-detail">Keep your day items together</span></span>
               </label>
             </li>
           </ul>
@@ -716,7 +849,7 @@
             </span>
             <h2 id="notes-title">What to expect</h2>
           </div>
-          <p>The dentist visit is a regular cleaning. It should take about 40 minutes. Rain may begin while you are shopping.</p>
+          <p>The movie is indoors this morning. Trafalgar Park is outdoors this afternoon. The Hub schedule did not include exact times, so Wayfinder shows the honest morning and afternoon periods.</p>
         </section>
       </div>
 
@@ -769,22 +902,157 @@
     </div>
   </dialog>
 
+  <dialog class="settings-panel schedule-panel" id="schedule-dialog" aria-labelledby="schedule-title">
+    <div class="dialog-inner">
+      <h2 id="schedule-title">Add Doug's weekly schedule</h2>
+      <p class="muted">Import a schedule from Doug's location, keep only Doug's activities, review them, and choose where they should be saved.</p>
+
+      <section class="schedule-step" aria-labelledby="source-title">
+        <h3 id="source-title">1. Choose the location schedule</h3>
+        <div class="schedule-source">
+          <input class="file-input" id="schedule-file" type="file" accept=".png,.jpg,.jpeg,.pdf,.csv,.xlsx,.ics">
+          <button class="secondary-button" id="use-hub-example" type="button">Use Hub example</button>
+        </div>
+        <p class="muted">Wayfinder prefers ICS or spreadsheets, but can process a photo or PDF. The production version deletes unrelated participant rows after filtering.</p>
+        <p class="import-status" id="import-status" role="status">Hub schedule example loaded. Doug was found in 9 activities across 5 days.</p>
+      </section>
+
+      <section class="schedule-step" aria-labelledby="review-title">
+        <h3 id="review-title">2. Review Doug's activities</h3>
+        <p class="muted">No exact times were provided. Morning, afternoon, and full day are preserved.</p>
+        <ul class="schedule-list" id="schedule-events">
+          <li class="schedule-event">
+            <input type="checkbox" checked aria-label="Include Monday morning Summer lake messages">
+            <span><strong>Mon, Aug 31</strong><span class="muted">Morning</span></span>
+            <span><strong>Summer lake messages</strong><span class="context-chip">Needs activity clarification</span></span>
+          </li>
+          <li class="schedule-event">
+            <input type="checkbox" checked aria-label="Include Monday afternoon August hand weight challenge">
+            <span><strong>Mon, Aug 31</strong><span class="muted">Afternoon</span></span>
+            <span><strong>August hand weight challenge</strong><span class="context-chip">Active clothes + secure shoes</span></span>
+          </li>
+          <li class="schedule-event">
+            <input type="checkbox" checked aria-label="Include Tuesday morning Frosty Tuesday">
+            <span><strong>Tue, Sep 1</strong><span class="muted">Morning</span></span>
+            <span><strong>Frosty Tuesday</strong><span class="context-chip">Comfortable indoor clothes</span></span>
+          </li>
+          <li class="schedule-event">
+            <input type="checkbox" checked aria-label="Include Tuesday afternoon 2000 Steps into September">
+            <span><strong>Tue, Sep 1</strong><span class="muted">Afternoon</span></span>
+            <span><strong>2000 Steps into September</strong><span class="context-chip">Walking shoes + breathable layer</span></span>
+          </li>
+          <li class="schedule-event">
+            <input type="checkbox" checked aria-label="Include Wednesday morning BU Cafe visit">
+            <span><strong>Wed, Sep 2</strong><span class="muted">Morning</span></span>
+            <span><strong>BU Cafe visit</strong><span class="context-chip">Comfortable casual clothes</span></span>
+          </li>
+          <li class="schedule-event">
+            <input type="checkbox" checked aria-label="Include Wednesday afternoon August Hand Weight Challenge">
+            <span><strong>Wed, Sep 2</strong><span class="muted">Afternoon</span></span>
+            <span><strong>August Hand Weight Challenge</strong><span class="context-chip">Active clothes + secure shoes</span></span>
+          </li>
+          <li class="schedule-event">
+            <input type="checkbox" checked aria-label="Include Thursday morning Film.ca Scoob movie">
+            <span><strong>Thu, Sep 3</strong><span class="muted">Morning</span></span>
+            <span><strong>Film.ca Scoob movie</strong><span class="context-chip">Comfortable indoor layer</span></span>
+          </li>
+          <li class="schedule-event">
+            <input type="checkbox" checked aria-label="Include Thursday afternoon Trafalgar Park">
+            <span><strong>Thu, Sep 3</strong><span class="muted">Afternoon</span></span>
+            <span><strong>Trafalgar Park</strong><span class="context-chip">Weather layer + walking shoes</span></span>
+          </li>
+          <li class="schedule-event">
+            <input type="checkbox" checked aria-label="Include Friday full day Hamilton Bayfront picnic lunch">
+            <span><strong>Fri, Sep 4</strong><span class="muted">Full day</span></span>
+            <span><strong>Hamilton Bayfront picnic lunch</strong><span class="context-chip">Outdoor layers + walking shoes</span></span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="schedule-step" aria-labelledby="destination-title">
+        <h3 id="destination-title">3. Choose where approved activities go</h3>
+        <label for="calendar-destination">Preferred calendar</label>
+        <select class="destination-select" id="calendar-destination">
+          <option value="Outlook Calendar">Outlook Calendar</option>
+          <option value="Google Calendar">Google Calendar</option>
+          <option value="Wayfinder only">Wayfinder only</option>
+          <option value="device calendar">Device calendar</option>
+          <option value="an ICS file">Download an ICS file</option>
+        </select>
+        <p class="muted">The full app asks for calendar permission and updates existing events instead of creating duplicates.</p>
+        <p id="publish-status" aria-live="polite"></p>
+      </section>
+
+      <section class="schedule-step agent-note" aria-labelledby="agent-title">
+        <h3 id="agent-title">Future: Doug's Scheduling Agent</h3>
+        <p>The Hub could email a private Wayfinder address. Trusted, familiar schedules would be processed automatically; uncertain changes would be held for review. Doug could pause the agent or undo an import at any time.</p>
+      </section>
+
+      <div class="dialog-actions">
+        <button class="quiet-button" id="close-schedule" type="button">Cancel</button>
+        <button class="primary-button" id="publish-schedule" type="button">Add 9 approved activities</button>
+      </div>
+    </div>
+  </dialog>
+
   <script>
     const body = document.body;
     const settingsDialog = document.querySelector("#settings-dialog");
     const helpDialog = document.querySelector("#help-dialog");
+    const scheduleDialog = document.querySelector("#schedule-dialog");
     const announcer = document.querySelector("#announcer");
     const outfits = [
       {
-        items: ["Grey shirt", "Blue jeans", "Rain jacket", "Running shoes"],
-        reason: "It is warm enough for 12°C, works for walking, and includes a waterproof layer for the afternoon rain."
+        items: ["Soft T-shirt", "Comfortable pants", "Rain jacket", "Walking shoes"],
+        reason: "The soft layer is comfortable for the indoor movie. The waterproof jacket and walking shoes prepare Doug for Trafalgar Park and afternoon rain."
       },
       {
-        items: ["Navy sweater", "Black pants", "Rain jacket", "Walking shoes"],
-        reason: "This is a warmer option. Every item is available and the shoes are comfortable for grocery shopping."
+        items: ["Soft long-sleeve shirt", "Stretch pants", "Waterproof shell", "Running shoes"],
+        reason: "This is a warmer alternative for the movie and still supports outdoor walking at Trafalgar Park."
       }
     ];
     let outfitIndex = 0;
+
+    document.querySelector("#open-schedule").addEventListener("click", () => {
+      scheduleDialog.showModal();
+    });
+
+    document.querySelector("#close-schedule").addEventListener("click", () => {
+      scheduleDialog.close();
+    });
+
+    document.querySelector("#use-hub-example").addEventListener("click", () => {
+      document.querySelector("#import-status").textContent =
+        "Hub schedule example loaded. Doug was found in 9 activities across 5 days.";
+      announcer.textContent = "Hub schedule example loaded for Doug.";
+    });
+
+    document.querySelector("#schedule-file").addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      document.querySelector("#import-status").textContent =
+        `${file.name} selected. This prototype displays the reviewed Hub example; the production importer would now extract Doug's activities privately.`;
+    });
+
+    const scheduleSelections = [...document.querySelectorAll("#schedule-events input[type='checkbox']")];
+    const updateScheduleCount = () => {
+      const count = scheduleSelections.filter((item) => item.checked).length;
+      document.querySelector("#publish-schedule").textContent =
+        count === 1 ? "Add 1 approved activity" : `Add ${count} approved activities`;
+    };
+
+    scheduleSelections.forEach((item) => {
+      item.addEventListener("change", updateScheduleCount);
+    });
+
+    document.querySelector("#publish-schedule").addEventListener("click", () => {
+      const count = scheduleSelections.filter((item) => item.checked).length;
+      const destination = document.querySelector("#calendar-destination").value;
+      document.querySelector("#publish-status").textContent =
+        `${count} approved activities would be saved to ${destination}. Nothing was sent in this prototype.`;
+      announcer.textContent =
+        `${count} approved activities are ready for ${destination}. Nothing was sent.`;
+    });
 
     document.querySelector("#open-settings").addEventListener("click", () => {
       settingsDialog.showModal();

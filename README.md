@@ -158,6 +158,7 @@ The initial product and engineering foundation is now available:
 | Area | Document |
 | --- | --- |
 | Product vision, personas, stories, backlog, and 90-day roadmap | [Product foundation](docs/product/PRODUCT.md) |
+| Location schedule import, preferred calendars, and future email agent | [Weekly schedule import](docs/product/WEEKLY_SCHEDULE_IMPORT.md) |
 | Solution architecture, technology stack, Azure, local-first, mobile, and AI | [Solution architecture](docs/architecture/ARCHITECTURE.md) |
 | Domain entities and data ownership | [Data model](docs/architecture/DATA_MODEL.md) |
 | API contract | [OpenAPI](openapi/wayfinder-v1.yaml) |
@@ -170,13 +171,18 @@ Editable architecture diagrams are in [`docs/diagrams`](docs/diagrams). They can
 
 ### Interactive prototype
 
-Open the self-contained [Daily Readiness Assistant prototype](prototypes/daily-readiness.html). It uses synthetic data and demonstrates:
+Open the self-contained [Daily Readiness Assistant prototype](prototypes/daily-readiness.html). It uses the Doug Hub example and demonstrates:
 
 - the calm five-section Today screen;
+- participant-filtered weekly schedule review;
+- Outlook, Google, device, Wayfinder, or ICS destination selection;
+- activity-aware clothing recommendations;
 - outfit alternatives with plain-language explanations;
 - bring-item tracking;
 - display personalization; and
 - a bounded help flow that keeps the participant in control.
+
+The normalized, privacy-minimized Doug example is available as [JSON](examples/doug-hub-week-2026-08-31.json).
 
 ---
 

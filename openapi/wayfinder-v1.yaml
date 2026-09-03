@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Project Wayfinder Sync API
-  version: 0.1.0
+  version: 0.2.0
   description: Optional synchronization and supporter-delegation API. Core readiness remains local-first.
 servers:
   - url: https://api.wayfinder.example/v1
@@ -77,6 +77,173 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Activity'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /participants/{participantId}/schedule-imports:
+    post:
+      operationId: createScheduleImport
+      summary: Upload a location-provided schedule for participant-filtered extraction
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [sourceId, document]
+              properties:
+                sourceId:
+                  type: string
+                  format: uuid
+                document:
+                  type: string
+                  format: binary
+                destinationConnectionId:
+                  type: [string, 'null']
+                  format: uuid
+      responses:
+        '202':
+          description: Schedule accepted for isolated extraction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleImport'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '415':
+          description: Unsupported or unsafe schedule file
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /participants/{participantId}/schedule-imports/{importId}:
+    get:
+      operationId: getScheduleImport
+      summary: Get participant-filtered extraction results and exceptions
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - name: importId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Schedule import containing only the authorized participant's candidates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleImport'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /participants/{participantId}/schedule-imports/{importId}/publish:
+    post:
+      operationId: publishScheduleImport
+      summary: Publish reviewed candidates to Wayfinder and an optional preferred calendar
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+        - name: importId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchedulePublishRequest'
+      responses:
+        '200':
+          description: Per-candidate local and calendar publication results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulePublishResult'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          description: Import contains unresolved exceptions or changed source data
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /participants/{participantId}/calendar-connections:
+    get:
+      operationId: listCalendarConnections
+      summary: List participant-authorized calendar destinations
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+      responses:
+        '200':
+          description: Calendar destinations without access tokens
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CalendarConnection'
+    post:
+      operationId: createCalendarConnection
+      summary: Begin authorization for an Outlook, Google, device, or ICS destination
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [provider]
+              properties:
+                provider:
+                  enum: [outlook, google, device, ics]
+                preferred:
+                  type: boolean
+                  default: false
+      responses:
+        '201':
+          description: Connection or authorization handoff created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarConnection'
+  /participants/{participantId}/schedule-automation-policies:
+    post:
+      operationId: createScheduleAutomationPolicy
+      summary: Create a future inbound Scheduling Agent policy for one trusted source
+      parameters:
+        - $ref: '#/components/parameters/ParticipantId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleAutomationPolicyInput'
+      responses:
+        '201':
+          description: Inbound policy and opaque schedule address created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleAutomationPolicy'
         '403':
           $ref: '#/components/responses/Forbidden'
         '422':
@@ -293,18 +460,39 @@ components:
     ActivityInput:
       type: object
       additionalProperties: false
-      required: [title, start, end]
+      required: [title, timePrecision]
+      oneOf:
+        - required: [start, end]
+          properties:
+            timePrecision:
+              const: exact
+        - required: [localDate, period]
+          properties:
+            timePrecision:
+              const: period
+        - required: [localDate]
+          properties:
+            timePrecision:
+              const: dateOnly
       properties:
         title:
           type: string
           minLength: 1
           maxLength: 120
+        timePrecision:
+          enum: [exact, period, dateOnly]
         start:
-          type: string
+          type: [string, 'null']
           format: date-time
         end:
-          type: string
+          type: [string, 'null']
           format: date-time
+        localDate:
+          type: [string, 'null']
+          format: date
+        period:
+          type: [string, 'null']
+          enum: [morning, afternoon, evening, fullDay, null]
         locationLabel:
           type: [string, 'null']
           maxLength: 120
@@ -314,6 +502,18 @@ components:
           items:
             type: string
             maxLength: 80
+        activityContexts:
+          type: array
+          uniqueItems: true
+          items:
+            enum:
+              - activeWalking
+              - activeExercise
+              - outdoorExtended
+              - indoorSeated
+              - communityCasual
+              - waterActivity
+              - unknown
     Activity:
       allOf:
         - $ref: '#/components/schemas/ActivityInput'
@@ -327,10 +527,235 @@ components:
               type: string
               format: uuid
             source:
-              enum: [manual, deviceCalendar, supporter]
+              enum: [manual, deviceCalendar, supporter, scheduleImport]
             version:
               type: integer
               minimum: 1
+    ExtractedActivity:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - localDate
+        - timePrecision
+        - normalizedTitle
+        - participantMatch
+        - confidence
+        - reviewState
+      properties:
+        id:
+          type: string
+          format: uuid
+        localDate:
+          type: string
+          format: date
+        timePrecision:
+          enum: [exact, period, dateOnly]
+        start:
+          type: [string, 'null']
+          format: date-time
+        end:
+          type: [string, 'null']
+          format: date-time
+        period:
+          type: [string, 'null']
+          enum: [morning, afternoon, evening, fullDay, null]
+        normalizedTitle:
+          type: string
+          minLength: 1
+          maxLength: 120
+        locationLabel:
+          type: [string, 'null']
+          maxLength: 120
+        participantMatch:
+          enum: [sourceIdentifier, approvedAlias, ambiguous]
+        activityContexts:
+          type: array
+          uniqueItems: true
+          items:
+            enum:
+              - activeWalking
+              - activeExercise
+              - outdoorExtended
+              - indoorSeated
+              - communityCasual
+              - waterActivity
+              - unknown
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        reviewState:
+          enum: [ready, needsReview, approved, excluded]
+        exceptionCodes:
+          type: array
+          uniqueItems: true
+          items:
+            enum:
+              - ambiguousParticipant
+              - unreadableText
+              - missingDate
+              - unresolvedPeriod
+              - formatChanged
+              - unexpectedDeletion
+    ScheduleImport:
+      type: object
+      additionalProperties: false
+      required: [id, participantId, sourceId, status, receivedAt, candidates]
+      properties:
+        id:
+          type: string
+          format: uuid
+        participantId:
+          type: string
+          format: uuid
+        sourceId:
+          type: string
+          format: uuid
+        status:
+          enum: [quarantined, extracting, needsReview, ready, published, failed]
+        receivedAt:
+          type: string
+          format: date-time
+        originalRetentionExpiresAt:
+          type: string
+          format: date-time
+        candidates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedActivity'
+    SchedulePublishRequest:
+      type: object
+      additionalProperties: false
+      required: [candidateIds, destination]
+      properties:
+        candidateIds:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            format: uuid
+        destination:
+          enum: [wayfinder, outlook, google, device, ics]
+        connectionId:
+          type: [string, 'null']
+          format: uuid
+    SchedulePublishResult:
+      type: object
+      additionalProperties: false
+      required: [importId, published, skipped]
+      properties:
+        importId:
+          type: string
+          format: uuid
+        published:
+          type: array
+          items:
+            type: object
+            required: [candidateId, activityId, destinationStatus]
+            properties:
+              candidateId:
+                type: string
+                format: uuid
+              activityId:
+                type: string
+                format: uuid
+              destinationStatus:
+                enum: [localOnly, created, updated, unchanged, failed]
+              externalEventId:
+                type: [string, 'null']
+        skipped:
+          type: array
+          items:
+            type: string
+            format: uuid
+    CalendarConnection:
+      type: object
+      additionalProperties: false
+      required: [id, participantId, provider, status, preferred]
+      properties:
+        id:
+          type: string
+          format: uuid
+        participantId:
+          type: string
+          format: uuid
+        provider:
+          enum: [outlook, google, device, ics]
+        calendarLabel:
+          type: [string, 'null']
+          maxLength: 120
+        status:
+          enum: [authorizationRequired, active, expired, revoked]
+        preferred:
+          type: boolean
+    ScheduleAutomationPolicyInput:
+      type: object
+      additionalProperties: false
+      required:
+        - sourceId
+        - trustedSenders
+        - participantMatchRule
+        - destination
+        - permittedActions
+        - minimumConfidence
+      properties:
+        sourceId:
+          type: string
+          format: uuid
+        trustedSenders:
+          type: array
+          minItems: 1
+          maxItems: 20
+          uniqueItems: true
+          items:
+            type: string
+            format: email
+        participantMatchRule:
+          type: string
+          minLength: 1
+          maxLength: 120
+        expectedFormatVersion:
+          type: [string, 'null']
+          maxLength: 80
+        destination:
+          enum: [wayfinder, outlook, google, device, ics]
+        connectionId:
+          type: [string, 'null']
+          format: uuid
+        permittedActions:
+          type: array
+          uniqueItems: true
+          items:
+            enum: [create, update, cancel]
+        minimumConfidence:
+          type: number
+          minimum: 0.8
+          maximum: 1
+        notifyOnSuccess:
+          type: boolean
+          default: true
+    ScheduleAutomationPolicy:
+      allOf:
+        - $ref: '#/components/schemas/ScheduleAutomationPolicyInput'
+        - type: object
+          required: [id, participantId, inboundAddress, status, createdAt]
+          properties:
+            id:
+              type: string
+              format: uuid
+            participantId:
+              type: string
+              format: uuid
+            inboundAddress:
+              type: string
+              format: email
+            status:
+              enum: [active, paused, revoked]
+            createdAt:
+              type: string
+              format: date-time
     WardrobeItemInput:
       type: object
       additionalProperties: false

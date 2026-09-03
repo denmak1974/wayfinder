@@ -16,6 +16,13 @@ erDiagram
   PARTICIPANT ||--o{ DEVICE : uses
   PARTICIPANT ||--o{ SUPPORT_RELATIONSHIP : grants
   PARTICIPANT ||--o{ ACTIVITY : plans
+  PARTICIPANT ||--o{ SCHEDULE_SOURCE : receives_from
+  SCHEDULE_SOURCE ||--o{ SCHEDULE_IMPORT : produces
+  SCHEDULE_IMPORT ||--o{ EXTRACTED_ACTIVITY : contains
+  EXTRACTED_ACTIVITY ||--o| ACTIVITY : becomes
+  PARTICIPANT ||--o{ CALENDAR_CONNECTION : authorizes
+  ACTIVITY ||--o{ CALENDAR_PUBLICATION : publishes
+  SCHEDULE_SOURCE ||--o{ SCHEDULE_AUTOMATION_POLICY : controls
   PARTICIPANT ||--o{ WARDROBE_ITEM : owns
   WARDROBE_ITEM ||--o{ WARDROBE_STATE_EVENT : changes
   PARTICIPANT ||--o{ OUTFIT_TEMPLATE : saves
@@ -50,7 +57,33 @@ Capability examples: `activity.read`, `activity.write`, `wardrobe.read`, `wardro
 
 ### Activity
 
-`id`, participant ID, source, external source ID, title, controlled description, start/end, all-day, location label, preparation minutes, bring-items, clothing requirements, sensory notes, status, provenance.
+`id`, participant ID, source, external source ID, title, controlled description, start/end, time precision (`exact`, `period`, `dateOnly`), period, all-day, location label, preparation minutes, bring-items, clothing requirements, activity contexts, sensory notes, status, provenance.
+
+### ScheduleSource
+
+Represents a location or program that supplies schedules: `id`, participant ID, display name, approved participant aliases or opaque source identifier, timezone, period mappings, accepted formats, and source status.
+
+### ScheduleImport
+
+One received document or message: `id`, source ID, participant ID, channel (`upload`, `email`, `calendarFeed`), source fingerprint, received time, parser version, status, original retention expiry, field-confidence summary, review actor/time, and publication result.
+
+The original source can contain other people's information. Store it only in a short-lived encrypted quarantine and delete it after participant filtering and the configured recovery period.
+
+### ExtractedActivity
+
+Candidate before publication: `id`, import ID, local date, exact start/end or period, raw title fragment, normalized title, location, participant-match evidence, activity contexts, bring-items, field-level confidence, provenance coordinates, review state, and linked activity ID.
+
+### CalendarConnection
+
+`id`, participant ID, provider (`outlook`, `google`, `device`, `ics`), calendar ID/label, authorization status, granted scopes, token reference, preferred flag, last successful use, and revoked time. Tokens are secrets stored outside the domain database.
+
+### CalendarPublication
+
+`id`, activity ID, connection ID, destination event ID, published version, idempotency key, status, last attempt, failure code, and cancellation time.
+
+### ScheduleAutomationPolicy
+
+Future inbound-agent authorization: `id`, participant ID, schedule source ID, opaque inbound address ID, trusted sender rules, expected format version, participant match rule, allowed destinations, permitted actions (`create`, `update`, `cancel`), confidence thresholds, notification preference, status, last reviewed, and revoked time.
 
 ### WardrobeItem
 

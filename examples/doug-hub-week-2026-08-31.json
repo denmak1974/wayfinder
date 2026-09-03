@@ -1,0 +1,71 @@
+{
+  "participant": {
+    "displayName": "Doug",
+    "source": "Hub"
+  },
+  "weekStarting": "2026-08-31",
+  "timeZone": "America/Toronto",
+  "sourceTimePrecision": "period",
+  "activities": [
+    {
+      "localDate": "2026-08-31",
+      "period": "morning",
+      "title": "Summer lake messages",
+      "activityContexts": ["unknown"],
+      "needsReview": true
+    },
+    {
+      "localDate": "2026-08-31",
+      "period": "afternoon",
+      "title": "August hand weight challenge",
+      "activityContexts": ["activeExercise"]
+    },
+    {
+      "localDate": "2026-09-01",
+      "period": "morning",
+      "title": "Frosty Tuesday",
+      "activityContexts": ["communityCasual"]
+    },
+    {
+      "localDate": "2026-09-01",
+      "period": "afternoon",
+      "title": "2000 Steps into September",
+      "activityContexts": ["activeWalking"]
+    },
+    {
+      "localDate": "2026-09-02",
+      "period": "morning",
+      "title": "BU Cafe visit",
+      "activityContexts": ["communityCasual"]
+    },
+    {
+      "localDate": "2026-09-02",
+      "period": "afternoon",
+      "title": "August Hand Weight Challenge",
+      "activityContexts": ["activeExercise"]
+    },
+    {
+      "localDate": "2026-09-03",
+      "period": "morning",
+      "title": "Film.ca Scoob movie morning",
+      "activityContexts": ["indoorSeated"]
+    },
+    {
+      "localDate": "2026-09-03",
+      "period": "afternoon",
+      "title": "Trafalgar Park",
+      "activityContexts": ["activeWalking"]
+    },
+    {
+      "localDate": "2026-09-04",
+      "period": "fullDay",
+      "title": "Hamilton Bayfront picnic lunch",
+      "activityContexts": ["outdoorExtended", "activeWalking"]
+    }
+  ],
+  "notes": [
+    "Only activities explicitly associated with Doug are retained.",
+    "The source provides periods rather than exact start and end times.",
+    "Summer lake messages needs clarification before automatic publication."
+  ]
+}

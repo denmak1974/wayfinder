@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://projectwayfinder.org/schemas/schedule-import.schema.json",
+  "title": "Project Wayfinder Schedule Import",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "participantId",
+    "sourceId",
+    "status",
+    "receivedAt",
+    "candidates"
+  ],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "participantId": { "type": "string", "format": "uuid" },
+    "sourceId": { "type": "string", "format": "uuid" },
+    "status": {
+      "enum": ["quarantined", "extracting", "needsReview", "ready", "published", "failed"]
+    },
+    "receivedAt": { "type": "string", "format": "date-time" },
+    "originalRetentionExpiresAt": { "type": "string", "format": "date-time" },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "localDate",
+          "timePrecision",
+          "normalizedTitle",
+          "participantMatch",
+          "activityContexts",
+          "confidence",
+          "reviewState"
+        ],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "localDate": { "type": "string", "format": "date" },
+          "timePrecision": { "enum": ["exact", "period", "dateOnly"] },
+          "start": { "type": ["string", "null"], "format": "date-time" },
+          "end": { "type": ["string", "null"], "format": "date-time" },
+          "period": {
+            "type": ["string", "null"],
+            "enum": ["morning", "afternoon", "evening", "fullDay", null]
+          },
+          "normalizedTitle": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "locationLabel": {
+            "type": ["string", "null"],
+            "maxLength": 120
+          },
+          "participantMatch": {
+            "enum": ["sourceIdentifier", "approvedAlias", "ambiguous"]
+          },
+          "activityContexts": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "activeWalking",
+                "activeExercise",
+                "outdoorExtended",
+                "indoorSeated",
+                "communityCasual",
+                "waterActivity",
+                "unknown"
+              ]
+            }
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "reviewState": {
+            "enum": ["ready", "needsReview", "approved", "excluded"]
+          },
+          "exceptionCodes": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "ambiguousParticipant",
+                "unreadableText",
+                "missingDate",
+                "unresolvedPeriod",
+                "formatChanged",
+                "unexpectedDeletion"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
