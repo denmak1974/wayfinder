@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -147,6 +147,30 @@
       flex-wrap: wrap;
       justify-content: flex-end;
       gap: 0.5rem;
+    }
+
+    .language-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 3rem;
+      padding: 0.25rem 0.75rem;
+      border: 2px solid var(--cp-border-strong);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+    }
+
+    .language-control label {
+      font-weight: 650;
+    }
+
+    .language-control select {
+      min-height: 2.25rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      padding: 0.25rem 0.5rem;
+      background: var(--cp-surface);
+      color: var(--cp-text);
     }
 
     .brand {
@@ -675,9 +699,9 @@
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#today-plan">Skip to today's plan</a>
+  <a class="skip-link" href="#today-plan" data-i18n="skipToPlan">Skip to today's plan</a>
   <div class="app-shell">
-    <p class="prototype-note">
+    <p class="prototype-note" data-i18n="prototypeNote">
       Interactive concept using a privacy-minimized Doug example. No data leaves this page.
     </p>
 
@@ -692,7 +716,15 @@
         <span>Project Wayfinder</span>
       </div>
       <div class="top-actions">
-        <button class="primary-button" id="open-schedule" type="button" aria-haspopup="dialog">
+        <div class="language-control">
+          <label for="language-select" data-i18n="language">Language</label>
+          <select id="language-select">
+            <option value="en-CA">English</option>
+            <option value="ja-JP">日本語</option>
+            <option value="fr-CA">Français</option>
+          </select>
+        </div>
+        <button class="primary-button" id="open-schedule" type="button" aria-haspopup="dialog" data-i18n="addWeeklySchedule">
           Add weekly schedule
         </button>
         <button class="settings-button" id="open-settings" type="button" aria-haspopup="dialog">
@@ -700,23 +732,24 @@
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.11.37.32.72.6 1 .3.28.68.42 1.1.4H21v4h-.09a1.7 1.7 0 0 0-1.51.6Z"></path>
           </svg>
-          <span class="compact-label">Display settings</span>
+          <span class="compact-label" data-i18n="displaySettings">Display settings</span>
         </button>
       </div>
     </header>
 
     <main id="today-plan">
       <section class="hero" aria-labelledby="page-title">
-        <p class="eyebrow">Your daily readiness plan</p>
-        <h1 id="page-title">Good morning, Doug</h1>
-        <p class="date-line">Thursday, September 3</p>
+        <p class="eyebrow" data-i18n="dailyPlan">Your daily readiness plan</p>
+        <h1 id="page-title" data-i18n="goodMorning">Good morning, Doug</h1>
+        <p class="date-line" id="today-date">Thursday, September 3</p>
         <div class="change-notice" role="status">
           <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 9v4m0 4h.01"></path>
             <path d="M10.3 3.7 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0Z"></path>
           </svg>
-          <p><strong>Your Hub schedule is ready:</strong> You have a movie this morning and Trafalgar Park this afternoon. Rain may start after lunch.</p>
+          <p data-i18n-html="hubReady"><strong>Your Hub schedule is ready:</strong> You have a movie this morning and Trafalgar Park this afternoon. Rain may start after lunch.</p>
         </div>
+        <button class="secondary-button" id="read-plan" type="button" data-i18n="readPlan">Read today's plan aloud</button>
       </section>
 
       <div class="plan-grid">
@@ -728,12 +761,12 @@
                 <path d="m9 20-1 2m5-2-1 2m5-2-1 2"></path>
               </svg>
             </span>
-            <h2 id="weather-title">Weather</h2>
+            <h2 id="weather-title" data-i18n="weather">Weather</h2>
           </div>
-          <p class="large-number">12<sup aria-label="degrees Celsius">°C</sup></p>
-          <p class="weather-summary">Cool now. Rain likely after lunch.</p>
-          <p class="optional-detail muted">High 15°C · 70% chance of rain after 1:00 PM</p>
-          <p class="source-line">Updated 12 minutes ago</p>
+          <p class="large-number">12<sup aria-label="degrees Celsius" data-i18n-aria-label="degreesCelsius">°C</sup></p>
+          <p class="weather-summary" data-i18n="weatherSummary">Cool now. Rain likely after lunch.</p>
+          <p class="optional-detail muted" data-i18n="weatherDetail">High 15°C · 70% chance of rain after 1:00 PM</p>
+          <p class="source-line" data-i18n="updated">Updated 12 minutes ago</p>
         </section>
 
         <section class="plan-card outfit-card" aria-labelledby="outfit-title">
@@ -743,10 +776,10 @@
                 <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3a4 4 0 0 1-8 0Z"></path>
               </svg>
             </span>
-            <h2 id="outfit-title">Recommended outfit</h2>
+            <h2 id="outfit-title" data-i18n="recommendedOutfit">Recommended outfit</h2>
           </div>
 
-          <div class="outfit-visual" id="outfit-visual" aria-label="Recommended clothing">
+          <div class="outfit-visual" id="outfit-visual" aria-label="Recommended clothing" data-i18n-aria-label="recommendedClothing">
             <div class="garment">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3a4 4 0 0 1-8 0Z"></path>
@@ -774,14 +807,14 @@
             </div>
           </div>
 
-          <p id="outfit-summary"><strong>Ready to wear:</strong> All four items are available.</p>
-          <p><strong>Sensory check:</strong> Cotton touches skin. Clothing tags are removed.</p>
+          <p id="outfit-summary" data-i18n-html="outfitReady"><strong>Ready to wear:</strong> All four items are available.</p>
+          <p data-i18n-html="sensoryCheck"><strong>Sensory check:</strong> Cotton touches skin. Clothing tags are removed.</p>
           <div class="outfit-actions">
-            <button class="primary-button" id="choose-outfit" type="button">Choose this outfit</button>
-            <button class="secondary-button" id="show-other" type="button">Show my second choice</button>
+            <button class="primary-button" id="choose-outfit" type="button" data-i18n="chooseOutfit">Choose this outfit</button>
+            <button class="secondary-button" id="show-other" type="button" data-i18n="showSecondChoice">Show my second choice</button>
           </div>
           <details class="optional-detail">
-            <summary>Why this outfit?</summary>
+            <summary data-i18n="whyOutfit">Why this outfit?</summary>
             <p id="outfit-reason">The soft layer is comfortable for the indoor movie. The waterproof jacket and walking shoes prepare Doug for Trafalgar Park and afternoon rain.</p>
           </details>
         </section>
@@ -794,16 +827,16 @@
                 <path d="M16 3v4M8 3v4M3 10h18"></path>
               </svg>
             </span>
-            <h2 id="activities-title">Today's activities</h2>
+            <h2 id="activities-title" data-i18n="todaysActivities">Today's activities</h2>
           </div>
           <ol class="activity-list">
             <li class="activity">
-              <span class="period">Morning</span>
-              <span><strong>Film.ca Scoob movie</strong><span class="muted">Indoor seated activity · Hub schedule</span></span>
+              <span class="period" data-i18n="morning">Morning</span>
+              <span><strong>Film.ca Scoob movie</strong><span class="muted" data-i18n="movieContext">Indoor seated activity · Hub schedule</span></span>
             </li>
             <li class="activity">
-              <span class="period">Afternoon</span>
-              <span><strong>Trafalgar Park</strong><span class="muted">Outdoor walking · Hub schedule</span></span>
+              <span class="period" data-i18n="afternoon">Afternoon</span>
+              <span><strong>Trafalgar Park</strong><span class="muted" data-i18n="parkContext">Outdoor walking · Hub schedule</span></span>
             </li>
           </ol>
         </section>
@@ -816,25 +849,25 @@
                 <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
               </svg>
             </span>
-            <h2 id="bring-title">Bring with you</h2>
+            <h2 id="bring-title" data-i18n="bringWithYou">Bring with you</h2>
           </div>
           <ul class="bring-list">
             <li>
               <label class="check-row">
                 <input type="checkbox" data-ready-item="Umbrella">
-                <span><strong>Umbrella</strong><br><span class="muted optional-detail">Rain after lunch</span></span>
+                <span><strong data-i18n="umbrella">Umbrella</strong><br><span class="muted optional-detail" data-i18n="rainAfterLunch">Rain after lunch</span></span>
               </label>
             </li>
             <li>
               <label class="check-row">
                 <input type="checkbox" data-ready-item="Water bottle">
-                <span><strong>Water bottle</strong><br><span class="muted optional-detail">Suggested for Trafalgar Park</span></span>
+                <span><strong data-i18n="waterBottle">Water bottle</strong><br><span class="muted optional-detail" data-i18n="waterReason">Suggested for Trafalgar Park</span></span>
               </label>
             </li>
             <li>
               <label class="check-row">
                 <input type="checkbox" data-ready-item="Hub day bag">
-                <span><strong>Hub day bag</strong><br><span class="muted optional-detail">Keep your day items together</span></span>
+                <span><strong data-i18n="dayBag">Hub day bag</strong><br><span class="muted optional-detail" data-i18n="bagReason">Keep your day items together</span></span>
               </label>
             </li>
           </ul>
@@ -848,18 +881,18 @@
                 <path d="M8 12h8M8 8h5M8 16h6"></path>
               </svg>
             </span>
-            <h2 id="notes-title">What to expect</h2>
+            <h2 id="notes-title" data-i18n="whatToExpect">What to expect</h2>
           </div>
-          <p>The movie is indoors this morning. Trafalgar Park is outdoors this afternoon. The Hub schedule did not include exact times, so Wayfinder shows the honest morning and afternoon periods.</p>
+          <p data-i18n="expectation">The movie is indoors this morning. Trafalgar Park is outdoors this afternoon. The Hub schedule did not include exact times, so Wayfinder shows the honest morning and afternoon periods.</p>
         </section>
       </div>
 
       <section class="status-summary" aria-labelledby="ready-title">
-        <h2 id="ready-title">You are getting ready</h2>
+        <h2 id="ready-title" data-i18n="gettingReady">You are getting ready</h2>
         <p id="progress-text" aria-live="polite">0 of 3 bring-items are ready.</p>
         <div class="footer-actions">
-          <button class="primary-button" id="finish-plan" type="button">Finished, please check</button>
-          <button class="quiet-button" id="ask-help" type="button">I want help with one part</button>
+          <button class="primary-button" id="finish-plan" type="button" data-i18n="finishedCheck">Finished, please check</button>
+          <button class="quiet-button" id="ask-help" type="button" data-i18n="wantHelp">I want help with one part</button>
         </div>
       </section>
       <p class="visually-hidden" id="announcer" aria-live="polite"></p>
@@ -868,151 +901,637 @@
 
   <dialog class="settings-panel" id="settings-dialog" aria-labelledby="settings-title">
     <div class="dialog-inner">
-      <h2 id="settings-title">Display settings</h2>
-      <p class="muted">Preview changes immediately. These settings change presentation, not your plan.</p>
+      <h2 id="settings-title" data-i18n="displaySettings">Display settings</h2>
+      <p class="muted" data-i18n="settingsIntro">Preview changes immediately. These settings change presentation, not your plan.</p>
       <label class="setting-row">
-        <span><strong>Show less detail</strong><br><span class="muted">Keep only the main answer</span></span>
+        <span><strong data-i18n="lessDetail">Show less detail</strong><br><span class="muted" data-i18n="lessDetailHelp">Keep only the main answer</span></span>
         <input id="simple-view" type="checkbox">
       </label>
       <label class="setting-row">
-        <span><strong>Larger text</strong><br><span class="muted">Increase text throughout the plan</span></span>
+        <span><strong data-i18n="largerText">Larger text</strong><br><span class="muted" data-i18n="largerTextHelp">Increase text throughout the plan</span></span>
         <input id="large-text" type="checkbox">
       </label>
       <label class="setting-row">
-        <span><strong>Stronger card outlines</strong><br><span class="muted">Make sections easier to separate</span></span>
+        <span><strong data-i18n="strongOutlines">Stronger card outlines</strong><br><span class="muted" data-i18n="strongOutlinesHelp">Make sections easier to separate</span></span>
         <input id="strong-focus" type="checkbox">
       </label>
       <div class="dialog-actions">
-        <button class="primary-button" id="close-settings" type="button">Done</button>
+        <button class="primary-button" id="close-settings" type="button" data-i18n="done">Done</button>
       </div>
     </div>
   </dialog>
 
   <dialog class="settings-panel" id="help-dialog" aria-labelledby="help-title">
     <div class="dialog-inner">
-      <h2 id="help-title">Choose what you want help with</h2>
-      <p>You stay on this plan. In the full app, you could ask a trusted supporter about one section without sharing anything else.</p>
+      <h2 id="help-title" data-i18n="chooseHelp">Choose what you want help with</h2>
+      <p data-i18n="helpIntro">You stay on this plan. In the full app, you could ask a trusted supporter about one section without sharing anything else.</p>
       <div class="outfit-actions">
-        <button class="secondary-button help-choice" type="button">Outfit</button>
-        <button class="secondary-button help-choice" type="button">Activities</button>
-        <button class="secondary-button help-choice" type="button">Bring-items</button>
+        <button class="secondary-button help-choice" type="button" data-help-key="helpOutfit" data-i18n="helpOutfit">Outfit</button>
+        <button class="secondary-button help-choice" type="button" data-help-key="helpActivities" data-i18n="helpActivities">Activities</button>
+        <button class="secondary-button help-choice" type="button" data-help-key="helpBring" data-i18n="helpBring">Bring-items</button>
       </div>
       <div class="dialog-actions">
-        <button class="primary-button" id="close-help" type="button">Close</button>
+        <button class="primary-button" id="close-help" type="button" data-i18n="close">Close</button>
       </div>
     </div>
   </dialog>
 
   <dialog class="settings-panel schedule-panel" id="schedule-dialog" aria-labelledby="schedule-title">
     <div class="dialog-inner">
-      <h2 id="schedule-title">Add Doug's weekly schedule</h2>
-      <p class="muted">Import a schedule from Doug's location, keep only Doug's activities, review them, and choose where they should be saved.</p>
+      <h2 id="schedule-title" data-i18n="scheduleTitle">Add Doug's weekly schedule</h2>
+      <p class="muted" data-i18n="scheduleIntro">Import a schedule from Doug's location, keep only Doug's activities, review them, and choose where they should be saved.</p>
 
       <section class="schedule-step" aria-labelledby="source-title">
-        <h3 id="source-title">1. Choose the location schedule</h3>
+        <h3 id="source-title" data-i18n="chooseSchedule">1. Choose the location schedule</h3>
         <div class="schedule-source">
           <input class="file-input" id="schedule-file" type="file" accept=".png,.jpg,.jpeg,.pdf,.csv,.xlsx,.ics">
-          <button class="secondary-button" id="use-hub-example" type="button">Use Hub example</button>
+          <button class="secondary-button" id="use-hub-example" type="button" data-i18n="useHubExample">Use Hub example</button>
         </div>
-        <p class="muted">Wayfinder prefers ICS or spreadsheets, but can process a photo or PDF. The production version deletes unrelated participant rows after filtering.</p>
+        <p class="muted" data-i18n="sourceHelp">Wayfinder prefers ICS or spreadsheets, but can process a photo or PDF. The production version deletes unrelated participant rows after filtering.</p>
         <p class="import-status" id="import-status" role="status">Hub schedule example loaded. Doug was found in 9 activities across 5 days.</p>
       </section>
 
       <section class="schedule-step" aria-labelledby="review-title">
-        <h3 id="review-title">2. Review Doug's activities</h3>
-        <p class="muted">No exact times were provided. Morning, afternoon, and full day are preserved.</p>
+        <h3 id="review-title" data-i18n="reviewActivities">2. Review Doug's activities</h3>
+        <p class="muted" data-i18n="timePrecisionHelp">No exact times were provided. Morning, afternoon, and full day are preserved.</p>
         <ul class="schedule-list" id="schedule-events">
           <li class="schedule-event">
             <input type="checkbox" checked aria-label="Include Monday morning Summer lake messages">
-            <span><strong>Mon, Aug 31</strong><span class="muted">Morning</span></span>
-            <span><strong>Summer lake messages</strong><span class="context-chip">Needs activity clarification</span></span>
+            <span><strong data-schedule-date="2026-08-31">Mon, Aug 31</strong><span class="muted" data-i18n="morning">Morning</span></span>
+            <span><strong>Summer lake messages</strong><span class="context-chip" data-i18n="needsClarification">Needs activity clarification</span></span>
           </li>
           <li class="schedule-event">
             <input type="checkbox" checked aria-label="Include Monday afternoon August hand weight challenge">
-            <span><strong>Mon, Aug 31</strong><span class="muted">Afternoon</span></span>
-            <span><strong>August hand weight challenge</strong><span class="context-chip">Active clothes + secure shoes</span></span>
+            <span><strong data-schedule-date="2026-08-31">Mon, Aug 31</strong><span class="muted" data-i18n="afternoon">Afternoon</span></span>
+            <span><strong>August hand weight challenge</strong><span class="context-chip" data-i18n="activeClothes">Active clothes + secure shoes</span></span>
           </li>
           <li class="schedule-event">
             <input type="checkbox" checked aria-label="Include Tuesday morning Frosty Tuesday">
-            <span><strong>Tue, Sep 1</strong><span class="muted">Morning</span></span>
-            <span><strong>Frosty Tuesday</strong><span class="context-chip">Comfortable indoor clothes</span></span>
+            <span><strong data-schedule-date="2026-09-01">Tue, Sep 1</strong><span class="muted" data-i18n="morning">Morning</span></span>
+            <span><strong>Frosty Tuesday</strong><span class="context-chip" data-i18n="indoorClothes">Comfortable indoor clothes</span></span>
           </li>
           <li class="schedule-event">
             <input type="checkbox" checked aria-label="Include Tuesday afternoon 2000 Steps into September">
-            <span><strong>Tue, Sep 1</strong><span class="muted">Afternoon</span></span>
-            <span><strong>2000 Steps into September</strong><span class="context-chip">Walking shoes + breathable layer</span></span>
+            <span><strong data-schedule-date="2026-09-01">Tue, Sep 1</strong><span class="muted" data-i18n="afternoon">Afternoon</span></span>
+            <span><strong>2000 Steps into September</strong><span class="context-chip" data-i18n="walkingLayer">Walking shoes + breathable layer</span></span>
           </li>
           <li class="schedule-event">
             <input type="checkbox" checked aria-label="Include Wednesday morning BU Cafe visit">
-            <span><strong>Wed, Sep 2</strong><span class="muted">Morning</span></span>
-            <span><strong>BU Cafe visit</strong><span class="context-chip">Comfortable casual clothes</span></span>
+            <span><strong data-schedule-date="2026-09-02">Wed, Sep 2</strong><span class="muted" data-i18n="morning">Morning</span></span>
+            <span><strong>BU Cafe visit</strong><span class="context-chip" data-i18n="casualClothes">Comfortable casual clothes</span></span>
           </li>
           <li class="schedule-event">
             <input type="checkbox" checked aria-label="Include Wednesday afternoon August Hand Weight Challenge">
-            <span><strong>Wed, Sep 2</strong><span class="muted">Afternoon</span></span>
-            <span><strong>August Hand Weight Challenge</strong><span class="context-chip">Active clothes + secure shoes</span></span>
+            <span><strong data-schedule-date="2026-09-02">Wed, Sep 2</strong><span class="muted" data-i18n="afternoon">Afternoon</span></span>
+            <span><strong>August Hand Weight Challenge</strong><span class="context-chip" data-i18n="activeClothes">Active clothes + secure shoes</span></span>
           </li>
           <li class="schedule-event">
             <input type="checkbox" checked aria-label="Include Thursday morning Film.ca Scoob movie">
-            <span><strong>Thu, Sep 3</strong><span class="muted">Morning</span></span>
-            <span><strong>Film.ca Scoob movie</strong><span class="context-chip">Comfortable indoor layer</span></span>
+            <span><strong data-schedule-date="2026-09-03">Thu, Sep 3</strong><span class="muted" data-i18n="morning">Morning</span></span>
+            <span><strong>Film.ca Scoob movie</strong><span class="context-chip" data-i18n="indoorLayer">Comfortable indoor layer</span></span>
           </li>
           <li class="schedule-event">
             <input type="checkbox" checked aria-label="Include Thursday afternoon Trafalgar Park">
-            <span><strong>Thu, Sep 3</strong><span class="muted">Afternoon</span></span>
-            <span><strong>Trafalgar Park</strong><span class="context-chip">Weather layer + walking shoes</span></span>
+            <span><strong data-schedule-date="2026-09-03">Thu, Sep 3</strong><span class="muted" data-i18n="afternoon">Afternoon</span></span>
+            <span><strong>Trafalgar Park</strong><span class="context-chip" data-i18n="weatherWalking">Weather layer + walking shoes</span></span>
           </li>
           <li class="schedule-event">
             <input type="checkbox" checked aria-label="Include Friday full day Hamilton Bayfront picnic lunch">
-            <span><strong>Fri, Sep 4</strong><span class="muted">Full day</span></span>
-            <span><strong>Hamilton Bayfront picnic lunch</strong><span class="context-chip">Outdoor layers + walking shoes</span></span>
+            <span><strong data-schedule-date="2026-09-04">Fri, Sep 4</strong><span class="muted" data-i18n="fullDay">Full day</span></span>
+            <span><strong>Hamilton Bayfront picnic lunch</strong><span class="context-chip" data-i18n="outdoorLayers">Outdoor layers + walking shoes</span></span>
           </li>
         </ul>
       </section>
 
       <section class="schedule-step" aria-labelledby="destination-title">
-        <h3 id="destination-title">3. Choose where approved activities go</h3>
-        <label for="calendar-destination">Preferred calendar</label>
+        <h3 id="destination-title" data-i18n="chooseDestination">3. Choose where approved activities go</h3>
+        <label for="calendar-destination" data-i18n="preferredCalendar">Preferred calendar</label>
         <select class="destination-select" id="calendar-destination">
-          <option value="Outlook Calendar">Outlook Calendar</option>
-          <option value="Google Calendar">Google Calendar</option>
-          <option value="Wayfinder only">Wayfinder only</option>
-          <option value="device calendar">Device calendar</option>
-          <option value="an ICS file">Download an ICS file</option>
+          <option value="outlook" data-i18n="outlook">Outlook Calendar</option>
+          <option value="google" data-i18n="google">Google Calendar</option>
+          <option value="wayfinder" data-i18n="wayfinderOnly">Wayfinder only</option>
+          <option value="device" data-i18n="deviceCalendar">Device calendar</option>
+          <option value="ics" data-i18n="downloadIcs">Download an ICS file</option>
         </select>
-        <p class="muted">The full app asks for calendar permission and updates existing events instead of creating duplicates.</p>
+        <p class="muted" data-i18n="calendarHelp">The full app asks for calendar permission and updates existing events instead of creating duplicates.</p>
         <p id="publish-status" aria-live="polite"></p>
       </section>
 
       <section class="schedule-step agent-note" aria-labelledby="agent-title">
-        <h3 id="agent-title">Future: Doug's Scheduling Agent</h3>
-        <p>The Hub could email a private Wayfinder address. Trusted, familiar schedules would be processed automatically; uncertain changes would be held for review. Doug could pause the agent or undo an import at any time.</p>
+        <h3 id="agent-title" data-i18n="agentTitle">Future: Doug's Scheduling Agent</h3>
+        <p data-i18n="agentDescription">The Hub could email a private Wayfinder address. Trusted, familiar schedules would be processed automatically; uncertain changes would be held for review. Doug could pause the agent or undo an import at any time.</p>
       </section>
 
       <div class="dialog-actions">
-        <button class="quiet-button" id="close-schedule" type="button">Cancel</button>
+        <button class="quiet-button" id="close-schedule" type="button" data-i18n="cancel">Cancel</button>
         <button class="primary-button" id="publish-schedule" type="button">Add 9 approved activities</button>
       </div>
     </div>
   </dialog>
 
   <script>
+    const messages = {
+      "en-CA": {
+        pageTitle: "Project Wayfinder - Daily Readiness Prototype",
+        skipToPlan: "Skip to today's plan",
+        prototypeNote: "Interactive concept using a privacy-minimized Doug example. No data leaves this page.",
+        language: "Language",
+        addWeeklySchedule: "Add weekly schedule",
+        displaySettings: "Display settings",
+        dailyPlan: "Your daily readiness plan",
+        goodMorning: "Good morning, Doug",
+        hubReady: "<strong>Your Hub schedule is ready:</strong> You have a movie this morning and Trafalgar Park this afternoon. Rain may start after lunch.",
+        readPlan: "Read today's plan aloud",
+        stopReading: "Stop reading",
+        weather: "Weather",
+        degreesCelsius: "degrees Celsius",
+        weatherSummary: "Cool now. Rain likely after lunch.",
+        weatherDetail: "High 15°C · 70% chance of rain after 1:00 PM",
+        updated: "Updated 12 minutes ago",
+        recommendedOutfit: "Recommended outfit",
+        recommendedClothing: "Recommended clothing",
+        outfitReady: "<strong>Ready to wear:</strong> All four items are available.",
+        sensoryCheck: "<strong>Sensory check:</strong> Cotton touches skin. Clothing tags are removed.",
+        chooseOutfit: "Choose this outfit",
+        showSecondChoice: "Show my second choice",
+        whyOutfit: "Why this outfit?",
+        todaysActivities: "Today's activities",
+        morning: "Morning",
+        afternoon: "Afternoon",
+        fullDay: "Full day",
+        movieContext: "Indoor seated activity · Hub schedule",
+        parkContext: "Outdoor walking · Hub schedule",
+        bringWithYou: "Bring with you",
+        umbrella: "Umbrella",
+        rainAfterLunch: "Rain after lunch",
+        waterBottle: "Water bottle",
+        waterReason: "Suggested for Trafalgar Park",
+        dayBag: "Hub day bag",
+        bagReason: "Keep your day items together",
+        whatToExpect: "What to expect",
+        expectation: "The movie is indoors this morning. Trafalgar Park is outdoors this afternoon. The Hub schedule did not include exact times, so Wayfinder shows the honest morning and afternoon periods.",
+        gettingReady: "You are getting ready",
+        finishedCheck: "Finished, please check",
+        wantHelp: "I want help with one part",
+        settingsIntro: "Preview changes immediately. These settings change presentation, not your plan.",
+        lessDetail: "Show less detail",
+        lessDetailHelp: "Keep only the main answer",
+        largerText: "Larger text",
+        largerTextHelp: "Increase text throughout the plan",
+        strongOutlines: "Stronger card outlines",
+        strongOutlinesHelp: "Make sections easier to separate",
+        done: "Done",
+        chooseHelp: "Choose what you want help with",
+        helpIntro: "You stay on this plan. In the full app, you could ask a trusted supporter about one section without sharing anything else.",
+        helpOutfit: "Outfit",
+        helpActivities: "Activities",
+        helpBring: "Bring-items",
+        close: "Close",
+        scheduleTitle: "Add Doug's weekly schedule",
+        scheduleIntro: "Import a schedule from Doug's location, keep only Doug's activities, review them, and choose where they should be saved.",
+        chooseSchedule: "1. Choose the location schedule",
+        useHubExample: "Use Hub example",
+        sourceHelp: "Wayfinder prefers ICS or spreadsheets, but can process a photo or PDF. The production version deletes unrelated participant rows after filtering.",
+        importLoaded: "Hub schedule example loaded. Doug was found in 9 activities across 5 days.",
+        reviewActivities: "2. Review Doug's activities",
+        timePrecisionHelp: "No exact times were provided. Morning, afternoon, and full day are preserved.",
+        needsClarification: "Needs activity clarification",
+        activeClothes: "Active clothes + secure shoes",
+        indoorClothes: "Comfortable indoor clothes",
+        walkingLayer: "Walking shoes + breathable layer",
+        casualClothes: "Comfortable casual clothes",
+        indoorLayer: "Comfortable indoor layer",
+        weatherWalking: "Weather layer + walking shoes",
+        outdoorLayers: "Outdoor layers + walking shoes",
+        chooseDestination: "3. Choose where approved activities go",
+        preferredCalendar: "Preferred calendar",
+        outlook: "Outlook Calendar",
+        google: "Google Calendar",
+        wayfinderOnly: "Wayfinder only",
+        deviceCalendar: "Device calendar",
+        downloadIcs: "Download an ICS file",
+        calendarHelp: "The full app asks for calendar permission and updates existing events instead of creating duplicates.",
+        agentTitle: "Future: Doug's Scheduling Agent",
+        agentDescription: "The Hub could email a private Wayfinder address. Trusted, familiar schedules would be processed automatically; uncertain changes would be held for review. Doug could pause the agent or undo an import at any time.",
+        cancel: "Cancel",
+        includeActivity: "Include {date}, {period}, {title}",
+        addOneActivity: "Add 1 approved activity",
+        addManyActivities: "Add {count} approved activities",
+        fileSelected: "{file} selected. This prototype displays the reviewed Hub example; the production importer would now extract Doug's activities privately.",
+        hubAnnounce: "Hub schedule example loaded for Doug.",
+        publishStatus: "{count} approved activities would be saved to {destination}. Nothing was sent in this prototype.",
+        publishAnnounce: "{count} approved activities are ready for {destination}. Nothing was sent.",
+        outfitShown: "Another outfit is shown: {items}.",
+        outfitChosenButton: "Outfit chosen",
+        outfitChosenAnnounce: "This outfit is chosen for today.",
+        readyProgress: "{complete} of {total} bring-items are ready.",
+        checkRequestedButton: "Check requested",
+        finishedTitle: "Doug finished his plan",
+        familyCheckProgress: "A family check was requested. Doug's choices stay selected.",
+        familyCheckAnnounce: "Doug finished and requested a family check. His choices remain selected.",
+        helpRequested: "Help with {topic} would be requested. Nothing was sent in this prototype.",
+        speechPlan: "Doug's plan. Weather: 12 degrees Celsius. Cool now. Rain is likely after lunch. Morning: Film.ca Scoob movie. Afternoon: Trafalgar Park. Wear a soft T-shirt, comfortable pants, a rain jacket, and walking shoes. Bring an umbrella, a water bottle, and the Hub day bag."
+      },
+      "ja-JP": {
+        pageTitle: "Project Wayfinder - 朝の準備プロトタイプ",
+        skipToPlan: "今日の予定へ移動",
+        prototypeNote: "個人情報を最小限にしたDougの例を使う操作デモです。データはこのページから送信されません。",
+        language: "言語",
+        addWeeklySchedule: "週間予定を追加",
+        displaySettings: "表示設定",
+        dailyPlan: "今日の準備プラン",
+        goodMorning: "おはよう、Doug",
+        hubReady: "<strong>Hubの予定を確認しました。</strong>午前は映画、午後はTrafalgar Parkです。昼食後に雨が降るかもしれません。",
+        readPlan: "今日の予定を読み上げる",
+        stopReading: "読み上げを止める",
+        weather: "天気",
+        degreesCelsius: "摂氏",
+        weatherSummary: "今は涼しいです。昼食後は雨の可能性があります。",
+        weatherDetail: "最高15°C · 午後1時以降の降水確率70%",
+        updated: "12分前に更新",
+        recommendedOutfit: "おすすめの服",
+        recommendedClothing: "おすすめの服",
+        outfitReady: "<strong>着る準備ができています。</strong>4点すべて使えます。",
+        sensoryCheck: "<strong>肌ざわりを確認しました。</strong>肌に触れる部分は綿です。服のタグは外してあります。",
+        chooseOutfit: "この服を選ぶ",
+        showSecondChoice: "2つ目の選択肢を見る",
+        whyOutfit: "この服を選んだ理由",
+        todaysActivities: "今日の活動",
+        morning: "午前",
+        afternoon: "午後",
+        fullDay: "一日",
+        movieContext: "室内で座る活動 · Hubの予定",
+        parkContext: "屋外で歩く活動 · Hubの予定",
+        bringWithYou: "持っていく物",
+        umbrella: "かさ",
+        rainAfterLunch: "昼食後に雨の可能性",
+        waterBottle: "水筒",
+        waterReason: "Trafalgar Parkにおすすめ",
+        dayBag: "Hubのデイバッグ",
+        bagReason: "今日の持ち物をまとめます",
+        whatToExpect: "今日の見通し",
+        expectation: "午前の映画は室内です。午後のTrafalgar Parkは屋外です。Hubの予定には正確な時刻がないため、Wayfinderは午前と午後で表示します。",
+        gettingReady: "準備を進めています",
+        finishedCheck: "終わりました。確認してください",
+        wantHelp: "一つ手伝ってほしい",
+        settingsIntro: "変更はすぐに確認できます。表示だけが変わり、予定は変わりません。",
+        lessDetail: "情報を少なくする",
+        lessDetailHelp: "大切な答えだけを表示します",
+        largerText: "文字を大きくする",
+        largerTextHelp: "すべての文字を大きくします",
+        strongOutlines: "カードの枠を濃くする",
+        strongOutlinesHelp: "項目を見分けやすくします",
+        done: "完了",
+        chooseHelp: "手伝ってほしい項目を選ぶ",
+        helpIntro: "この予定を見たまま、必要な一項目だけを信頼できる支援者に相談できます。他の情報は共有しません。",
+        helpOutfit: "服",
+        helpActivities: "活動",
+        helpBring: "持ち物",
+        close: "閉じる",
+        scheduleTitle: "Dougの週間予定を追加",
+        scheduleIntro: "Dougの通う場所から予定を取り込み、Dougの活動だけを確認して、保存先を選びます。",
+        chooseSchedule: "1. 場所の予定を選ぶ",
+        useHubExample: "Hubの例を使う",
+        sourceHelp: "WayfinderはICSや表計算ファイルを優先しますが、写真やPDFも処理できます。製品版では、抽出後に他の参加者の行を削除します。",
+        importLoaded: "Hubの予定例を読み込みました。5日間でDougの活動が9件見つかりました。",
+        reviewActivities: "2. Dougの活動を確認",
+        timePrecisionHelp: "正確な時刻はありません。午前、午後、一日の区分をそのまま使います。",
+        needsClarification: "活動内容の確認が必要",
+        activeClothes: "運動しやすい服 + 安定した靴",
+        indoorClothes: "室内で快適な服",
+        walkingLayer: "歩きやすい靴 + 通気性のよい重ね着",
+        casualClothes: "快適な普段着",
+        indoorLayer: "室内で快適な重ね着",
+        weatherWalking: "天気に合う上着 + 歩きやすい靴",
+        outdoorLayers: "屋外用の重ね着 + 歩きやすい靴",
+        chooseDestination: "3. 確認した活動の保存先を選ぶ",
+        preferredCalendar: "使うカレンダー",
+        outlook: "Outlookカレンダー",
+        google: "Googleカレンダー",
+        wayfinderOnly: "Wayfinderだけ",
+        deviceCalendar: "端末のカレンダー",
+        downloadIcs: "ICSファイルをダウンロード",
+        calendarHelp: "製品版ではカレンダーの許可を確認し、重複を作らず既存の予定を更新します。",
+        agentTitle: "将来機能：Dougのスケジュールエージェント",
+        agentDescription: "HubはWayfinderの専用アドレスへ予定をメールできます。信頼済みの通常の予定は自動処理し、不確かな変更だけ確認します。Dougはいつでも一時停止や取り消しができます。",
+        cancel: "キャンセル",
+        includeActivity: "{date} {period}「{title}」を含める",
+        addOneActivity: "確認した活動を1件追加",
+        addManyActivities: "確認した活動を{count}件追加",
+        fileSelected: "{file}を選びました。このデモでは確認済みのHubの例を表示します。製品版ではDougの活動だけを安全に抽出します。",
+        hubAnnounce: "DougのHub予定例を読み込みました。",
+        publishStatus: "確認した活動{count}件を{destination}に保存する予定です。このデモでは送信していません。",
+        publishAnnounce: "確認した活動{count}件を{destination}へ保存する準備ができました。送信はしていません。",
+        outfitShown: "別の服を表示しました。{items}",
+        outfitChosenButton: "この服を選びました",
+        outfitChosenAnnounce: "今日の服として選びました。",
+        readyProgress: "持ち物{total}個のうち{complete}個を準備しました。",
+        checkRequestedButton: "確認をお願いしました",
+        finishedTitle: "Dougの準備が終わりました",
+        familyCheckProgress: "家族に確認をお願いしました。Dougの選択はそのままです。",
+        familyCheckAnnounce: "Dougが準備を終え、家族に確認をお願いしました。選択はそのままです。",
+        helpRequested: "{topic}の手伝いをお願いする予定です。このデモでは送信していません。",
+        speechPlan: "Dougの今日の予定です。天気は摂氏12度です。今は涼しく、昼食後は雨の可能性があります。午前はFilm.ca Scoob movieです。午後はTrafalgar Parkです。柔らかいTシャツ、楽なズボン、レインジャケット、歩きやすい靴を着ます。かさ、水筒、Hubのデイバッグを持っていきます。"
+      },
+      "fr-CA": {
+        pageTitle: "Projet Wayfinder - Prototype de préparation quotidienne",
+        skipToPlan: "Aller au plan d'aujourd'hui",
+        prototypeNote: "Concept interactif utilisant un exemple de Doug réduit au minimum nécessaire. Aucune donnée ne quitte cette page.",
+        language: "Langue",
+        addWeeklySchedule: "Ajouter l'horaire de la semaine",
+        displaySettings: "Réglages d'affichage",
+        dailyPlan: "Votre plan de préparation quotidienne",
+        goodMorning: "Bonjour, Doug",
+        hubReady: "<strong>L'horaire du Hub est prêt :</strong> vous avez un film ce matin et Trafalgar Park cet après-midi. Il pourrait pleuvoir après le dîner.",
+        readPlan: "Lire le plan d'aujourd'hui",
+        stopReading: "Arrêter la lecture",
+        weather: "Météo",
+        degreesCelsius: "degrés Celsius",
+        weatherSummary: "Il fait frais. Pluie probable après le dîner.",
+        weatherDetail: "Maximum 15 °C · 70 % de probabilité de pluie après 13 h",
+        updated: "Mis à jour il y a 12 minutes",
+        recommendedOutfit: "Tenue recommandée",
+        recommendedClothing: "Vêtements recommandés",
+        outfitReady: "<strong>Prêt à porter :</strong> les quatre articles sont disponibles.",
+        sensoryCheck: "<strong>Vérification sensorielle :</strong> le coton touche la peau. Les étiquettes sont retirées.",
+        chooseOutfit: "Choisir cette tenue",
+        showSecondChoice: "Voir mon deuxième choix",
+        whyOutfit: "Pourquoi cette tenue?",
+        todaysActivities: "Activités d'aujourd'hui",
+        morning: "Matin",
+        afternoon: "Après-midi",
+        fullDay: "Journée complète",
+        movieContext: "Activité assise à l'intérieur · Horaire du Hub",
+        parkContext: "Marche à l'extérieur · Horaire du Hub",
+        bringWithYou: "À apporter",
+        umbrella: "Parapluie",
+        rainAfterLunch: "Pluie après le dîner",
+        waterBottle: "Bouteille d'eau",
+        waterReason: "Suggérée pour Trafalgar Park",
+        dayBag: "Sac de jour du Hub",
+        bagReason: "Garde les articles de la journée ensemble",
+        whatToExpect: "À quoi s'attendre",
+        expectation: "Le film est à l'intérieur ce matin. Trafalgar Park est à l'extérieur cet après-midi. L'horaire du Hub n'indique pas les heures exactes; Wayfinder affiche donc matin et après-midi.",
+        gettingReady: "Vous vous préparez",
+        finishedCheck: "J'ai fini, vérifiez s'il vous plaît",
+        wantHelp: "Je veux de l'aide pour une étape",
+        settingsIntro: "Voyez les changements immédiatement. Ces réglages modifient l'affichage, pas votre plan.",
+        lessDetail: "Afficher moins de détails",
+        lessDetailHelp: "Garder seulement la réponse principale",
+        largerText: "Texte plus grand",
+        largerTextHelp: "Agrandir le texte dans tout le plan",
+        strongOutlines: "Contours plus marqués",
+        strongOutlinesHelp: "Faciliter la séparation des sections",
+        done: "Terminé",
+        chooseHelp: "Choisissez l'élément pour lequel vous voulez de l'aide",
+        helpIntro: "Vous restez dans ce plan. Dans l'application complète, vous pourriez demander l'aide d'une personne de confiance pour une section sans partager le reste.",
+        helpOutfit: "Tenue",
+        helpActivities: "Activités",
+        helpBring: "Articles à apporter",
+        close: "Fermer",
+        scheduleTitle: "Ajouter l'horaire hebdomadaire de Doug",
+        scheduleIntro: "Importez l'horaire du lieu fréquenté par Doug, gardez seulement ses activités, révisez-les et choisissez où les enregistrer.",
+        chooseSchedule: "1. Choisir l'horaire du lieu",
+        useHubExample: "Utiliser l'exemple du Hub",
+        sourceHelp: "Wayfinder privilégie les fichiers ICS ou les feuilles de calcul, mais peut traiter une photo ou un PDF. La version de production supprime les lignes des autres participants après le filtrage.",
+        importLoaded: "L'exemple d'horaire du Hub est chargé. Neuf activités de Doug ont été trouvées sur cinq jours.",
+        reviewActivities: "2. Réviser les activités de Doug",
+        timePrecisionHelp: "Aucune heure exacte n'est fournie. Les périodes matin, après-midi et journée complète sont conservées.",
+        needsClarification: "Activité à préciser",
+        activeClothes: "Vêtements actifs + chaussures stables",
+        indoorClothes: "Vêtements confortables pour l'intérieur",
+        walkingLayer: "Chaussures de marche + couche respirante",
+        casualClothes: "Vêtements décontractés confortables",
+        indoorLayer: "Couche confortable pour l'intérieur",
+        weatherWalking: "Couche adaptée à la météo + chaussures de marche",
+        outdoorLayers: "Couches pour l'extérieur + chaussures de marche",
+        chooseDestination: "3. Choisir où enregistrer les activités approuvées",
+        preferredCalendar: "Calendrier préféré",
+        outlook: "Calendrier Outlook",
+        google: "Google Agenda",
+        wayfinderOnly: "Wayfinder seulement",
+        deviceCalendar: "Calendrier de l'appareil",
+        downloadIcs: "Télécharger un fichier ICS",
+        calendarHelp: "L'application complète demande l'autorisation du calendrier et met à jour les événements existants sans créer de doublons.",
+        agentTitle: "À venir : l'agent de planification de Doug",
+        agentDescription: "Le Hub pourrait envoyer l'horaire à une adresse privée de Wayfinder. Les horaires fiables et habituels seraient traités automatiquement; les changements incertains seraient retenus pour révision. Doug pourrait suspendre l'agent ou annuler un import en tout temps.",
+        cancel: "Annuler",
+        includeActivity: "Inclure {title}, {period}, {date}",
+        addOneActivity: "Ajouter 1 activité approuvée",
+        addManyActivities: "Ajouter {count} activités approuvées",
+        fileSelected: "{file} est sélectionné. Ce prototype affiche l'exemple révisé du Hub; la version de production extrairait maintenant les activités de Doug de façon confidentielle.",
+        hubAnnounce: "L'exemple d'horaire du Hub est chargé pour Doug.",
+        publishStatus: "{count} activités approuvées seraient enregistrées dans {destination}. Rien n'a été envoyé dans ce prototype.",
+        publishAnnounce: "{count} activités approuvées sont prêtes pour {destination}. Rien n'a été envoyé.",
+        outfitShown: "Une autre tenue est affichée : {items}.",
+        outfitChosenButton: "Tenue choisie",
+        outfitChosenAnnounce: "Cette tenue est choisie pour aujourd'hui.",
+        readyProgress: "{complete} article(s) sur {total} sont prêts.",
+        checkRequestedButton: "Vérification demandée",
+        finishedTitle: "Doug a terminé son plan",
+        familyCheckProgress: "Une vérification familiale a été demandée. Les choix de Doug restent sélectionnés.",
+        familyCheckAnnounce: "Doug a terminé et demandé une vérification familiale. Ses choix restent sélectionnés.",
+        helpRequested: "Une demande d'aide pour {topic} serait faite. Rien n'a été envoyé dans ce prototype.",
+        speechPlan: "Voici le plan de Doug. Météo : 12 degrés Celsius. Il fait frais et la pluie est probable après le dîner. Matin : Film.ca Scoob movie. Après-midi : Trafalgar Park. Porte un t-shirt doux, un pantalon confortable, un imperméable et des chaussures de marche. Apporte un parapluie, une bouteille d'eau et le sac de jour du Hub."
+      }
+    };
+
+    const localizedOutfits = {
+      "en-CA": [
+        {
+          items: ["Soft T-shirt", "Comfortable pants", "Rain jacket", "Walking shoes"],
+          reason: "Cotton touches skin and the clothing tags are removed. The soft layer is comfortable for the indoor movie. The waterproof jacket and walking shoes prepare Doug for Trafalgar Park and afternoon rain."
+        },
+        {
+          items: ["Soft long-sleeve shirt", "Stretch pants", "Waterproof shell", "Running shoes"],
+          reason: "Cotton touches skin and the clothing tags are removed. This is a warmer alternative for the movie and still supports outdoor walking at Trafalgar Park."
+        }
+      ],
+      "ja-JP": [
+        {
+          items: ["柔らかいTシャツ", "楽なズボン", "レインジャケット", "歩きやすい靴"],
+          reason: "肌に触れる部分は綿で、服のタグは外してあります。柔らかい服は室内の映画で快適です。レインジャケットと歩きやすい靴は、Trafalgar Parkと午後の雨に合います。"
+        },
+        {
+          items: ["柔らかい長袖シャツ", "伸びるズボン", "防水シェル", "ランニングシューズ"],
+          reason: "肌に触れる部分は綿で、服のタグは外してあります。映画には少し暖かい選択肢で、Trafalgar Parkの屋外歩行にも合います。"
+        }
+      ],
+      "fr-CA": [
+        {
+          items: ["T-shirt doux", "Pantalon confortable", "Imperméable", "Chaussures de marche"],
+          reason: "Le coton touche la peau et les étiquettes sont retirées. La couche douce est confortable pour le film à l'intérieur. L'imperméable et les chaussures de marche préparent Doug pour Trafalgar Park et la pluie de l'après-midi."
+        },
+        {
+          items: ["Chandail doux à manches longues", "Pantalon extensible", "Coquille imperméable", "Chaussures de course"],
+          reason: "Le coton touche la peau et les étiquettes sont retirées. Cette option est plus chaude pour le film et convient aussi à la marche à Trafalgar Park."
+        }
+      ]
+    };
+
     const body = document.body;
     const settingsDialog = document.querySelector("#settings-dialog");
     const helpDialog = document.querySelector("#help-dialog");
     const scheduleDialog = document.querySelector("#schedule-dialog");
     const announcer = document.querySelector("#announcer");
-    const outfits = [
-      {
-        items: ["Soft T-shirt", "Comfortable pants", "Rain jacket", "Walking shoes"],
-        reason: "Cotton touches skin and the clothing tags are removed. The soft layer is comfortable for the indoor movie. The waterproof jacket and walking shoes prepare Doug for Trafalgar Park and afternoon rain."
-      },
-      {
-        items: ["Soft long-sleeve shirt", "Stretch pants", "Waterproof shell", "Running shoes"],
-        reason: "Cotton touches skin and the clothing tags are removed. This is a warmer alternative for the movie and still supports outdoor walking at Trafalgar Park."
+    const state = {
+      locale: "en-CA",
+      outfitIndex: 0,
+      outfitChosen: false,
+      familyCheckRequested: false,
+      readyCount: 0,
+      selectedFileName: null,
+      publishedCount: null,
+      publishedDestination: null,
+      speaking: false
+    };
+
+    const t = (key, variables = {}) => {
+      const template = messages[state.locale][key] ?? messages["en-CA"][key] ?? key;
+      return Object.entries(variables).reduce(
+        (result, [name, value]) => result.replaceAll(`{${name}}`, String(value)),
+        template
+      );
+    };
+
+    const formatDate = (isoDate, options) =>
+      new Intl.DateTimeFormat(state.locale, options).format(
+        new Date(`${isoDate}T12:00:00`)
+      );
+
+    const destinationName = (value) => t({
+      outlook: "outlook",
+      google: "google",
+      wayfinder: "wayfinderOnly",
+      device: "deviceCalendar",
+      ics: "downloadIcs"
+    }[value]);
+
+    const renderOutfit = () => {
+      const outfit = localizedOutfits[state.locale][state.outfitIndex];
+      const labels = document.querySelectorAll("#outfit-visual .garment span");
+      labels.forEach((label, index) => {
+        label.textContent = outfit.items[index];
+      });
+      document.querySelector("#outfit-reason").textContent = outfit.reason;
+    };
+
+    const renderReadyProgress = () => {
+      if (state.familyCheckRequested) return;
+      document.querySelector("#progress-text").textContent = t("readyProgress", {
+        complete: state.readyCount,
+        total: readyItems.length
+      });
+    };
+
+    const renderScheduleCount = () => {
+      const count = scheduleSelections.filter((item) => item.checked).length;
+      document.querySelector("#publish-schedule").textContent =
+        count === 1 ? t("addOneActivity") : t("addManyActivities", { count });
+    };
+
+    const renderDynamicState = () => {
+      renderOutfit();
+      renderReadyProgress();
+      renderScheduleCount();
+
+      document.querySelector("#import-status").textContent = state.selectedFileName
+        ? t("fileSelected", { file: state.selectedFileName })
+        : t("importLoaded");
+
+      if (state.publishedCount !== null) {
+        document.querySelector("#publish-status").textContent = t("publishStatus", {
+          count: state.publishedCount,
+          destination: destinationName(state.publishedDestination)
+        });
       }
-    ];
-    let outfitIndex = 0;
+
+      if (state.outfitChosen) {
+        document.querySelector("#choose-outfit").textContent = t("outfitChosenButton");
+      }
+
+      if (state.familyCheckRequested) {
+        document.querySelector("#finish-plan").textContent = t("checkRequestedButton");
+        document.querySelector("#ready-title").textContent = t("finishedTitle");
+        document.querySelector("#progress-text").textContent = t("familyCheckProgress");
+      }
+
+      document.querySelector("#read-plan").textContent =
+        state.speaking ? t("stopReading") : t("readPlan");
+    };
+
+    const applyLocale = (locale) => {
+      if (!messages[locale]) return;
+      state.locale = locale;
+      document.documentElement.lang = locale;
+      document.title = t("pageTitle");
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        element.textContent = t(element.dataset.i18n);
+      });
+      document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+        element.innerHTML = t(element.dataset.i18nHtml);
+      });
+      document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+        element.setAttribute("aria-label", t(element.dataset.i18nAriaLabel));
+      });
+
+      document.querySelector("#today-date").textContent = formatDate(
+        "2026-09-03",
+        { weekday: "long", month: "long", day: "numeric" }
+      );
+
+      document.querySelectorAll("[data-schedule-date]").forEach((element) => {
+        element.textContent = formatDate(
+          element.dataset.scheduleDate,
+          { weekday: "short", month: "short", day: "numeric" }
+        );
+      });
+
+      document.querySelectorAll("#schedule-events .schedule-event").forEach((event) => {
+        const checkbox = event.querySelector("input");
+        const date = event.querySelector("[data-schedule-date]").textContent;
+        const periodElement = event.querySelector("[data-i18n]");
+        const title = event.querySelector(":scope > span:last-child strong").textContent;
+        checkbox.setAttribute("aria-label", t("includeActivity", {
+          date,
+          period: periodElement.textContent,
+          title
+        }));
+      });
+
+      renderDynamicState();
+    };
+
+    document.querySelector("#language-select").addEventListener("change", (event) => {
+      window.speechSynthesis?.cancel();
+      state.speaking = false;
+      applyLocale(event.target.value);
+      announcer.textContent = event.target.selectedOptions[0].textContent;
+    });
+
+    document.querySelector("#read-plan").addEventListener("click", () => {
+      if (!("speechSynthesis" in window)) return;
+      if (state.speaking) {
+        window.speechSynthesis.cancel();
+        state.speaking = false;
+        renderDynamicState();
+        return;
+      }
+      const utterance = new SpeechSynthesisUtterance(t("speechPlan"));
+      utterance.lang = state.locale;
+      utterance.onend = () => {
+        state.speaking = false;
+        renderDynamicState();
+      };
+      utterance.onerror = () => {
+        state.speaking = false;
+        renderDynamicState();
+      };
+      state.speaking = true;
+      renderDynamicState();
+      window.speechSynthesis.speak(utterance);
+    });
 
     document.querySelector("#open-schedule").addEventListener("click", () => {
       scheduleDialog.showModal();
@@ -1023,23 +1542,22 @@
     });
 
     document.querySelector("#use-hub-example").addEventListener("click", () => {
-      document.querySelector("#import-status").textContent =
-        "Hub schedule example loaded. Doug was found in 9 activities across 5 days.";
-      announcer.textContent = "Hub schedule example loaded for Doug.";
+      state.selectedFileName = null;
+      document.querySelector("#import-status").textContent = t("importLoaded");
+      announcer.textContent = t("hubAnnounce");
     });
 
     document.querySelector("#schedule-file").addEventListener("change", (event) => {
       const file = event.target.files[0];
       if (!file) return;
+      state.selectedFileName = file.name;
       document.querySelector("#import-status").textContent =
-        `${file.name} selected. This prototype displays the reviewed Hub example; the production importer would now extract Doug's activities privately.`;
+        t("fileSelected", { file: file.name });
     });
 
     const scheduleSelections = [...document.querySelectorAll("#schedule-events input[type='checkbox']")];
     const updateScheduleCount = () => {
-      const count = scheduleSelections.filter((item) => item.checked).length;
-      document.querySelector("#publish-schedule").textContent =
-        count === 1 ? "Add 1 approved activity" : `Add ${count} approved activities`;
+      renderScheduleCount();
     };
 
     scheduleSelections.forEach((item) => {
@@ -1049,10 +1567,12 @@
     document.querySelector("#publish-schedule").addEventListener("click", () => {
       const count = scheduleSelections.filter((item) => item.checked).length;
       const destination = document.querySelector("#calendar-destination").value;
+      state.publishedCount = count;
+      state.publishedDestination = destination;
       document.querySelector("#publish-status").textContent =
-        `${count} approved activities would be saved to ${destination}. Nothing was sent in this prototype.`;
+        t("publishStatus", { count, destination: destinationName(destination) });
       announcer.textContent =
-        `${count} approved activities are ready for ${destination}. Nothing was sent.`;
+        t("publishAnnounce", { count, destination: destinationName(destination) });
     });
 
     document.querySelector("#open-settings").addEventListener("click", () => {
@@ -1076,39 +1596,34 @@
     });
 
     document.querySelector("#show-other").addEventListener("click", () => {
-      outfitIndex = (outfitIndex + 1) % outfits.length;
-      const outfit = outfits[outfitIndex];
-      const labels = document.querySelectorAll("#outfit-visual .garment span");
-      labels.forEach((label, index) => {
-        label.textContent = outfit.items[index];
-      });
-      document.querySelector("#outfit-reason").textContent = outfit.reason;
-      announcer.textContent = `Another outfit is shown: ${outfit.items.join(", ")}.`;
+      state.outfitIndex = (state.outfitIndex + 1) % localizedOutfits[state.locale].length;
+      const outfit = localizedOutfits[state.locale][state.outfitIndex];
+      renderOutfit();
+      announcer.textContent = t("outfitShown", { items: outfit.items.join(", ") });
     });
 
     document.querySelector("#choose-outfit").addEventListener("click", (event) => {
-      event.currentTarget.textContent = "Outfit chosen";
+      state.outfitChosen = true;
+      event.currentTarget.textContent = t("outfitChosenButton");
       event.currentTarget.disabled = true;
-      announcer.textContent = "This outfit is chosen for today.";
+      announcer.textContent = t("outfitChosenAnnounce");
     });
 
     const readyItems = [...document.querySelectorAll("[data-ready-item]")];
     readyItems.forEach((item) => {
       item.addEventListener("change", () => {
-        const complete = readyItems.filter((candidate) => candidate.checked).length;
-        document.querySelector("#progress-text").textContent =
-          `${complete} of ${readyItems.length} bring-items are ready.`;
+        state.readyCount = readyItems.filter((candidate) => candidate.checked).length;
+        renderReadyProgress();
       });
     });
 
     document.querySelector("#finish-plan").addEventListener("click", (event) => {
-      event.currentTarget.textContent = "Check requested";
+      state.familyCheckRequested = true;
+      event.currentTarget.textContent = t("checkRequestedButton");
       event.currentTarget.disabled = true;
-      document.querySelector("#ready-title").textContent = "Doug finished his plan";
-      document.querySelector("#progress-text").textContent =
-        "A family check was requested. Doug's choices stay selected.";
-      announcer.textContent =
-        "Doug finished and requested a family check. His choices remain selected.";
+      document.querySelector("#ready-title").textContent = t("finishedTitle");
+      document.querySelector("#progress-text").textContent = t("familyCheckProgress");
+      announcer.textContent = t("familyCheckAnnounce");
     });
 
     document.querySelector("#ask-help").addEventListener("click", () => {
@@ -1122,10 +1637,13 @@
     document.querySelectorAll(".help-choice").forEach((button) => {
       button.addEventListener("click", () => {
         helpDialog.close();
-        announcer.textContent =
-          `Help with ${button.textContent.toLowerCase()} would be requested. Nothing was sent in this prototype.`;
+        announcer.textContent = t("helpRequested", {
+          topic: t(button.dataset.helpKey)
+        });
       });
     });
+
+    applyLocale("en-CA");
   </script>
 </body>
 </html>

@@ -109,6 +109,8 @@ See [Weekly Schedule Import](WEEKLY_SCHEDULE_IMPORT.md) for the Doug example, re
 ### Personalization
 
 - I can choose text size, reading level, icon style, density, contrast, motion, audio, and prompt level.
+- I can switch the interface between English, Japanese, and Canadian French without changing my schedule or choices.
+- Proper names and source schedule titles remain recognizable while Wayfinder guidance is translated.
 - A preview shows the effect before applying a change.
 - Settings follow me only when optional sync is enabled.
 

@@ -163,6 +163,7 @@ The initial product and engineering foundation is now available:
 | Domain entities and data ownership | [Data model](docs/architecture/DATA_MODEL.md) |
 | API contract | [OpenAPI](openapi/wayfinder-v1.yaml) |
 | Accessibility requirements | [Accessibility architecture](docs/design/ACCESSIBILITY.md) |
+| English, Japanese, and Canadian French behavior | [Localization architecture](docs/design/LOCALIZATION.md) |
 | Privacy and threat model | [Privacy and security](docs/security/PRIVACY-THREAT-MODEL.md) |
 | Engineering and documentation standards | [Engineering standards](docs/community/STANDARDS.md) |
 | Governance | [GOVERNANCE.md](GOVERNANCE.md) |
@@ -178,6 +179,7 @@ Open the self-contained [Daily Readiness Assistant prototype](prototypes/daily-r
 - Outlook, Google, device, Wayfinder, or ICS destination selection;
 - activity-aware clothing recommendations;
 - two sensory-safe outfit choices and a participant-initiated "Finished, please check" handoff;
+- live English, Japanese, and Canadian French switching with localized dates and speech;
 - outfit alternatives with plain-language explanations;
 - bring-item tracking;
 - display personalization; and

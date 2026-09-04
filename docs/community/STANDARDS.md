@@ -68,9 +68,14 @@ At least one code owner reviews each change. Core accessibility, consent, suppor
 - No user-facing strings in application code.
 - Use locale-aware date, time, number, temperature, and measurement formatting.
 - Do not concatenate sentence fragments.
+- Use stable message keys and ICU MessageFormat for complete, plural-aware messages.
+- Keep source-controlled activity titles and proper names unchanged unless an approved translation is supplied.
+- Keep interface, document, calendar, and speech locales as separate values.
 - Support right-to-left layout and at least 40% text expansion.
 - Separate translations from clinical or culturally specific assumptions.
 - Community locale packs require reviewer provenance and accessibility checks.
+
+See [Localization Architecture](../design/LOCALIZATION.md) for the initial `en-CA`, `ja-JP`, and `fr-CA` requirements.
 
 ## Issue taxonomy
 
