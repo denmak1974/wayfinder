@@ -26,6 +26,7 @@ Critical morning tasks target enhanced readability and interaction beyond AA whe
 10. Let the person choose prompt strength and reduce it gradually.
 11. Never equate limited speech with limited comprehension, consent, or decision-making.
 12. When a familiar plan must change, present exactly two valid choices before escalating to supporter help.
+13. Preserve an established, successfully understood schedule layout after removing unrelated private information.
 
 ## Visual and interaction requirements
 
@@ -96,6 +97,7 @@ The check is not a routine approval gate. The participant's choice remains selec
 - Completion controls state item name and current status.
 - Weather includes numbers and words: "12 degrees Celsius. Cool. Rain likely after 1 PM."
 - Changed-plan notices identify what changed, when, and what action is needed.
+- A familiar location schedule retains its stable period/activity cell pattern instead of being redesigned as a generic agenda.
 - A screen-reader summary presents the same four answers without traversing decorative content.
 
 ## Definition of done

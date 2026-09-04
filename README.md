@@ -159,6 +159,7 @@ The initial product and engineering foundation is now available:
 | --- | --- |
 | Product vision, personas, stories, backlog, and 90-day roadmap | [Product foundation](docs/product/PRODUCT.md) |
 | Location schedule import, preferred calendars, and future email agent | [Weekly schedule import](docs/product/WEEKLY_SCHEDULE_IMPORT.md) |
+| Draft temperature bands and weather-driven clothing rules | [Weather and clothing rules](docs/product/WEATHER_CLOTHING_RULES.md) |
 | Solution architecture, technology stack, Azure, local-first, mobile, and AI | [Solution architecture](docs/architecture/ARCHITECTURE.md) |
 | Domain entities and data ownership | [Data model](docs/architecture/DATA_MODEL.md) |
 | API contract | [OpenAPI](openapi/wayfinder-v1.yaml) |
@@ -176,6 +177,8 @@ Open the self-contained [Daily Readiness Assistant prototype](prototypes/daily-r
 
 - the calm five-section Today screen;
 - participant-filtered weekly schedule review;
+- the familiar Hub morning/activity and afternoon/activity quadrant;
+- Now, Feels like, High, rain timing, wind, and explainable clothing changes;
 - Outlook, Google, device, Wayfinder, or ICS destination selection;
 - activity-aware clothing recommendations;
 - two sensory-safe outfit choices and a participant-initiated "Finished, please check" handoff;

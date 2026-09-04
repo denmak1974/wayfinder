@@ -101,7 +101,7 @@ Append-only event: `itemId`, state (`available`, `laundry`, `wet`, `damaged`, `u
 
 ### WeatherSnapshot
 
-`id`, geospatial area at coarse precision, provider, observed/forecast times, temperature, apparent temperature, precipitation probability/type, wind, severe-weather flag, fetched time, expiry time. Exact location is not retained by default.
+`id`, geospatial area at coarse precision, provider, observed/forecast times, current temperature, apparent temperature, daily high/low, hourly temperature/apparent-temperature windows, precipitation probability/type/timing, wind speed/gusts, severe-weather flag, fetched time, expiry time. Exact location is not retained by default.
 
 ### ReadinessPlan
 

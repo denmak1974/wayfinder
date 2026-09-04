@@ -119,7 +119,7 @@ The MVP engine is deterministic and explainable.
 ### Pipeline
 
 1. Validate inputs and label missing or stale data.
-2. Derive day facts: temperature bands, precipitation windows, activity transitions, travel buffers.
+2. Derive day facts: current and apparent temperature, relevant outdoor-window minimum/maximum, precipitation windows, wind, activity transitions, exposure duration, and travel buffers.
 3. Build constraints: available, sensory-safe, weather-suitable, activity-suitable.
 4. Rank valid outfit templates/items using stable user-defined preferences.
 5. Aggregate required bring-items and remove duplicates.
@@ -127,6 +127,8 @@ The MVP engine is deterministic and explainable.
 7. Persist the plan and its input snapshot so it is reproducible.
 
 The engine returns alternatives and uncertainty; it does not fabricate missing facts. The same inputs and ruleset version produce the same plan.
+
+Temperature bands select a draft starting layer set. Rain, wind, snow/ice, exposure duration, activity intensity, and indoor/outdoor transitions modify it. Hard sensory and availability constraints apply before ranking. Near a band boundary or when comfort evidence is incomplete, return two valid choices rather than hiding a brittle threshold decision.
 
 ## Weekly schedule ingestion
 

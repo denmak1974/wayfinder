@@ -13,6 +13,20 @@ Wayfinder turns a location-provided weekly schedule into:
 
 The participant remains the owner of the resulting schedule even when a supporter or location supplies the source.
 
+## Preserve a familiar schedule pattern
+
+When a participant already understands a location's schedule format, Wayfinder should preserve that visual grammar after filtering it to the participant.
+
+For Doug's Today view, use the same stable two-by-two pattern every day:
+
+| Morning | Morning activity |
+| --- | --- |
+| Afternoon | Afternoon activity |
+
+This is a four-quadrant reading experience: the period remains in the left cell and the recognizable source activity remains in the right cell. Wayfinder may add a short translated context line, but it must not turn the familiar schedule into an unrelated timeline, agenda list, carousel, or conversational summary.
+
+If a day has multiple activities in one period, keep them within that period's activity cell in source order. If the source uses a full-day activity, show a clearly labelled full-day row rather than manufacturing morning and afternoon duplicates.
+
 ## Doug example
 
 The supplied Hub schedule is a visual table containing activities for many people. Wayfinder filters it to rows where **Doug** is named.
@@ -64,6 +78,7 @@ Locations receive a documented template with date, period/start/end, activity, p
 7. **Review exceptions.** The user confirms ambiguous names, uncertain text, missing times, duplicates, cancellations, and clothing requirements.
 8. **Publish once.** Approved activities are written to Wayfinder and, if selected, Outlook, Google Calendar, or an ICS file.
 9. **Generate readiness.** Weather, activity context, sensory needs, wardrobe availability, and travel combine into the daily outfit and bring-list.
+10. **Render familiarly.** The participant's Today view preserves the approved location schedule pattern.
 
 The review presents only Doug's extracted events. It does not reproduce the full multi-person schedule.
 

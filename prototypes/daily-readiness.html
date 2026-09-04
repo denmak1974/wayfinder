@@ -318,11 +318,35 @@
       color: var(--cp-accent);
     }
 
-    .large-number {
-      margin: 0;
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 750;
-      line-height: 1;
+    .weather-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .weather-metric {
+      min-width: 0;
+      padding: 0.75rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface-soft);
+      text-align: center;
+    }
+
+    .weather-metric span,
+    .weather-metric strong {
+      display: block;
+    }
+
+    .weather-metric span {
+      color: var(--cp-text-muted);
+      font-weight: 650;
+    }
+
+    .weather-metric strong {
+      margin-top: 0.2rem;
+      font-size: clamp(1.5rem, 5vw, 2.25rem);
+      line-height: 1.1;
     }
 
     .weather-summary {
@@ -341,7 +365,6 @@
       font-size: 0.9rem;
     }
 
-    .activity-list,
     .bring-list,
     .outfit-list {
       display: grid;
@@ -351,28 +374,40 @@
       list-style: none;
     }
 
-    .activity {
+    .hub-day-grid {
       display: grid;
-      grid-template-columns: 5.5rem 1fr;
-      gap: 0.75rem;
-      align-items: start;
-      padding: 0.9rem;
-      border: 1px solid var(--cp-border);
+      grid-template-columns: minmax(6.5rem, 0.7fr) minmax(0, 2fr);
+      overflow: hidden;
+      border: 2px solid var(--cp-border-strong);
       border-radius: 0.625rem;
-      background: var(--cp-surface-soft);
     }
 
-    .activity time {
+    .hub-period,
+    .hub-activity {
+      min-width: 0;
+      padding: 1rem;
+      border-bottom: 1px solid var(--cp-border-strong);
+    }
+
+    .hub-period {
+      display: grid;
+      place-items: center start;
+      border-right: 1px solid var(--cp-border-strong);
+      background: var(--cp-accent-soft);
       font-weight: 750;
     }
 
-    .activity .period {
-      font-weight: 750;
+    .hub-activity {
+      background: var(--cp-surface);
     }
 
-    .activity strong {
+    .hub-activity strong {
       display: block;
       font-size: 1.05rem;
+    }
+
+    .hub-day-grid > :nth-last-child(-n + 2) {
+      border-bottom: 0;
     }
 
     .outfit-visual {
@@ -670,6 +705,10 @@
         flex-direction: column;
       }
 
+      .weather-metrics {
+        grid-template-columns: 1fr;
+      }
+
       .schedule-event {
         grid-template-columns: auto 1fr;
       }
@@ -763,9 +802,22 @@
             </span>
             <h2 id="weather-title" data-i18n="weather">Weather</h2>
           </div>
-          <p class="large-number">12<sup aria-label="degrees Celsius" data-i18n-aria-label="degreesCelsius">°C</sup></p>
-          <p class="weather-summary" data-i18n="weatherSummary">Cool now. Rain likely after lunch.</p>
-          <p class="optional-detail muted" data-i18n="weatherDetail">High 15°C · 70% chance of rain after 1:00 PM</p>
+          <div class="weather-metrics" aria-label="Today's temperatures" data-i18n-aria-label="temperatureSummary">
+            <div class="weather-metric">
+              <span data-i18n="now">Now</span>
+              <strong>12°C</strong>
+            </div>
+            <div class="weather-metric">
+              <span data-i18n="feelsLike">Feels like</span>
+              <strong>10°C</strong>
+            </div>
+            <div class="weather-metric">
+              <span data-i18n="high">High</span>
+              <strong>15°C</strong>
+            </div>
+          </div>
+          <p class="weather-summary" data-i18n="weatherSummary">Cool now. Rain and wind after lunch.</p>
+          <p class="optional-detail muted" data-i18n="weatherDetail">Rain after 1:00 PM · Wind 22 km/h</p>
           <p class="source-line" data-i18n="updated">Updated 12 minutes ago</p>
         </section>
 
@@ -784,20 +836,20 @@
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3a4 4 0 0 1-8 0Z"></path>
               </svg>
-              <span>Soft T-shirt</span>
+              <span>Long-sleeved cotton top</span>
             </div>
             <div class="garment">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M8 3h8l1 18h-5l-1-11-1 11H5L8 3Z"></path>
               </svg>
-              <span>Comfortable pants</span>
+              <span>Long jogging pants</span>
             </div>
             <div class="garment">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3"></path>
                 <path d="M12 4v16"></path>
               </svg>
-              <span>Rain jacket</span>
+              <span>Light waterproof jacket</span>
             </div>
             <div class="garment">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -815,7 +867,7 @@
           </div>
           <details class="optional-detail">
             <summary data-i18n="whyOutfit">Why this outfit?</summary>
-            <p id="outfit-reason">The soft layer is comfortable for the indoor movie. The waterproof jacket and walking shoes prepare Doug for Trafalgar Park and afternoon rain.</p>
+            <p id="outfit-reason">The feels-like temperature is 10°C. The long cotton top and jogging pants add warmth, while the light waterproof jacket and walking shoes prepare Doug for Trafalgar Park, wind, and afternoon rain.</p>
           </details>
         </section>
 
@@ -829,16 +881,18 @@
             </span>
             <h2 id="activities-title" data-i18n="todaysActivities">Today's activities</h2>
           </div>
-          <ol class="activity-list">
-            <li class="activity">
-              <span class="period" data-i18n="morning">Morning</span>
-              <span><strong>Film.ca Scoob movie</strong><span class="muted" data-i18n="movieContext">Indoor seated activity · Hub schedule</span></span>
-            </li>
-            <li class="activity">
-              <span class="period" data-i18n="afternoon">Afternoon</span>
-              <span><strong>Trafalgar Park</strong><span class="muted" data-i18n="parkContext">Outdoor walking · Hub schedule</span></span>
-            </li>
-          </ol>
+          <div class="hub-day-grid" role="table" aria-label="Hub schedule for today" data-i18n-aria-label="hubDaySchedule">
+            <div class="hub-period" role="rowheader" data-i18n="morning">Morning</div>
+            <div class="hub-activity" role="cell">
+              <strong>Film.ca Scoob movie</strong>
+              <span class="muted" data-i18n="movieContext">Indoor seated activity · Hub schedule</span>
+            </div>
+            <div class="hub-period" role="rowheader" data-i18n="afternoon">Afternoon</div>
+            <div class="hub-activity" role="cell">
+              <strong>Trafalgar Park</strong>
+              <span class="muted" data-i18n="parkContext">Outdoor walking · Hub schedule</span>
+            </div>
+          </div>
         </section>
 
         <section class="plan-card" aria-labelledby="bring-title">
@@ -1045,8 +1099,12 @@
         stopReading: "Stop reading",
         weather: "Weather",
         degreesCelsius: "degrees Celsius",
-        weatherSummary: "Cool now. Rain likely after lunch.",
-        weatherDetail: "High 15°C · 70% chance of rain after 1:00 PM",
+        temperatureSummary: "Now 12 degrees Celsius. Feels like 10. High 15.",
+        now: "Now",
+        feelsLike: "Feels like",
+        high: "High",
+        weatherSummary: "Cool now. Rain and wind after lunch.",
+        weatherDetail: "Rain after 1:00 PM · Wind 22 km/h",
         updated: "Updated 12 minutes ago",
         recommendedOutfit: "Recommended outfit",
         recommendedClothing: "Recommended clothing",
@@ -1056,6 +1114,7 @@
         showSecondChoice: "Show my second choice",
         whyOutfit: "Why this outfit?",
         todaysActivities: "Today's activities",
+        hubDaySchedule: "Hub schedule for today. Morning activity and afternoon activity.",
         morning: "Morning",
         afternoon: "Afternoon",
         fullDay: "Full day",
@@ -1130,7 +1189,7 @@
         familyCheckProgress: "A family check was requested. Doug's choices stay selected.",
         familyCheckAnnounce: "Doug finished and requested a family check. His choices remain selected.",
         helpRequested: "Help with {topic} would be requested. Nothing was sent in this prototype.",
-        speechPlan: "Doug's plan. Weather: 12 degrees Celsius. Cool now. Rain is likely after lunch. Morning: Film.ca Scoob movie. Afternoon: Trafalgar Park. Wear a soft T-shirt, comfortable pants, a rain jacket, and walking shoes. Bring an umbrella, a water bottle, and the Hub day bag."
+        speechPlan: "Doug's plan. Weather now: 12 degrees Celsius. It feels like 10. Today's high is 15. Rain and wind are expected after lunch. Morning: Film.ca Scoob movie. Afternoon: Trafalgar Park. Wear a long-sleeved cotton top, long jogging pants, a light waterproof jacket, and walking shoes. Bring an umbrella, a water bottle, and the Hub day bag."
       },
       "ja-JP": {
         pageTitle: "Project Wayfinder - 朝の準備プロトタイプ",
@@ -1146,8 +1205,12 @@
         stopReading: "読み上げを止める",
         weather: "天気",
         degreesCelsius: "摂氏",
-        weatherSummary: "今は涼しいです。昼食後は雨の可能性があります。",
-        weatherDetail: "最高15°C · 午後1時以降の降水確率70%",
+        temperatureSummary: "現在は摂氏12度、体感温度は10度、最高気温は15度です。",
+        now: "現在",
+        feelsLike: "体感",
+        high: "最高",
+        weatherSummary: "今は涼しいです。昼食後は雨と風の予報です。",
+        weatherDetail: "午後1時以降に雨 · 風速22 km/h",
         updated: "12分前に更新",
         recommendedOutfit: "おすすめの服",
         recommendedClothing: "おすすめの服",
@@ -1157,6 +1220,7 @@
         showSecondChoice: "2つ目の選択肢を見る",
         whyOutfit: "この服を選んだ理由",
         todaysActivities: "今日の活動",
+        hubDaySchedule: "今日のHub予定。午前の活動と午後の活動。",
         morning: "午前",
         afternoon: "午後",
         fullDay: "一日",
@@ -1231,7 +1295,7 @@
         familyCheckProgress: "家族に確認をお願いしました。Dougの選択はそのままです。",
         familyCheckAnnounce: "Dougが準備を終え、家族に確認をお願いしました。選択はそのままです。",
         helpRequested: "{topic}の手伝いをお願いする予定です。このデモでは送信していません。",
-        speechPlan: "Dougの今日の予定です。天気は摂氏12度です。今は涼しく、昼食後は雨の可能性があります。午前はFilm.ca Scoob movieです。午後はTrafalgar Parkです。柔らかいTシャツ、楽なズボン、レインジャケット、歩きやすい靴を着ます。かさ、水筒、Hubのデイバッグを持っていきます。"
+        speechPlan: "Dougの今日の予定です。現在は摂氏12度、体感温度は10度、最高気温は15度です。昼食後は雨と風の予報です。午前はFilm.ca Scoob movieです。午後はTrafalgar Parkです。綿の長袖トップス、長いジョギングパンツ、軽い防水ジャケット、歩きやすい靴を着ます。かさ、水筒、Hubのデイバッグを持っていきます。"
       },
       "fr-CA": {
         pageTitle: "Projet Wayfinder - Prototype de préparation quotidienne",
@@ -1247,8 +1311,12 @@
         stopReading: "Arrêter la lecture",
         weather: "Météo",
         degreesCelsius: "degrés Celsius",
-        weatherSummary: "Il fait frais. Pluie probable après le dîner.",
-        weatherDetail: "Maximum 15 °C · 70 % de probabilité de pluie après 13 h",
+        temperatureSummary: "Maintenant 12 degrés Celsius. Ressenti 10. Maximum 15.",
+        now: "Maintenant",
+        feelsLike: "Ressenti",
+        high: "Maximum",
+        weatherSummary: "Il fait frais. Pluie et vent après le dîner.",
+        weatherDetail: "Pluie après 13 h · Vent 22 km/h",
         updated: "Mis à jour il y a 12 minutes",
         recommendedOutfit: "Tenue recommandée",
         recommendedClothing: "Vêtements recommandés",
@@ -1258,6 +1326,7 @@
         showSecondChoice: "Voir mon deuxième choix",
         whyOutfit: "Pourquoi cette tenue?",
         todaysActivities: "Activités d'aujourd'hui",
+        hubDaySchedule: "Horaire du Hub pour aujourd'hui. Activité du matin et activité de l'après-midi.",
         morning: "Matin",
         afternoon: "Après-midi",
         fullDay: "Journée complète",
@@ -1332,39 +1401,39 @@
         familyCheckProgress: "Une vérification familiale a été demandée. Les choix de Doug restent sélectionnés.",
         familyCheckAnnounce: "Doug a terminé et demandé une vérification familiale. Ses choix restent sélectionnés.",
         helpRequested: "Une demande d'aide pour {topic} serait faite. Rien n'a été envoyé dans ce prototype.",
-        speechPlan: "Voici le plan de Doug. Météo : 12 degrés Celsius. Il fait frais et la pluie est probable après le dîner. Matin : Film.ca Scoob movie. Après-midi : Trafalgar Park. Porte un t-shirt doux, un pantalon confortable, un imperméable et des chaussures de marche. Apporte un parapluie, une bouteille d'eau et le sac de jour du Hub."
+        speechPlan: "Voici le plan de Doug. Il fait maintenant 12 degrés Celsius, avec un ressenti de 10 et un maximum de 15. De la pluie et du vent sont prévus après le dîner. Matin : Film.ca Scoob movie. Après-midi : Trafalgar Park. Porte un haut en coton à manches longues, un pantalon de jogging long, un imperméable léger et des chaussures de marche. Apporte un parapluie, une bouteille d'eau et le sac de jour du Hub."
       }
     };
 
     const localizedOutfits = {
       "en-CA": [
         {
-          items: ["Soft T-shirt", "Comfortable pants", "Rain jacket", "Walking shoes"],
-          reason: "Cotton touches skin and the clothing tags are removed. The soft layer is comfortable for the indoor movie. The waterproof jacket and walking shoes prepare Doug for Trafalgar Park and afternoon rain."
+          items: ["Long-sleeved cotton top", "Long jogging pants", "Light waterproof jacket", "Walking shoes"],
+          reason: "Cotton touches skin and the clothing tags are removed. The feels-like temperature is 10°C. The long top and jogging pants add warmth, while the light waterproof jacket and walking shoes prepare Doug for Trafalgar Park, wind, and afternoon rain."
         },
         {
-          items: ["Soft long-sleeve shirt", "Stretch pants", "Waterproof shell", "Running shoes"],
-          reason: "Cotton touches skin and the clothing tags are removed. This is a warmer alternative for the movie and still supports outdoor walking at Trafalgar Park."
+          items: ["Cotton T-shirt + hoodie", "Long stretch pants", "Waterproof shell", "Running shoes"],
+          reason: "Cotton touches skin and the clothing tags are removed. The removable hoodie adds warmth for the 10°C feels-like temperature and can come off indoors. The shell and running shoes support rain, wind, and outdoor walking."
         }
       ],
       "ja-JP": [
         {
-          items: ["柔らかいTシャツ", "楽なズボン", "レインジャケット", "歩きやすい靴"],
-          reason: "肌に触れる部分は綿で、服のタグは外してあります。柔らかい服は室内の映画で快適です。レインジャケットと歩きやすい靴は、Trafalgar Parkと午後の雨に合います。"
+          items: ["綿の長袖トップス", "長いジョギングパンツ", "軽い防水ジャケット", "歩きやすい靴"],
+          reason: "肌に触れる部分は綿で、服のタグは外してあります。体感温度は10°Cです。長袖とジョギングパンツで暖かさを足し、軽い防水ジャケットと歩きやすい靴でTrafalgar Park、風、午後の雨に備えます。"
         },
         {
-          items: ["柔らかい長袖シャツ", "伸びるズボン", "防水シェル", "ランニングシューズ"],
-          reason: "肌に触れる部分は綿で、服のタグは外してあります。映画には少し暖かい選択肢で、Trafalgar Parkの屋外歩行にも合います。"
+          items: ["綿Tシャツ + パーカー", "長いストレッチパンツ", "防水シェル", "ランニングシューズ"],
+          reason: "肌に触れる部分は綿で、服のタグは外してあります。脱ぎ着できるパーカーは体感温度10°Cに合い、室内では脱げます。防水シェルとランニングシューズで雨、風、屋外歩行に備えます。"
         }
       ],
       "fr-CA": [
         {
-          items: ["T-shirt doux", "Pantalon confortable", "Imperméable", "Chaussures de marche"],
-          reason: "Le coton touche la peau et les étiquettes sont retirées. La couche douce est confortable pour le film à l'intérieur. L'imperméable et les chaussures de marche préparent Doug pour Trafalgar Park et la pluie de l'après-midi."
+          items: ["Haut en coton à manches longues", "Pantalon de jogging long", "Imperméable léger", "Chaussures de marche"],
+          reason: "Le coton touche la peau et les étiquettes sont retirées. Le ressenti est de 10 °C. Le haut à manches longues et le pantalon ajoutent de la chaleur; l'imperméable léger et les chaussures de marche préparent Doug pour Trafalgar Park, le vent et la pluie."
         },
         {
-          items: ["Chandail doux à manches longues", "Pantalon extensible", "Coquille imperméable", "Chaussures de course"],
-          reason: "Le coton touche la peau et les étiquettes sont retirées. Cette option est plus chaude pour le film et convient aussi à la marche à Trafalgar Park."
+          items: ["T-shirt en coton + coton ouaté", "Pantalon extensible long", "Coquille imperméable", "Chaussures de course"],
+          reason: "Le coton touche la peau et les étiquettes sont retirées. Le coton ouaté amovible ajoute de la chaleur pour le ressenti de 10 °C et peut être retiré à l'intérieur. La coquille et les chaussures conviennent à la pluie, au vent et à la marche."
         }
       ]
     };

@@ -82,9 +82,12 @@ The fit model was described through family observation. Product decisions must a
 - If a source says only morning or afternoon, Wayfinder preserves that label rather than inventing a time.
 - My activity type contributes explainable clothing, footwear, and bring-item requirements.
 - I can see current conditions, high/low temperature, precipitation, and notable changes.
+- I can see Now, Feels like, High, rain timing, wind, and data age without interpreting a dense forecast.
+- My daily activities use the familiar Hub morning/activity and afternoon/activity quadrant after unrelated participants are removed.
 - Weather unavailability does not prevent me from seeing activities and saved wardrobe guidance.
 
 See [Weekly Schedule Import](WEEKLY_SCHEDULE_IMPORT.md) for the Doug example, review workflow, calendar publication, and future inbound email Scheduling Agent.
+See [Weather and Clothing Rules](WEATHER_CLOTHING_RULES.md) for the draft temperature bands, exposure modifiers, and wardrobe-photo validation.
 
 ### Digital wardrobe
 
