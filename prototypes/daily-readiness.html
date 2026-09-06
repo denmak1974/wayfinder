@@ -263,6 +263,12 @@
       font-size: 1.1rem;
     }
 
+    /* Past days stay selectable but are visibly receded, so the eye lands on today. */
+    .plan-date-control select option.past-option {
+      color: var(--cp-text-muted);
+      font-style: italic;
+    }
+
     .past-day-banner {
       margin: 0.6rem 0 0;
       padding: 0.65rem 0.9rem;
@@ -1638,6 +1644,8 @@
         dayYesterday: "yesterday",
         dayPast: "{count} days ago",
         pastDayNotice: "This day has already happened ({when}). It is here so you can look back at what you wore.",
+        pastDayTitle: "What you wore",
+        pastDayProgress: "This day is finished.",
         planDay: "Plan day",
         sep3Plan: "Thu, Sep 3",
         sep4Plan: "Fri, Sep 4",
@@ -1972,6 +1980,8 @@
         dayYesterday: "昨日",
         dayPast: "{count}日前",
         pastDayNotice: "この日は終わりました（{when}）。何を着たか振り返るために残しています。",
+        pastDayTitle: "着たもの",
+        pastDayProgress: "この日は終わりました。",
         planDay: "予定の日",
         sep3Plan: "9月3日 木曜",
         sep4Plan: "9月4日 金曜",
@@ -2306,6 +2316,8 @@
         dayYesterday: "hier",
         dayPast: "il y a {count} jours",
         pastDayNotice: "Cette journée est passée ({when}). Elle reste ici pour revoir ce que tu as porté.",
+        pastDayTitle: "Ce que tu as porté",
+        pastDayProgress: "Cette journée est terminée.",
         planDay: "Jour du plan",
         sep3Plan: "jeu. 3 sept.",
         sep4Plan: "ven. 4 sept.",
@@ -3327,7 +3339,8 @@
         .map((value) => {
           const label = formatDate(value, { weekday: "short", month: "short", day: "numeric" });
           const relative = dayRelativeLabel(value);
-          return `<option value="${value}">${label}${relative ? ` · ${relative}` : ""}</option>`;
+          const past = isPastDate(value);
+          return `<option value="${value}" class="${past ? "past-option" : ""}">${label}${relative ? ` · ${relative}` : ""}</option>`;
         })
         .join("");
 
@@ -3356,10 +3369,18 @@
         banner.textContent = t("pastDayNotice", { when: dayRelativeLabel(state.planDate) });
       }
       document.body.classList.toggle("viewing-past", past);
-      // A past day is a record of what was worn, so the choose and finish actions are
-      // switched off rather than inviting preparation for a day that has gone.
-      document.querySelector("#choose-outfit").disabled = past || state.outfitChosen;
-      document.querySelector("#finish-plan").disabled = past || state.familyCheckRequested;
+      // On a past day the forward-looking actions are removed rather than left visible but
+      // dead. A greyed-out button still reads as something you failed to do.
+      const chooseButton = document.querySelector("#choose-outfit");
+      const showOtherButton = document.querySelector("#show-other");
+      const finishButton = document.querySelector("#finish-plan");
+      const helpButton = document.querySelector("#ask-help");
+      chooseButton.hidden = past;
+      showOtherButton.hidden = past;
+      finishButton.hidden = past;
+      helpButton.hidden = past;
+      chooseButton.disabled = past || state.outfitChosen;
+      finishButton.disabled = past || state.familyCheckRequested;
 
       const plan = currentPlan();
       const forecast = state.weatherForecasts[state.planDate];
@@ -3577,6 +3598,11 @@
     };
 
     const renderReadyProgress = () => {
+      if (isPastDate(state.planDate)) {
+        document.querySelector("#ready-title").textContent = t("pastDayTitle");
+        document.querySelector("#progress-text").textContent = t("pastDayProgress");
+        return;
+      }
       if (state.familyCheckRequested) return;
       if (readyItems.length === 0) {
         document.querySelector("#progress-text").textContent = t("noSpecialItems");
@@ -3659,7 +3685,6 @@
       chooseOutfitButton.textContent = state.outfitChosen
         ? t("outfitChosenButton")
         : t("chooseOutfit");
-      chooseOutfitButton.disabled = state.outfitChosen || isPastDate(state.planDate);
 
       if (state.familyCheckRequested) {
         document.querySelector("#finish-plan").textContent = t("checkRequestedButton");

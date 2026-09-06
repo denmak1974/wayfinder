@@ -355,9 +355,10 @@ This matters for recommendation quality, not just data tidiness. Wide, honest ra
 A day that has already happened is still useful. It answers "what did I wear when it was like this?" and it lets a supporter check whether a recommendation actually worked. But it must never be mistaken for the day being prepared for.
 
 - Keep a day for **seven days** after it happens, then drop it.
-- Label every past day in the day picker with how long ago it was, and show a plain statement on the plan itself.
-- Open on today, or the next upcoming day. Never open on a day that has gone.
-- Disable the actions that only make sense for a day ahead, such as choosing an outfit and requesting a family check. The recommendation and the weather stay visible, because those are the record.
+- Label every past day in the day picker with how long ago it was, show it in a receded style so the eye lands on the current day, and show a plain statement on the plan itself.
+- Open on today. If the imported schedule has no entry for today, open on the next upcoming day rather than a day that has gone.
+- **Remove** the forward-looking actions on a past day rather than disabling them. A greyed-out "Choose this outfit" reads as something the person failed to do. The weather, activities, and recommendation stay visible, because those are the record.
+- Change the closing section from "You are getting ready" to "What you wore", so the whole screen agrees about what it is.
 
 ## Adding, editing, and removing clothes
 
