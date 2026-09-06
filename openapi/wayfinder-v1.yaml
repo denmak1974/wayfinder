@@ -497,11 +497,19 @@ components:
           type: [string, 'null']
           maxLength: 120
         bringItems:
+          description: Day-specific special items only. Do not repeat routine defaults such as water bottle, lunch box, or day bag.
           type: array
           maxItems: 30
           items:
             type: string
             maxLength: 80
+        routineItemExceptions:
+          description: Exceptions to default packed items, such as no lunch box because lunch is supplied.
+          type: array
+          maxItems: 20
+          items:
+            type: string
+            maxLength: 120
         activityContexts:
           type: array
           uniqueItems: true

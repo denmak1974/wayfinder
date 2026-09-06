@@ -57,7 +57,9 @@ Capability examples: `activity.read`, `activity.write`, `wardrobe.read`, `wardro
 
 ### Activity
 
-`id`, participant ID, source, external source ID, title, controlled description, start/end, time precision (`exact`, `period`, `dateOnly`), period, all-day, location label, preparation minutes, bring-items, clothing requirements, activity contexts, sensory notes, status, provenance.
+`id`, participant ID, source, external source ID, title, controlled description, start/end, time precision (`exact`, `period`, `dateOnly`), period, all-day, location label, indoor climate (`unknown`, `cooled`, `warm`, `neutral`), seated duration, preparation minutes, special items, routine-item exceptions, clothing requirements, activity contexts, sensory notes, status, provenance.
+
+Indoor climate starts as `unknown`. While it is unknown the engine may apply a documented proxy, but it must state the assumption in the explanation. A confirmed value from the participant or an authorized supporter permanently replaces the proxy.
 
 ### ScheduleSource
 
@@ -71,7 +73,7 @@ The original source can contain other people's information. Store it only in a s
 
 ### ExtractedActivity
 
-Candidate before publication: `id`, import ID, local date, exact start/end or period, raw title fragment, normalized title, location, participant-match evidence, activity contexts, bring-items, field-level confidence, provenance coordinates, review state, and linked activity ID.
+Candidate before publication: `id`, import ID, local date, exact start/end or period, raw title fragment, normalized title, location, participant-match evidence, activity contexts, special items, routine-item exceptions, field-level confidence, provenance coordinates, review state, and linked activity ID.
 
 ### CalendarConnection
 
@@ -87,9 +89,15 @@ Future inbound-agent authorization: `id`, participant ID, schedule source ID, op
 
 ### WardrobeItem
 
-`id`, participant ID, local image reference, optional synced object reference, category, layer, warmth, rain suitability, activity suitability, fabric materials, whether the garment touches skin, tag status (`unknown`, `present`, `removed`, `tagless`), sensory tags, color label, user label, favorite, classifier suggestion metadata, archived timestamp.
+`id`, participant ID, local image reference, optional source capture ID, optional source crop coordinates, optional synced object reference, category, layer, warmth, precipitation suitability, wind suitability, activity suitability, fabric materials, whether the garment touches skin, tag status (`unknown`, `present`, `removed`, `tagless`), sensory tags, color label, user label, favorite, classifier suggestion metadata, confirmation state, archived timestamp.
 
 Fabric-contact and tag-status requirements can be configured as hard constraints. A hard constraint excludes an item before outfit ranking; it is not a preference that a higher score can override.
+
+### WardrobeCaptureSession
+
+One progressive intake batch: `id`, participant ID, capture mode (`group`, `singleItem`, `tagPhoto`, `barcode`, `retailerImport`, `import`), category hint, local original reference, metadata-stripped review image reference, extracted identifier text, status, detected item count, confirmed item count, actor, created time, completed time, and transient classifier metadata.
+
+Group captures are private intake artifacts. They can be deleted after confirmed item cards are created unless the participant chooses to retain them.
 
 ### WardrobeStateEvent
 

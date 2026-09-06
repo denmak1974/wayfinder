@@ -42,7 +42,7 @@ The fit model was described through family observation. Product decisions must a
 ### Doug-derived interaction requirements
 
 1. **Preserve competence.** Begin with the assumption that Doug will complete the task himself.
-2. **Use a stable sequence.** Show weather, activities, two outfit choices, bring-items, dressing steps, then the optional check request in the same order.
+2. **Use a stable sequence.** Show weather, activities, two outfit choices, special item exceptions, dressing steps, then the optional check request in the same order.
 3. **Make the instruction concrete.** Pair short text with photos of Doug's actual clothing. Spoken playback is available but not required.
 4. **Offer two valid choices.** When today's needs differ from yesterday's pattern or a plan changes, show exactly two sensory-safe, weather-safe alternatives.
 5. **Respect self-advocacy.** Changing clothes, pointing, or repeating a short phrase may communicate a choice or objection. The interface must provide a visible way to select, reject, or ask for help without requiring a sentence.
@@ -57,7 +57,7 @@ The fit model was described through family observation. Product decisions must a
 - When I choose clothes, show options that are available, weather-suitable, activity-suitable, and sensory-compatible.
 - When today's clothing should differ from yesterday's pattern, show me two acceptable choices instead of only telling me that my choice is wrong.
 - When I have made my choice, let me say "Finished, please check" without giving someone else control of the entire routine.
-- When I leave home, help me remember required items without making me scan a long list.
+- When I leave home, show only day-specific items or exceptions so I do not scan a list of default items I already take every day.
 - When I need support, let me ask a trusted person without giving up control of my plan.
 - When I need less help over time, allow prompts to fade gradually.
 
@@ -66,6 +66,7 @@ The fit model was described through family observation. Product decisions must a
 ### Morning plan
 
 - As a participant, I can open directly to today's plan without navigating a dashboard.
+- I can choose another upcoming day so I can prepare tomorrow's clothing the previous evening.
 - I can understand each section using text plus optional icons or photos.
 - I can play a short spoken instruction without making audio mandatory.
 - I can respond through touch, pointing, changing my selection, or asking for help; speech is never required.
@@ -75,14 +76,17 @@ The fit model was described through family observation. Product decisions must a
 
 ### Activities and weather
 
-- I can add an activity using a short form with title, time, location, and bring-items.
+- I can add an activity using a short form with title, time, location, and special item exceptions.
 - I can optionally import device-calendar events after granting permission.
 - I or an authorized supporter can upload a location's weekly image, PDF, spreadsheet, or calendar file and review only my extracted activities.
+- Approved imported activities appear as selectable plan days so I can preview future clothing and special item exceptions.
+- Wayfinder keeps routine default items, such as Hub bag, water bottle, lunch box, and everyday wallet/card items, in a default-item profile instead of repeating them every day.
+- Wayfinder parses the schedule for exceptions: swimming adds swim bag, towel, and change of clothes; pizza party or hot-dog day can say no lunch box; grocery list adds the list; rain can add umbrella.
 - I can choose Wayfinder, Outlook, Google Calendar, a device calendar, or ICS as my preferred schedule destination.
 - If a source says only morning or afternoon, Wayfinder preserves that label rather than inventing a time.
-- My activity type contributes explainable clothing, footwear, and bring-item requirements.
-- I can see current conditions, high/low temperature, precipitation, and notable changes.
-- I can see Now, Feels like, High, rain timing, wind, and data age without interpreting a dense forecast.
+- My activity type contributes explainable clothing, footwear, and special item requirements.
+- I can see Low, High, rain timing, and only weather details that change what I should wear or bring.
+- When I choose a future day, Wayfinder loads that day's public forecast when available and clearly says when it cannot.
 - My daily activities use the familiar Hub morning/activity and afternoon/activity quadrant after unrelated participants are removed.
 - Weather unavailability does not prevent me from seeing activities and saved wardrobe guidance.
 
@@ -91,7 +95,10 @@ See [Weather and Clothing Rules](WEATHER_CLOTHING_RULES.md) for the draft temper
 
 ### Digital wardrobe
 
-- I can photograph or select a photo of clothing and confirm the suggested category.
+- I can start quickly from a few group wardrobe photos, then confirm cropped item cards over time.
+- I can photograph or select one item when I need a clearer card, but individual retakes are not required for initial setup.
+- I can use a clothing tag photo, barcode/SKU, or retailer receipt/order as optional helpers only when they produce useful garment details or a recognizable image.
+- I can reuse a saved clothing card without taking a new photo each time the item appears in an outfit.
 - I can record category, warmth, rain suitability, formality, sensory tags, fabric touching skin, tag status, and preferred combinations.
 - I can mark an item available, in laundry, wet, damaged, or unavailable.
 - Recommendations exclude unavailable items and explain each choice in plain language.
@@ -163,16 +170,17 @@ See [Weather and Clothing Rules](WEATHER_CLOTHING_RULES.md) for the draft temper
 | WF-001 | P0 | Co-design | Recruit a paid advisory group of neurodiverse adults | Decisions reflect lived experience |
 | WF-002 | P0 | Research | Baseline morning comprehension, confidence, and prompt count | Measures actual independence change |
 | WF-010 | P0 | Plan | Render today's five-section plan | Person immediately understands today |
+| WF-010A | P0 | Plan | Select an upcoming plan date | Person can preview tomorrow's activities, weather, outfit, and special item exceptions before the day starts |
 | WF-011 | P0 | Plan | Complete, swap, and ask-for-help actions | Person can act and recover independently |
 | WF-012 | P0 | Plan | Explain why each recommendation appears | Reduces uncertainty and builds trust |
-| WF-020 | P0 | Activities | Create/edit daily activities and bring-items | Plan works without integrations |
+| WF-020 | P0 | Activities | Create/edit daily activities and special item exceptions | Plan works without integrations |
 | WF-021 | P1 | Activities | Read-only device-calendar connector | Reduces duplicate setup |
 | WF-022 | P0 | Activities | Import and review a participant's rows from a weekly location schedule | Removes repeated schedule interpretation and copying |
 | WF-023 | P1 | Activities | Publish approved activities to the preferred calendar without duplicates | Keeps the person's existing planning system current |
 | WF-024 | P1 | Activities | Convert activity context into clothing and bring-item constraints | Prepares the person for what they will actually do |
 | WF-025 | P2 | Automation | Receive trusted location schedules through a participant-controlled email agent | Removes recurring supporter administration |
 | WF-030 | P0 | Weather | Provider adapter, cache, and stale-state UI | Weather informs preparation without fragility |
-| WF-040 | P0 | Wardrobe | Capture photo and confirm attributes | Builds usable personal wardrobe |
+| WF-040 | P0 | Wardrobe | Capture group photos, crop item cards, and confirm attributes progressively | Builds a usable personal wardrobe without requiring an onerous photo session |
 | WF-041 | P0 | Wardrobe | Availability and laundry state | Avoids impossible recommendations |
 | WF-042 | P0 | Wardrobe | Saved outfit templates | Reduces repeated decisions |
 | WF-043 | P0 | Wardrobe | Enforce fabric-contact and tag-status constraints | Prevents unusable or distressing clothing recommendations |
@@ -237,7 +245,7 @@ Measure within the same person over time; do not compare people competitively.
 
 | Measure | MVP target |
 | --- | --- |
-| Four-answer comprehension | At least 80% of mornings: participant correctly identifies today, outfit, bring-items, and expectations |
+| Four-answer comprehension | At least 80% of mornings: participant correctly identifies today, outfit, special items or exceptions, and expectations |
 | Prompt reduction | At least 25% fewer supporter prompts from the participant's baseline |
 | Independent start | At least 20% improvement in mornings started without direct supporter intervention |
 | Confidence | Participant-selected confidence improves by at least 1 point on a 5-point visual scale |

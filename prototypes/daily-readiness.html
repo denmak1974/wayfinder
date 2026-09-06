@@ -263,6 +263,25 @@
       font-size: 1.1rem;
     }
 
+    .plan-date-control {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 1rem;
+      font-weight: 650;
+    }
+
+    .plan-date-control select {
+      min-height: 3rem;
+      border: 2px solid var(--cp-border-strong);
+      border-radius: 0.625rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+      font-weight: 650;
+    }
+
     .change-notice {
       display: flex;
       gap: 0.75rem;
@@ -320,7 +339,7 @@
 
     .weather-metrics {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0.5rem;
     }
 
@@ -419,6 +438,7 @@
 
     .garment {
       display: grid;
+      gap: 0.5rem;
       min-height: 7rem;
       place-items: center;
       padding: 0.75rem;
@@ -427,6 +447,14 @@
       background: var(--cp-surface-soft);
       text-align: center;
       font-weight: 650;
+    }
+
+    .garment-photo {
+      width: 100%;
+      height: 8rem;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      background: var(--cp-surface);
     }
 
     .garment svg {
@@ -559,7 +587,8 @@
       width: min(96vw, 62rem);
     }
 
-    .schedule-step {
+    .schedule-step,
+    .wardrobe-step {
       margin-top: 1.25rem;
       padding: 1rem;
       border: 1px solid var(--cp-border);
@@ -567,12 +596,14 @@
       background: var(--cp-bg-elevated);
     }
 
-    .schedule-step h3 {
+    .schedule-step h3,
+    .wardrobe-step h3 {
       margin: 0 0 0.5rem;
       font-size: 1.15rem;
     }
 
-    .schedule-source {
+    .schedule-source,
+    .wardrobe-source {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
@@ -587,6 +618,19 @@
       border-radius: 0.625rem;
       background: var(--cp-surface);
       color: var(--cp-text);
+    }
+
+    .schedule-preview {
+      margin: 0.75rem 0 0;
+    }
+
+    .schedule-preview img {
+      width: 100%;
+      max-height: 18rem;
+      object-fit: contain;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
     }
 
     .import-status {
@@ -639,6 +683,268 @@
       color: var(--cp-text);
       font-size: 0.85rem;
       font-weight: 650;
+    }
+
+    .wardrobe-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin: 0.75rem 0;
+    }
+
+    .wardrobe-flow-step {
+      padding: 0.75rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+    }
+
+    .wardrobe-flow-step strong,
+    .wardrobe-flow-step span {
+      display: block;
+    }
+
+    .wardrobe-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .wardrobe-card {
+      display: grid;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+    }
+
+    .crop-preview {
+      display: grid;
+      min-height: 5.5rem;
+      place-items: center;
+      border: 2px dashed var(--cp-border-strong);
+      border-radius: 0.625rem;
+      background: var(--cp-surface-soft);
+      color: var(--cp-text-muted);
+      font-weight: 750;
+    }
+
+    .crop-preview img {
+      width: 100%;
+      height: 5.5rem;
+      object-fit: contain;
+      border-radius: 0.5rem;
+    }
+
+    .add-item-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .add-item-grid label {
+      display: grid;
+      gap: 0.35rem;
+      font-weight: 650;
+    }
+
+    .add-item-grid input[type="text"],
+    .add-item-grid select {
+      min-height: 3rem;
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0.625rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+    }
+
+    .add-item-flags {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .custom-item-list {
+      display: grid;
+      gap: 0.5rem;
+      margin: 0.5rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .custom-item-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+    }
+
+    .burst-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .burst-button {
+      display: grid;
+      min-height: 4.5rem;
+      place-items: center;
+      padding: 0.75rem;
+      border: 2px solid var(--cp-border-strong);
+      border-radius: 0.75rem;
+      background: var(--cp-surface);
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .burst-button.primary {
+      border-color: var(--cp-accent);
+      background: var(--cp-accent);
+      color: var(--cp-accent-fg);
+    }
+
+    .burst-button input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    .burst-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+      gap: 0.75rem;
+      margin: 0.75rem 0;
+    }
+
+    .burst-card {
+      display: grid;
+      gap: 0.4rem;
+      padding: 0.6rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+    }
+
+    .burst-card img {
+      width: 100%;
+      height: 8rem;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      background: var(--cp-surface-soft);
+    }
+
+    .burst-card input,
+    .burst-card select {
+      min-height: 2.75rem;
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0.5rem;
+      padding: 0.35rem 0.5rem;
+      background: var(--cp-surface);
+      color: var(--cp-text);
+      font-size: 0.95rem;
+    }
+
+    .burst-card .needs-check {
+      border-color: var(--cp-warning);
+    }
+
+    .warmth-fieldset {
+      margin: 0 0 0.75rem;
+      padding: 0.75rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+    }
+
+    .warmth-fieldset legend {
+      padding: 0 0.35rem;
+      font-weight: 650;
+    }
+
+    .warmth-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .warmth-chip {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      min-height: 2.75rem;
+      padding: 0.4rem 0.7rem;
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 999px;
+      background: var(--cp-surface);
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+
+    .warmth-chip:has(input:checked) {
+      border-color: var(--cp-accent);
+      background: var(--cp-accent-soft);
+      font-weight: 650;
+    }
+
+    .warmth-chip input {
+      width: 1.15rem;
+      height: 1.15rem;
+      accent-color: var(--cp-accent);
+    }
+
+    .item-actions {
+      display: flex;
+      flex: none;
+      gap: 0.5rem;
+    }
+
+    .wizard-steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin: 0 0 0.75rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .wizard-steps li {
+      padding: 0.6rem 0.7rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
+      font-size: 0.9rem;
+    }
+
+    .wizard-steps li strong,
+    .wizard-steps li span {
+      display: block;
+    }
+
+    .wizard-steps li.is-current {
+      border-color: var(--cp-accent);
+      background: var(--cp-accent-soft);
+    }
+
+    .wizard-steps li.is-done {
+      opacity: 0.65;
+    }
+
+    .wizard-panel {
+      padding: 0.85rem;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface);
     }
 
     .destination-select {
@@ -717,6 +1023,18 @@
         grid-column: 2;
       }
 
+      .wardrobe-flow,
+      .wardrobe-card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wizard-steps,
+      .add-item-grid,
+      .add-item-flags,
+      .burst-actions {
+        grid-template-columns: 1fr;
+      }
+
       .settings-button .compact-label {
         position: absolute;
         width: 1px;
@@ -766,6 +1084,9 @@
         <button class="primary-button" id="open-schedule" type="button" aria-haspopup="dialog" data-i18n="addWeeklySchedule">
           Add weekly schedule
         </button>
+        <button class="secondary-button" id="open-wardrobe" type="button" aria-haspopup="dialog" data-i18n="addWardrobe">
+          Add wardrobe
+        </button>
         <button class="settings-button" id="open-settings" type="button" aria-haspopup="dialog">
           <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="3"></circle>
@@ -781,6 +1102,17 @@
         <p class="eyebrow" data-i18n="dailyPlan">Your daily readiness plan</p>
         <h1 id="page-title" data-i18n="goodMorning">Good morning, Doug</h1>
         <p class="date-line" id="today-date">Thursday, September 3</p>
+        <label class="plan-date-control" for="plan-date">
+          <span data-i18n="planDay">Plan day</span>
+          <select id="plan-date">
+            <option value="2026-09-03" data-i18n="sep3Plan">Thu, Sep 3</option>
+            <option value="2026-09-04" data-i18n="sep4Plan">Fri, Sep 4</option>
+            <option value="2026-09-08">Tue, Sep 8</option>
+            <option value="2026-09-09">Wed, Sep 9</option>
+            <option value="2026-09-10">Thu, Sep 10</option>
+            <option value="2026-09-11">Fri, Sep 11</option>
+          </select>
+        </label>
         <div class="change-notice" role="status">
           <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 9v4m0 4h.01"></path>
@@ -804,19 +1136,15 @@
           </div>
           <div class="weather-metrics" aria-label="Today's temperatures" data-i18n-aria-label="temperatureSummary">
             <div class="weather-metric">
-              <span data-i18n="now">Now</span>
-              <strong>12°C</strong>
-            </div>
-            <div class="weather-metric">
-              <span data-i18n="feelsLike">Feels like</span>
-              <strong>10°C</strong>
+              <span data-i18n="low">Low</span>
+              <strong id="weather-low">10°C</strong>
             </div>
             <div class="weather-metric">
               <span data-i18n="high">High</span>
-              <strong>15°C</strong>
+              <strong id="weather-high">15°C</strong>
             </div>
           </div>
-          <p class="weather-summary" data-i18n="weatherSummary">Cool now. Rain and wind after lunch.</p>
+          <p class="weather-summary" data-i18n="weatherSummary">Low 10°C. High 15°C. Rain after lunch.</p>
           <p class="optional-detail muted" data-i18n="weatherDetail">Rain after 1:00 PM · Wind 22 km/h</p>
           <p class="source-line" data-i18n="updated">Updated 12 minutes ago</p>
         </section>
@@ -833,25 +1161,29 @@
 
           <div class="outfit-visual" id="outfit-visual" aria-label="Recommended clothing" data-i18n-aria-label="recommendedClothing">
             <div class="garment">
+              <img class="garment-photo" src="../../wayfinder-private/poc-assets/wardrobe/1. Tops/20260905_144632312_iOS.jpg" alt="Long-sleeved cotton top" onload="this.nextElementSibling.hidden = true" onerror="this.hidden = true">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3a4 4 0 0 1-8 0Z"></path>
               </svg>
               <span>Long-sleeved cotton top</span>
             </div>
             <div class="garment">
+              <img class="garment-photo" src="../../wayfinder-private/poc-assets/wardrobe/2. Bottoms/Spring & Fall pants.jpg" alt="Long jogging pants" onload="this.nextElementSibling.hidden = true" onerror="this.hidden = true">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M8 3h8l1 18h-5l-1-11-1 11H5L8 3Z"></path>
               </svg>
               <span>Long jogging pants</span>
             </div>
             <div class="garment">
+              <img class="garment-photo" src="../../wayfinder-private/poc-assets/wardrobe/3. Outerwear/Light windbreaker 2.jpg" alt="Light jacket" onload="this.nextElementSibling.hidden = true" onerror="this.hidden = true">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m8 4-5 3 2 4 3-1v10h8V10l3 1 2-4-5-3"></path>
                 <path d="M12 4v16"></path>
               </svg>
-              <span>Light waterproof jacket</span>
+              <span>Light jacket</span>
             </div>
             <div class="garment">
+              <img class="garment-photo" src="../../wayfinder-private/poc-assets/wardrobe/4. Footwear/Hiking and Walking shoes (Merrell).jpg" alt="Walking shoes" onload="this.nextElementSibling.hidden = true" onerror="this.hidden = true">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M4 13c3 0 5-2 6-6l3 4c2 2 4 3 7 3v5H4v-6Z"></path>
               </svg>
@@ -859,7 +1191,7 @@
             </div>
           </div>
 
-          <p id="outfit-summary" data-i18n-html="outfitReady"><strong>Ready to wear:</strong> All four items are available.</p>
+          <p id="outfit-summary"><strong>Ready to wear:</strong> All items are available.</p>
           <p data-i18n-html="sensoryCheck"><strong>Sensory check:</strong> Cotton touches skin. Clothing tags are removed.</p>
           <div class="outfit-actions">
             <button class="primary-button" id="choose-outfit" type="button" data-i18n="chooseOutfit">Choose this outfit</button>
@@ -867,7 +1199,7 @@
           </div>
           <details class="optional-detail">
             <summary data-i18n="whyOutfit">Why this outfit?</summary>
-            <p id="outfit-reason">The feels-like temperature is 10°C. The long cotton top and jogging pants add warmth, while the light waterproof jacket and walking shoes prepare Doug for Trafalgar Park, wind, and afternoon rain.</p>
+            <p id="outfit-reason">The low is 10°C and rain is expected after lunch. The long cotton top, jogging pants, light jacket, and walking shoes fit today's Hub activities.</p>
           </details>
         </section>
 
@@ -884,13 +1216,13 @@
           <div class="hub-day-grid" role="table" aria-label="Hub schedule for today" data-i18n-aria-label="hubDaySchedule">
             <div class="hub-period" role="rowheader" data-i18n="morning">Morning</div>
             <div class="hub-activity" role="cell">
-              <strong>Film.ca Scoob movie</strong>
-              <span class="muted" data-i18n="movieContext">Indoor seated activity · Hub schedule</span>
+              <strong id="morning-activity">Film.ca Scoob movie</strong>
+              <span class="muted" id="morning-context">Indoor seated activity · Hub schedule</span>
             </div>
             <div class="hub-period" role="rowheader" data-i18n="afternoon">Afternoon</div>
             <div class="hub-activity" role="cell">
-              <strong>Trafalgar Park</strong>
-              <span class="muted" data-i18n="parkContext">Outdoor walking · Hub schedule</span>
+              <strong id="afternoon-activity">Trafalgar Park</strong>
+              <span class="muted" id="afternoon-context">Outdoor walking · Hub schedule</span>
             </div>
           </div>
         </section>
@@ -903,28 +1235,9 @@
                 <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
               </svg>
             </span>
-            <h2 id="bring-title" data-i18n="bringWithYou">Bring with you</h2>
+            <h2 id="bring-title" data-i18n="bringWithYou">Special items today</h2>
           </div>
-          <ul class="bring-list">
-            <li>
-              <label class="check-row">
-                <input type="checkbox" data-ready-item="Umbrella">
-                <span><strong data-i18n="umbrella">Umbrella</strong><br><span class="muted optional-detail" data-i18n="rainAfterLunch">Rain after lunch</span></span>
-              </label>
-            </li>
-            <li>
-              <label class="check-row">
-                <input type="checkbox" data-ready-item="Water bottle">
-                <span><strong data-i18n="waterBottle">Water bottle</strong><br><span class="muted optional-detail" data-i18n="waterReason">Suggested for Trafalgar Park</span></span>
-              </label>
-            </li>
-            <li>
-              <label class="check-row">
-                <input type="checkbox" data-ready-item="Hub day bag">
-                <span><strong data-i18n="dayBag">Hub day bag</strong><br><span class="muted optional-detail" data-i18n="bagReason">Keep your day items together</span></span>
-              </label>
-            </li>
-          </ul>
+          <ul class="bring-list" id="bring-list"></ul>
         </section>
 
         <section class="plan-card notes-card" aria-labelledby="notes-title">
@@ -943,7 +1256,7 @@
 
       <section class="status-summary" aria-labelledby="ready-title">
         <h2 id="ready-title" data-i18n="gettingReady">You are getting ready</h2>
-        <p id="progress-text" aria-live="polite">0 of 3 bring-items are ready.</p>
+        <p id="progress-text" aria-live="polite">No special items today.</p>
         <div class="footer-actions">
           <button class="primary-button" id="finish-plan" type="button" data-i18n="finishedCheck">Finished, please check</button>
           <button class="quiet-button" id="ask-help" type="button" data-i18n="wantHelp">I want help with one part</button>
@@ -982,7 +1295,7 @@
       <div class="outfit-actions">
         <button class="secondary-button help-choice" type="button" data-help-key="helpOutfit" data-i18n="helpOutfit">Outfit</button>
         <button class="secondary-button help-choice" type="button" data-help-key="helpActivities" data-i18n="helpActivities">Activities</button>
-        <button class="secondary-button help-choice" type="button" data-help-key="helpBring" data-i18n="helpBring">Bring-items</button>
+        <button class="secondary-button help-choice" type="button" data-help-key="helpBring" data-i18n="helpBring">Special items</button>
       </div>
       <div class="dialog-actions">
         <button class="primary-button" id="close-help" type="button" data-i18n="close">Close</button>
@@ -1000,8 +1313,12 @@
         <div class="schedule-source">
           <input class="file-input" id="schedule-file" type="file" accept=".png,.jpg,.jpeg,.pdf,.csv,.xlsx,.ics">
           <button class="secondary-button" id="use-hub-example" type="button" data-i18n="useHubExample">Use Hub example</button>
+          <button class="secondary-button" id="use-sep8-example" type="button" data-i18n="useSep8Example">Use Sep. 8 screenshot</button>
         </div>
         <p class="muted" data-i18n="sourceHelp">Wayfinder prefers ICS or spreadsheets, but can process a photo or PDF. The production version deletes unrelated participant rows after filtering.</p>
+        <figure class="schedule-preview optional-detail">
+          <img src="../../wayfinder-private/poc-assets/Schedules/Sep 8 Schedule HUB.jpg" alt="Sep. 8 Hub schedule screenshot" onerror="this.closest('figure').hidden = true">
+        </figure>
         <p class="import-status" id="import-status" role="status">Hub schedule example loaded. Doug was found in 9 activities across 5 days.</p>
       </section>
 
@@ -1083,6 +1400,211 @@
     </div>
   </dialog>
 
+  <dialog class="settings-panel schedule-panel" id="wardrobe-dialog" aria-labelledby="wardrobe-title">
+    <div class="dialog-inner">
+      <h2 id="wardrobe-title" data-i18n="wardrobeTitle">Set up Doug's wardrobe</h2>
+      <p class="muted" data-i18n="wardrobeIntro">Start from group photos. Wayfinder suggests reusable item cards; retake individual photos only when a card is unclear.</p>
+
+      <section class="wardrobe-step" aria-labelledby="wardrobe-source-title">
+        <h3 id="wardrobe-source-title" data-i18n="chooseWardrobePhotos">1. Choose group wardrobe photos</h3>
+        <div class="wardrobe-source">
+          <input class="file-input" id="wardrobe-file" type="file" accept="image/*" multiple>
+          <button class="secondary-button" id="use-wardrobe-example" type="button" data-i18n="useWardrobeExample">Use Doug group-photo example</button>
+        </div>
+        <p class="muted" data-i18n="wardrobeFileHelp">Take a few category photos: tops, pants, jackets, shoes, socks, and sportswear. One perfect photo per item is not required.</p>
+        <p class="import-status" id="wardrobe-status" role="status">Doug group-photo example loaded. Wayfinder found 18 possible item cards.</p>
+      </section>
+
+      <section class="wardrobe-step" aria-labelledby="wardrobe-review-title">
+        <h3 id="wardrobe-review-title" data-i18n="reviewWardrobeCards">2. Review reusable clothing cards</h3>
+        <p class="muted" data-i18n="wardrobeReviewHelp">Confirm the crop, plain-language label, warmth, fabric, tag status, and sensory notes. Leave unknowns visible instead of guessing.</p>
+        <div class="wardrobe-card-grid" aria-label="Suggested wardrobe cards" data-i18n-aria-label="suggestedWardrobeCards">
+          <div class="wardrobe-card">
+            <div class="crop-preview" aria-hidden="true"><img src="../../wayfinder-private/poc-assets/wardrobe/1. Tops/20260905_144632312_iOS.jpg" alt=""><span data-i18n="cropTop">Crop</span></div>
+            <strong data-i18n="cardLongTop">Long cotton top</strong>
+            <span class="context-chip" data-i18n="confirmedCotton">Cotton touching skin</span>
+          </div>
+          <div class="wardrobe-card">
+            <div class="crop-preview" aria-hidden="true"><img src="../../wayfinder-private/poc-assets/wardrobe/2. Bottoms/Spring & Fall pants.jpg" alt=""><span data-i18n="cropPants">Crop</span></div>
+            <strong data-i18n="cardJoggingPants">Long jogging pants</strong>
+            <span class="context-chip" data-i18n="confirmedWarmth">Warmth: medium</span>
+          </div>
+          <div class="wardrobe-card">
+            <div class="crop-preview" aria-hidden="true"><img src="../../wayfinder-private/poc-assets/wardrobe/3. Outerwear/Light windbreaker 2.jpg" alt=""><span data-i18n="cropJacket">Crop</span></div>
+            <strong data-i18n="cardRainJacket">Light jacket</strong>
+            <span class="context-chip" data-i18n="confirmedRain">Rain suitable</span>
+          </div>
+          <div class="wardrobe-card">
+            <div class="crop-preview" aria-hidden="true"><img src="../../wayfinder-private/poc-assets/wardrobe/4. Footwear/Hiking and Walking shoes (Merrell).jpg" alt=""><span data-i18n="cropShoes">Crop</span></div>
+            <strong data-i18n="cardWalkingShoes">Walking shoes</strong>
+            <span class="context-chip" data-i18n="confirmedWalking">Outdoor walking</span>
+          </div>
+          <div class="wardrobe-card">
+            <div class="crop-preview" aria-hidden="true"><img src="../../wayfinder-private/poc-assets/wardrobe/1. Tops/20260905_144331910_iOS.jpg" alt=""><span data-i18n="cropShirt">Crop</span></div>
+            <strong data-i18n="cardCottonTshirt">Cotton T-shirt</strong>
+            <span class="context-chip" data-i18n="confirmedCotton">Cotton touching skin</span>
+          </div>
+          <div class="wardrobe-card">
+            <div class="crop-preview" aria-hidden="true"><img src="../../wayfinder-private/poc-assets/wardrobe/4. Footwear/Running and Sports Shoes (Asics).jpg" alt=""><span data-i18n="retakeIfNeeded">Retake?</span></div>
+            <strong data-i18n="cardRunningShoes">Running shoes</strong>
+            <span class="context-chip" data-i18n="retakeOnlyThis">Retake only this one</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="wardrobe-step agent-note" aria-labelledby="wardrobe-reuse-title">
+        <h3 id="wardrobe-reuse-title" data-i18n="reuseWardrobeTitle">3. Save once, reuse daily</h3>
+        <div class="wardrobe-flow" aria-label="Wardrobe capture flow" data-i18n-aria-label="wardrobeCaptureFlow">
+          <div class="wardrobe-flow-step"><strong data-i18n="flowGroupPhotos">Group photos</strong><span class="muted" data-i18n="flowGroupHelp">Fast inventory setup</span></div>
+          <div class="wardrobe-flow-step"><strong data-i18n="flowItemCards">Reusable cards</strong><span class="muted" data-i18n="flowCardsHelp">Crop and confirm over time</span></div>
+          <div class="wardrobe-flow-step"><strong data-i18n="flowDailyPlan">Daily plan</strong><span class="muted" data-i18n="flowPlanHelp">No new photo needed</span></div>
+        </div>
+        <p data-i18n="reuseWardrobeDescription">The saved card becomes the source of truth. Wayfinder asks for a new photo only when the user chooses to improve a confusing or changed item.</p>
+      </section>
+
+      <section class="wardrobe-step" aria-labelledby="add-item-title">
+        <h3 id="add-item-title" data-i18n="addItemTitle">4. Add clothes</h3>
+        <p class="muted" data-i18n="burstHelp">Stand at the closet and keep shooting. Photograph the tag if there is one, then the garment. Sort everything out at the end.</p>
+
+        <div class="burst-actions">
+          <label class="burst-button">
+            <span data-i18n="burstShootTag">Photograph tag</span>
+            <input id="burst-tag" type="file" accept="image/*" capture="environment">
+          </label>
+          <label class="burst-button primary">
+            <span data-i18n="burstShootItem">Photograph clothing</span>
+            <input id="burst-item" type="file" accept="image/*" capture="environment" multiple>
+          </label>
+        </div>
+        <p class="muted" data-i18n="burstNoTagHelp">No tag? Just photograph the clothing. You can shoot several at once.</p>
+        <p class="import-status" id="burst-status" role="status" hidden></p>
+
+        <div id="burst-review" hidden>
+          <h4 data-i18n="burstReviewTitle">Check these before saving</h4>
+          <p class="muted" data-i18n="burstReviewHelp">Wayfinder filled these in. Change anything that looks wrong.</p>
+          <div class="burst-grid" id="burst-grid"></div>
+          <div class="outfit-actions">
+            <button class="primary-button" id="burst-save" type="button" data-i18n="burstSave">Save all to wardrobe</button>
+            <button class="quiet-button" id="burst-discard" type="button" data-i18n="burstDiscard">Discard</button>
+          </div>
+        </div>
+
+        <details class="optional-detail" id="single-item-details">
+          <summary data-i18n="singleItemToggle">Add one item with full details</summary>
+
+        <ol class="wizard-steps" id="wizard-steps">
+          <li data-step="1"><strong data-i18n="wizStep1">1. Scan barcode</strong><span class="muted" data-i18n="wizStep1Help">Fastest if the tag is still on</span></li>
+          <li data-step="2"><strong data-i18n="wizStep2">2. Photograph tag</strong><span class="muted" data-i18n="wizStep2Help">Reads fabric and care text</span></li>
+          <li data-step="3"><strong data-i18n="wizStep3">3. Confirm details</strong><span class="muted" data-i18n="wizStep3Help">You always approve</span></li>
+          <li data-step="4"><strong data-i18n="wizStep4">4. Add a photo</strong><span class="muted" data-i18n="wizStep4Help">Optional</span></li>
+        </ol>
+
+        <div class="wizard-panel" data-wizard-panel="1">
+          <div class="wardrobe-source">
+            <button class="secondary-button" id="wiz-scan" type="button" data-i18n="wizScanAction">Scan barcode or QR code</button>
+            <button class="quiet-button" id="wiz-skip-scan" type="button" data-i18n="wizSkipScan">No barcode — photograph the tag</button>
+          </div>
+          <p class="muted" data-i18n="wizScanHelp">A barcode is used only when it identifies the exact garment. RN numbers are not used, because they identify the maker and not the item.</p>
+        </div>
+
+        <div class="wizard-panel" data-wizard-panel="2" hidden>
+          <div class="wardrobe-source">
+            <input class="file-input" id="wiz-tag-photo" type="file" accept="image/*" capture="environment">
+            <button class="quiet-button" id="wiz-skip-tag" type="button" data-i18n="wizSkipTag">No tag — enter it myself</button>
+          </div>
+          <p class="muted" data-i18n="wizTagHelp">Wayfinder reads the text on the tag and suggests the fabric, warmth, and care details.</p>
+        </div>
+
+        <div class="wizard-panel" data-wizard-panel="3" hidden>
+          <p class="import-status" id="wiz-source-note" role="status"></p>
+          <div class="add-item-grid">
+            <label>
+              <span data-i18n="addItemName">Name</span>
+              <input id="new-item-name" type="text" placeholder="For example: green rain jacket" data-i18n-placeholder="addItemNamePlaceholder">
+            </label>
+            <label>
+              <span data-i18n="addItemType">Type</span>
+              <select id="new-item-slot">
+                <option value="baseTop" data-i18n="slotBaseTop">Top</option>
+                <option value="bottom" data-i18n="slotBottom">Pants or shorts</option>
+                <option value="outer" data-i18n="slotOuter">Jacket or outer layer</option>
+                <option value="footwear" data-i18n="slotFootwear">Shoes or boots</option>
+                <option value="socks" data-i18n="slotSocks">Socks</option>
+                <option value="accessory" data-i18n="slotAccessory">Accessory</option>
+              </select>
+            </label>
+            <label>
+              <span data-i18n="addItemFabric">Fabric</span>
+              <input id="new-item-fabric" type="text" placeholder="For example: cotton" data-i18n-placeholder="addItemFabricPlaceholder">
+            </label>
+          </div>
+          <fieldset class="warmth-fieldset" id="new-item-warmth">
+            <legend data-i18n="addItemWarmth">Good for these days</legend>
+            <p class="muted" data-i18n="warmthMultiHelp">Choose every kind of day this works for.</p>
+            <div class="warmth-chips">
+              <label class="warmth-chip"><input type="checkbox" data-warmth-band value="cold"><span data-i18n="band_cold">Cold (below 3°C)</span></label>
+              <label class="warmth-chip"><input type="checkbox" data-warmth-band value="cool"><span data-i18n="band_cool">Cool (2 to 12°C)</span></label>
+              <label class="warmth-chip"><input type="checkbox" data-warmth-band value="mild" checked><span data-i18n="band_mild">Mild (10 to 20°C)</span></label>
+              <label class="warmth-chip"><input type="checkbox" data-warmth-band value="warm"><span data-i18n="band_warm">Warm (18 to 28°C)</span></label>
+              <label class="warmth-chip"><input type="checkbox" data-warmth-band value="hot"><span data-i18n="band_hot">Hot (25°C and up)</span></label>
+            </div>
+          </fieldset>
+          <div class="add-item-flags">
+            <label class="check-row"><input id="new-item-water" type="checkbox"><span data-i18n="flagWater">Keeps rain out</span></label>
+            <label class="check-row"><input id="new-item-wind" type="checkbox"><span data-i18n="flagWind">Blocks wind</span></label>
+            <label class="check-row"><input id="new-item-snow" type="checkbox"><span data-i18n="flagSnow">Good for snow and ice</span></label>
+            <label class="check-row"><input id="new-item-active" type="checkbox"><span data-i18n="flagActive">Good for exercise</span></label>
+          </div>
+          <div class="outfit-actions">
+            <button class="primary-button" id="wiz-confirm" type="button" data-i18n="wizConfirm">Confirm and continue</button>
+            <button class="secondary-button" id="wiz-save-now" type="button" hidden data-i18n="saveChanges">Save changes</button>
+          </div>
+        </div>
+
+        <div class="wizard-panel" data-wizard-panel="4" hidden>
+          <div class="wardrobe-source">
+            <input class="file-input" id="new-item-photo" type="file" accept="image/*" capture="environment">
+          </div>
+          <p class="muted" data-i18n="wizPhotoHelp">A photo is optional but helps Doug recognize the item.</p>
+          <div class="outfit-actions">
+            <button class="primary-button" id="add-wardrobe-item" type="button" data-i18n="addItemSave">Add to wardrobe</button>
+            <button class="quiet-button" id="wiz-restart" type="button" data-i18n="wizStartOver">Start over</button>
+          </div>
+        </div>
+
+        </details>
+
+        <p class="import-status" id="add-item-status" role="status" hidden></p>
+      </section>
+
+      <section class="wardrobe-step" aria-labelledby="manage-items-title">
+        <h3 id="manage-items-title" data-i18n="manageItemsTitle">5. Change or remove clothes</h3>
+        <p class="muted" data-i18n="manageItemsHelp">Pick a category, then edit or remove an item. Removing hides it from recommendations; nothing is deleted permanently.</p>
+        <label class="plan-date-control" for="manage-category">
+          <span data-i18n="manageCategory">Category</span>
+          <select id="manage-category">
+            <option value="baseTop" data-i18n="slotBaseTop">Top</option>
+            <option value="bottom" data-i18n="slotBottom">Pants or shorts</option>
+            <option value="outer" data-i18n="slotOuter">Jacket or outer layer</option>
+            <option value="footwear" data-i18n="slotFootwear">Shoes or boots</option>
+            <option value="socks" data-i18n="slotSocks">Socks</option>
+            <option value="accessory" data-i18n="slotAccessory">Accessory</option>
+          </select>
+        </label>
+        <ul class="custom-item-list" id="manage-item-list"></ul>
+        <p class="muted" id="archived-note" hidden></p>
+        <div class="outfit-actions">
+          <button class="quiet-button" id="restore-archived" type="button" hidden data-i18n="restoreRemoved">Put removed items back</button>
+        </div>
+      </section>
+
+      <div class="dialog-actions">
+        <button class="quiet-button" id="close-wardrobe" type="button" data-i18n="cancel">Cancel</button>
+        <button class="primary-button" id="save-wardrobe" type="button" data-i18n="saveWardrobeCards">Save 5 reusable cards</button>
+      </div>
+    </div>
+  </dialog>
+
   <script>
     const messages = {
       "en-CA": {
@@ -1091,23 +1613,194 @@
         prototypeNote: "Interactive concept using a privacy-minimized Doug example. No data leaves this page.",
         language: "Language",
         addWeeklySchedule: "Add weekly schedule",
+        addWardrobe: "Add wardrobe",
         displaySettings: "Display settings",
         dailyPlan: "Your daily readiness plan",
-        goodMorning: "Good morning, Doug",
+        goodMorning: "Doug's plan",
+        planDay: "Plan day",
+        sep3Plan: "Thu, Sep 3",
+        sep4Plan: "Fri, Sep 4",
         hubReady: "<strong>Your Hub schedule is ready:</strong> You have a movie this morning and Trafalgar Park this afternoon. Rain may start after lunch.",
-        readPlan: "Read today's plan aloud",
+        readPlan: "Read plan aloud",
         stopReading: "Stop reading",
         weather: "Weather",
         degreesCelsius: "degrees Celsius",
-        temperatureSummary: "Now 12 degrees Celsius. Feels like 10. High 15.",
+        temperatureSummary: "Low 10 degrees Celsius. High 15.",
+        low: "Low",
         now: "Now",
         feelsLike: "Feels like",
         high: "High",
-        weatherSummary: "Cool now. Rain and wind after lunch.",
+        weatherSummary: "Low 10°C. High 15°C. Rain after lunch.",
         weatherDetail: "Rain after 1:00 PM · Wind 22 km/h",
         updated: "Updated 12 minutes ago",
+        loadingForecast: "Loading public forecast...",
+        forecastUnavailable: "Public forecast unavailable. Use activity needs first.",
+        publicForecastSource: "Open-Meteo public forecast for {location}",
+        noRainExpected: "No rain expected",
+        rainPossible: "Rain possible",
+        rainLikely: "Rain likely",
+        rainChance: "{chance}% chance of rain",
+        windDetail: "Wind up to {speed} km/h",
+        lowHighSummary: "Low {low}. High {high}. {rain}.",
         recommendedOutfit: "Recommended outfit",
         recommendedClothing: "Recommended clothing",
+        outfitReadyCount: "<strong>Ready to wear:</strong> All {count} items are available.",
+        addItemTitle: "4. Add clothes",
+        burstHelp: "Stand at the closet and keep shooting. Photograph the tag if there is one, then the garment. Sort everything out at the end.",
+        burstShootTag: "Photograph tag",
+        burstShootItem: "Photograph clothing",
+        burstNoTagHelp: "No tag? Just photograph the clothing. You can shoot several at once.",
+        burstTagReady: "Tag saved. Now photograph the clothing.",
+        burstCaptured: "{count} item(s) captured. Keep going, or check them below.",
+        burstReviewTitle: "Check these before saving",
+        burstReviewHelp: "Wayfinder filled these in. Change anything that looks wrong.",
+        burstFromTag: "From the tag",
+        burstFromPhoto: "From the photo",
+        burstNeedsCheck: "Not sure — please check",
+        burstUnnamed: "New item",
+        burstSave: "Save all to wardrobe",
+        burstDiscard: "Discard",
+        burstSaved: "{count} item(s) added to the wardrobe.",
+        burstDiscarded: "Captured photos were discarded.",
+        singleItemToggle: "Add one item with full details",
+        guess_baseTop: "New top",
+        guess_bottom: "New pants",
+        guess_outer: "New jacket",
+        guess_footwear: "New shoes",
+        guess_socks: "New socks",
+        guess_accessory: "New accessory",
+        wardrobe_snowBoots: "Snow boots",
+        wardrobe_socksRegular: "Regular socks",
+        wardrobe_socksShort: "Short sports socks",
+        wardrobe_socksThick: "Thick warm socks",
+        slotSocks: "Socks",
+        wizStep1: "1. Scan barcode",
+        wizStep1Help: "Fastest if the tag is still on",
+        wizStep2: "2. Photograph tag",
+        wizStep2Help: "Reads fabric and care text",
+        wizStep3: "3. Confirm details",
+        wizStep3Help: "You always approve",
+        wizStep4: "4. Photo and comfort",
+        wizStep4Help: "Both optional",
+        wizScanAction: "Scan barcode or QR code",
+        wizSkipScan: "No barcode — photograph the tag",
+        wizScanHelp: "A barcode is used only when it identifies the exact garment. RN numbers are not used, because they identify the maker and not the item.",
+        wizSkipTag: "No tag — enter it myself",
+        wizTagHelp: "Wayfinder reads the text on the tag and suggests the fabric, warmth, and care details.",
+        wizFromBarcode: "Found from the barcode. Check the details before saving.",
+        wizFromTag: "Read from the tag photo. Check the details before saving.",
+        wizManualEntry: "Enter the details yourself.",
+        wizEditing: "Editing {label}.",
+        wizConfirm: "Confirm and continue",
+        wizPhotoHelp: "A photo is optional but helps Doug recognize the item.",
+        wizStartOver: "Start over",
+        addItemWarmth: "Good for these days",
+        warmthMultiHelp: "Choose every kind of day this works for.",
+        band_cold: "Cold (below 3°C)",
+        band_cool: "Cool (2 to 12°C)",
+        band_mild: "Mild (10 to 20°C)",
+        band_warm: "Warm (18 to 28°C)",
+        band_hot: "Hot (25°C and up)",
+        addItemFabric: "Fabric",
+        addItemFabricPlaceholder: "For example: cotton",
+        sensoryTagless: "Tags removed",
+        sensoryFavourite: "Doug likes this one",
+        sensoryAvoid: "Uncomfortable — avoid",
+        manageItemsTitle: "5. Change or remove clothes",
+        manageItemsHelp: "Pick a category, then edit or remove an item. Removing hides it from recommendations; nothing is deleted permanently.",
+        manageCategory: "Category",
+        editItem: "Edit",
+        saveChanges: "Save changes",
+        itemUpdated: "{label} was updated.",
+        itemRemoved: "{label} was removed from recommendations.",
+        itemsRestored: "Removed items are back.",
+        archivedCount: "{count} item(s) are hidden from recommendations.",
+        restoreRemoved: "Put removed items back",
+        noteEveryday: "Everyday default",
+        notePhotoLater: "Photo not added yet",
+        noteAvoid: "Marked uncomfortable",
+        wardrobe_downVest: "Down vest",
+        reasonSnow: "There is snow, so you need boots with grip.",
+        reasonWind: "It is windy, so the outer layer blocks the wind.",
+        itemSnowBoots: "Snow boots needed",
+        reasonSnowBootsMissing: "Not in the wardrobe yet — add a pair",
+        addItemTitle: "4. Add a new clothing item",
+        addItemHelp: "Add clothes you have just bought. Wayfinder starts using them right away.",
+        addItemName: "Name",
+        addItemNamePlaceholder: "For example: green rain jacket",
+        addItemType: "Type",
+        addItemWarmth: "Warmth",
+        addItemPhoto: "Photo (optional)",
+        addItemSave: "Add to wardrobe",
+        addItemAdded: "{label} was added. Wayfinder can use it today.",
+        addItemNeedsName: "Give the item a name first.",
+        slotBaseTop: "Top",
+        slotBottom: "Pants or shorts",
+        slotOuter: "Jacket or outer layer",
+        slotFootwear: "Shoes or boots",
+        slotAccessory: "Accessory",
+        warmthHot: "For hot days (25°C and up)",
+        warmthWarm: "For warm days (18 to 28°C)",
+        warmthMild: "For mild days (10 to 20°C)",
+        warmthCool: "For cool days (2 to 12°C)",
+        warmthCold: "For cold days (below 3°C)",
+        flagWater: "Keeps rain out",
+        flagWind: "Blocks wind",
+        flagSnow: "Good for snow and ice",
+        flagActive: "Good for exercise",
+        customItems: "Items you added",
+        removeItem: "Remove",
+        wardrobe_teeGrey: "Grey T-shirt",
+        wardrobe_teeNavy: "Navy T-shirt",
+        wardrobe_teeBlack: "Black T-shirt",
+        wardrobe_longSleeveThin: "Thin long-sleeved top",
+        wardrobe_longSleeveGrey: "Grey long-sleeved top",
+        wardrobe_longSleeveWarm: "Warm long-sleeved top",
+        wardrobe_shortsGrey: "Grey shorts",
+        wardrobe_shortsNavy: "Navy shorts",
+        wardrobe_joggingPants: "Grey jogging pants",
+        wardrobe_thinPants: "Thin long pants",
+        reasonIndoorSeated: "You sit inside for a while, and inside is usually cooler than a warm day outside.",
+        wardrobe_winterSweats: "Warm sweatpants",
+        wardrobe_winterDownPants: "Winter down pants",
+        wardrobe_windbreaker: "Light windbreaker",
+        wardrobe_stretchJacket: "Light stretch jacket",
+        wardrobe_fleece: "Fleece jacket",
+        wardrobe_lightDown: "Light down jacket",
+        wardrobe_heavyDown: "Heavy down jacket",
+        wardrobe_parka: "Full-zip parka",
+        wardrobe_walkingShoes: "Walking shoes",
+        wardrobe_runningShoes: "Running shoes",
+        wardrobe_winterSocks: "Winter socks",
+        reasonTemps: "Low {low}, high {high}.",
+        reasonBand_hot: "It will be hot.",
+        reasonBand_warm: "It will be warm.",
+        reasonBand_mild: "It will be mild.",
+        reasonBand_cool: "It will be cool.",
+        reasonBand_chilly: "It will be chilly.",
+        reasonBand_cold: "It will be cold.",
+        reasonBand_freezing: "It will be freezing.",
+        reasonRain: "Rain is likely, so take the light windbreaker.",
+        reasonCoolMorning: "The morning starts cooler, so the light layer can come off later.",
+        reasonActive: "You are moving a lot outside, so the clothes underneath are light.",
+        reasonSpread: "It is {morning} outside in the morning and {afternoon} in the afternoon.",
+        reasonTakeOff: "Wear the jacket when you leave and take it off when you get warm.",
+        reasonRemovableLayer: "It is {morning} outside in the morning and {afternoon} in the afternoon. Wear the light jacket when you leave and take it off when you get warm.",
+        reasonOutdoor: "You are outside for part of the day.",
+        reasonIndoor: "Most of the day is indoors.",
+        reasonAlternate: "This is the second choice.",
+        reasonNoForecast: "The public forecast is not loaded yet, so this uses the activity only. Check the weather before going outside.",
+        itemUmbrella: "Umbrella",
+        reasonUmbrella: "Rain is likely today",
+        itemSunscreen: "Sunscreen",
+        reasonSunscreen: "Hot and outside today",
+        itemWarmAccessories: "Toque and gloves",
+        reasonWarmAccessories: "Freezing outside today",
+        speechIntro: "Doug's plan.",
+        speechMorningLine: "Morning: {activity}.",
+        speechAfternoonLine: "Afternoon: {activity}.",
+        speechWearLine: "Wear {items}.",
+        speechBringLine: "Bring {items}.",
         outfitReady: "<strong>Ready to wear:</strong> All four items are available.",
         sensoryCheck: "<strong>Sensory check:</strong> Cotton touches skin. Clothing tags are removed.",
         chooseOutfit: "Choose this outfit",
@@ -1120,7 +1813,8 @@
         fullDay: "Full day",
         movieContext: "Indoor seated activity · Hub schedule",
         parkContext: "Outdoor walking · Hub schedule",
-        bringWithYou: "Bring with you",
+        bringWithYou: "Special items today",
+        noSpecialItems: "No special items today.",
         umbrella: "Umbrella",
         rainAfterLunch: "Rain after lunch",
         waterBottle: "Water bottle",
@@ -1144,14 +1838,16 @@
         helpIntro: "You stay on this plan. In the full app, you could ask a trusted supporter about one section without sharing anything else.",
         helpOutfit: "Outfit",
         helpActivities: "Activities",
-        helpBring: "Bring-items",
+        helpBring: "Special items",
         close: "Close",
         scheduleTitle: "Add Doug's weekly schedule",
         scheduleIntro: "Import a schedule from Doug's location, keep only Doug's activities, review them, and choose where they should be saved.",
         chooseSchedule: "1. Choose the location schedule",
         useHubExample: "Use Hub example",
+        useSep8Example: "Use Sep. 8 screenshot",
         sourceHelp: "Wayfinder prefers ICS or spreadsheets, but can process a photo or PDF. The production version deletes unrelated participant rows after filtering.",
         importLoaded: "Hub schedule example loaded. Doug was found in 9 activities across 5 days.",
+        sep8ImportLoaded: "Sep. 8 screenshot loaded. Doug was found in 8 activities across 4 days.",
         reviewActivities: "2. Review Doug's activities",
         timePrecisionHelp: "No exact times were provided. Morning, afternoon, and full day are preserved.",
         needsClarification: "Needs activity clarification",
@@ -1180,16 +1876,60 @@
         hubAnnounce: "Hub schedule example loaded for Doug.",
         publishStatus: "{count} approved activities would be saved to {destination}. Nothing was sent in this prototype.",
         publishAnnounce: "{count} approved activities are ready for {destination}. Nothing was sent.",
+        wardrobeTitle: "Set up Doug's wardrobe",
+        wardrobeIntro: "Start from group photos. Wayfinder suggests reusable item cards; retake individual photos only when a card is unclear.",
+        chooseWardrobePhotos: "1. Choose group wardrobe photos",
+        useWardrobeExample: "Use Doug group-photo example",
+        wardrobeFileHelp: "Take a few category photos: tops, pants, jackets, shoes, socks, and sportswear. One perfect photo per item is not required.",
+        wardrobeExampleLoaded: "Doug group-photo example loaded. Wayfinder found 18 possible item cards.",
+        wardrobeFilesSelected: "{count} photo(s) selected. Wayfinder would suggest reusable item cards for review.",
+        reviewWardrobeCards: "2. Review reusable clothing cards",
+        wardrobeReviewHelp: "Confirm the crop, plain-language label, warmth, fabric, tag status, and sensory notes. Leave unknowns visible instead of guessing.",
+        suggestedWardrobeCards: "Suggested wardrobe cards",
+        cropTop: "Crop",
+        cropPants: "Crop",
+        cropJacket: "Crop",
+        cropShoes: "Crop",
+        cropSocks: "Crop",
+        retakeIfNeeded: "Retake?",
+        cardLongTop: "Long cotton top",
+        cardJoggingPants: "Long jogging pants",
+        cropShirt: "Crop",
+        cardRainJacket: "Light jacket",
+        cardCottonTshirt: "Cotton T-shirt",
+        cardRunningShoes: "Running shoes",
+        cardWalkingShoes: "Walking shoes",
+        cardWarmSocks: "Warm socks",
+        cardConfusingItem: "Unclear item",
+        confirmedCotton: "Cotton touching skin",
+        confirmedWarmth: "Warmth: medium",
+        confirmedRain: "Rain suitable",
+        confirmedWalking: "Outdoor walking",
+        needsTagCheck: "Needs tag check",
+        retakeOnlyThis: "Retake only this one",
+        reuseWardrobeTitle: "3. Save once, reuse daily",
+        wardrobeCaptureFlow: "Wardrobe capture flow",
+        flowGroupPhotos: "Group photos",
+        flowGroupHelp: "Fast inventory setup",
+        flowItemCards: "Reusable cards",
+        flowCardsHelp: "Crop and confirm over time",
+        flowDailyPlan: "Daily plan",
+        flowPlanHelp: "No new photo needed",
+        reuseWardrobeDescription: "The saved card becomes the source of truth. Wayfinder asks for a new photo only when the user chooses to improve a confusing or changed item.",
+        saveWardrobeCards: "Save 5 reusable cards",
+        wardrobeSavedButton: "Wardrobe cards saved",
+        wardrobeSavedStatus: "Five reusable cards are saved for daily outfit recommendations. One unclear item is left for a later retake.",
+        wardrobeSavedAnnounce: "Wardrobe cards saved. Daily outfit recommendations can reuse them.",
         outfitShown: "Another outfit is shown: {items}.",
         outfitChosenButton: "Outfit chosen",
         outfitChosenAnnounce: "This outfit is chosen for today.",
-        readyProgress: "{complete} of {total} bring-items are ready.",
+        readyProgress: "{complete} of {total} special items are ready.",
         checkRequestedButton: "Check requested",
         finishedTitle: "Doug finished his plan",
         familyCheckProgress: "A family check was requested. Doug's choices stay selected.",
         familyCheckAnnounce: "Doug finished and requested a family check. His choices remain selected.",
         helpRequested: "Help with {topic} would be requested. Nothing was sent in this prototype.",
-        speechPlan: "Doug's plan. Weather now: 12 degrees Celsius. It feels like 10. Today's high is 15. Rain and wind are expected after lunch. Morning: Film.ca Scoob movie. Afternoon: Trafalgar Park. Wear a long-sleeved cotton top, long jogging pants, a light waterproof jacket, and walking shoes. Bring an umbrella, a water bottle, and the Hub day bag."
+        speechPlan: "Doug's plan. Morning: movie. Afternoon: Trafalgar Park. Wear the grey long-sleeved top, grey jogging pants, light jacket, and walking shoes. Bring umbrella."
       },
       "ja-JP": {
         pageTitle: "Project Wayfinder - 朝の準備プロトタイプ",
@@ -1197,23 +1937,194 @@
         prototypeNote: "個人情報を最小限にしたDougの例を使う操作デモです。データはこのページから送信されません。",
         language: "言語",
         addWeeklySchedule: "週間予定を追加",
+        addWardrobe: "服を追加",
         displaySettings: "表示設定",
         dailyPlan: "今日の準備プラン",
-        goodMorning: "おはよう、Doug",
+        goodMorning: "Dougの予定",
+        planDay: "予定の日",
+        sep3Plan: "9月3日 木曜",
+        sep4Plan: "9月4日 金曜",
         hubReady: "<strong>Hubの予定を確認しました。</strong>午前は映画、午後はTrafalgar Parkです。昼食後に雨が降るかもしれません。",
-        readPlan: "今日の予定を読み上げる",
+        readPlan: "予定を読み上げる",
         stopReading: "読み上げを止める",
         weather: "天気",
         degreesCelsius: "摂氏",
-        temperatureSummary: "現在は摂氏12度、体感温度は10度、最高気温は15度です。",
+        temperatureSummary: "最低は摂氏10度、最高は15度です。",
+        low: "最低",
         now: "現在",
         feelsLike: "体感",
         high: "最高",
-        weatherSummary: "今は涼しいです。昼食後は雨と風の予報です。",
+        weatherSummary: "最低10°C、最高15°C。昼食後に雨。",
         weatherDetail: "午後1時以降に雨 · 風速22 km/h",
         updated: "12分前に更新",
+        loadingForecast: "公開天気予報を読み込み中...",
+        forecastUnavailable: "公開天気予報を読み込めません。活動内容を先に使います。",
+        publicForecastSource: "{location}のOpen-Meteo公開天気予報",
+        noRainExpected: "雨の予報はありません",
+        rainPossible: "雨の可能性があります",
+        rainLikely: "雨になりそうです",
+        rainChance: "雨の可能性 {chance}%",
+        windDetail: "風速 最大{speed} km/h",
+        lowHighSummary: "最低{low}。最高{high}。{rain}。",
         recommendedOutfit: "おすすめの服",
         recommendedClothing: "おすすめの服",
+        outfitReadyCount: "<strong>着る準備ができています。</strong>{count}点すべて使えます。",
+        addItemTitle: "4. 服を追加",
+        burstHelp: "クローゼットの前で続けて撮ります。タグがあれば撮り、次に服を撮ります。整理は最後にまとめて。",
+        burstShootTag: "タグを撮影",
+        burstShootItem: "服を撮影",
+        burstNoTagHelp: "タグがなければ服だけ撮ります。まとめて撮影できます。",
+        burstTagReady: "タグを保存しました。次に服を撮ってください。",
+        burstCaptured: "{count}点を撮影しました。続けるか、下で確認してください。",
+        burstReviewTitle: "保存する前に確認",
+        burstReviewHelp: "Wayfinderが入力しました。違うところは直してください。",
+        burstFromTag: "タグから",
+        burstFromPhoto: "写真から",
+        burstNeedsCheck: "不明 — 確認してください",
+        burstUnnamed: "新しい服",
+        burstSave: "すべて保存",
+        burstDiscard: "破棄",
+        burstSaved: "{count}点を追加しました。",
+        burstDiscarded: "撮影した写真を破棄しました。",
+        singleItemToggle: "1点ずつ詳しく追加",
+        guess_baseTop: "新しいトップス",
+        guess_bottom: "新しいパンツ",
+        guess_outer: "新しい上着",
+        guess_footwear: "新しい靴",
+        guess_socks: "新しい靴下",
+        guess_accessory: "新しい小物",
+        wardrobe_snowBoots: "スノーブーツ",
+        wardrobe_socksRegular: "普通の靴下",
+        wardrobe_socksShort: "短いスポーツ靴下",
+        wardrobe_socksThick: "厚い暖かい靴下",
+        slotSocks: "靴下",
+        wizStep1: "1. バーコードを読む",
+        wizStep1Help: "タグが付いていれば一番早い",
+        wizStep2: "2. タグを撮影",
+        wizStep2Help: "素材と洗濯表示を読み取ります",
+        wizStep3: "3. 内容を確認",
+        wizStep3Help: "必ず確認できます",
+        wizStep4: "4. 写真と着心地",
+        wizStep4Help: "どちらも任意",
+        wizScanAction: "バーコードまたはQRコードを読む",
+        wizSkipScan: "バーコードなし — タグを撮影",
+        wizScanHelp: "バーコードは、その服を正確に特定できる場合だけ使います。RN番号は製造元しか分からないため使いません。",
+        wizSkipTag: "タグなし — 手で入力",
+        wizTagHelp: "タグの文字を読み取り、素材や暖かさ、洗濯方法を提案します。",
+        wizFromBarcode: "バーコードから見つけました。保存前に確認してください。",
+        wizFromTag: "タグの写真から読み取りました。保存前に確認してください。",
+        wizManualEntry: "内容を手で入力します。",
+        wizEditing: "{label}を編集しています。",
+        wizConfirm: "確認して次へ",
+        wizPhotoHelp: "写真は任意ですが、Dougが見分けやすくなります。",
+        wizStartOver: "最初から",
+        addItemWarmth: "この天気の日に使えます",
+        warmthMultiHelp: "使える日をすべて選んでください。",
+        band_cold: "寒い (3°C未満)",
+        band_cool: "涼しい (2〜12°C)",
+        band_mild: "過ごしやすい (10〜20°C)",
+        band_warm: "暖かい (18〜28°C)",
+        band_hot: "暑い (25°C以上)",
+        addItemFabric: "素材",
+        addItemFabricPlaceholder: "例: 綿",
+        sensoryTagless: "タグを外してある",
+        sensoryFavourite: "Dougのお気に入り",
+        sensoryAvoid: "着心地が悪い — 使わない",
+        manageItemsTitle: "5. 服を変更・削除",
+        manageItemsHelp: "種類を選んで、編集または削除します。削除してもおすすめに出なくなるだけで、完全には消えません。",
+        manageCategory: "種類",
+        editItem: "編集",
+        saveChanges: "変更を保存",
+        itemUpdated: "{label}を更新しました。",
+        itemRemoved: "{label}をおすすめから外しました。",
+        itemsRestored: "外した服を戻しました。",
+        archivedCount: "{count}点をおすすめから外しています。",
+        restoreRemoved: "外した服を戻す",
+        noteEveryday: "普段の標準",
+        notePhotoLater: "写真はまだ",
+        noteAvoid: "着心地が悪い",
+        wardrobe_downVest: "ダウンベスト",
+        reasonSnow: "雪があるので、滑りにくいブーツが必要です。",
+        reasonWind: "風が強いので、上着で風を防ぎます。",
+        itemSnowBoots: "スノーブーツが必要",
+        reasonSnowBootsMissing: "まだ登録されていません。追加してください",
+        addItemTitle: "4. 新しい服を追加",
+        addItemHelp: "買ったばかりの服を追加できます。すぐに使えるようになります。",
+        addItemName: "名前",
+        addItemNamePlaceholder: "例: 緑のレインジャケット",
+        addItemType: "種類",
+        addItemWarmth: "暖かさ",
+        addItemPhoto: "写真 (任意)",
+        addItemSave: "服を追加",
+        addItemAdded: "{label}を追加しました。今日から使えます。",
+        addItemNeedsName: "先に名前を入力してください。",
+        slotBaseTop: "トップス",
+        slotBottom: "パンツ・ショートパンツ",
+        slotOuter: "ジャケット・上着",
+        slotFootwear: "靴・ブーツ",
+        slotAccessory: "小物",
+        warmthHot: "暑い日 (25°C以上)",
+        warmthWarm: "暖かい日 (18〜28°C)",
+        warmthMild: "過ごしやすい日 (10〜20°C)",
+        warmthCool: "涼しい日 (2〜12°C)",
+        warmthCold: "寒い日 (3°C未満)",
+        flagWater: "雨に強い",
+        flagWind: "風を防ぐ",
+        flagSnow: "雪や氷に対応",
+        flagActive: "運動に向く",
+        customItems: "追加した服",
+        removeItem: "削除",
+        wardrobe_teeGrey: "灰色のTシャツ",
+        wardrobe_teeNavy: "紺のTシャツ",
+        wardrobe_teeBlack: "黒のTシャツ",
+        wardrobe_longSleeveThin: "薄手の長袖トップス",
+        wardrobe_longSleeveGrey: "灰色の長袖トップス",
+        wardrobe_longSleeveWarm: "暖かい長袖トップス",
+        wardrobe_shortsGrey: "灰色のショートパンツ",
+        wardrobe_shortsNavy: "紺のショートパンツ",
+        wardrobe_joggingPants: "灰色のジョギングパンツ",
+        wardrobe_thinPants: "薄手のロングパンツ",
+        reasonIndoorSeated: "室内で座る時間があり、室内は外より涼しいことが多いです。",
+        wardrobe_winterSweats: "暖かいスウェットパンツ",
+        wardrobe_winterDownPants: "冬用ダウンパンツ",
+        wardrobe_windbreaker: "軽いウインドブレーカー",
+        wardrobe_stretchJacket: "軽いストレッチジャケット",
+        wardrobe_fleece: "フリース",
+        wardrobe_lightDown: "軽いダウンジャケット",
+        wardrobe_heavyDown: "厚いダウンジャケット",
+        wardrobe_parka: "フルジップパーカ",
+        wardrobe_walkingShoes: "歩きやすい靴",
+        wardrobe_runningShoes: "ランニングシューズ",
+        wardrobe_winterSocks: "冬用ソックス",
+        reasonTemps: "最低{low}、最高{high}。",
+        reasonBand_hot: "今日は暑くなります。",
+        reasonBand_warm: "今日は暖かいです。",
+        reasonBand_mild: "今日は過ごしやすいです。",
+        reasonBand_cool: "今日は涼しいです。",
+        reasonBand_chilly: "今日は肌寒いです。",
+        reasonBand_cold: "今日は寒いです。",
+        reasonBand_freezing: "今日は氷点下です。",
+        reasonRain: "雨の可能性が高いので、軽いウインドブレーカーを持ちます。",
+        reasonCoolMorning: "朝は涼しいので、軽い上着は後で脱げます。",
+        reasonActive: "外でよく動くので、中に着る服は軽くしています。",
+        reasonSpread: "外は朝{morning}、午後は{afternoon}です。",
+        reasonTakeOff: "出かける時にジャケットを着て、暑くなったら脱ぎます。",
+        reasonRemovableLayer: "外は朝{morning}、午後は{afternoon}です。出かける時に軽いジャケットを着て、暑くなったら脱ぎます。",
+        reasonOutdoor: "今日は屋外で過ごす時間があります。",
+        reasonIndoor: "今日はほとんど室内です。",
+        reasonAlternate: "これは2つ目の選択肢です。",
+        reasonNoForecast: "公開天気予報がまだ読み込まれていないため、活動内容だけで選んでいます。外へ出る前に天気を確認してください。",
+        itemUmbrella: "かさ",
+        reasonUmbrella: "今日は雨の可能性が高い",
+        itemSunscreen: "日焼け止め",
+        reasonSunscreen: "暑くて屋外",
+        itemWarmAccessories: "ニット帽と手袋",
+        reasonWarmAccessories: "今日は氷点下",
+        speechIntro: "Dougの予定です。",
+        speechMorningLine: "午前は{activity}。",
+        speechAfternoonLine: "午後は{activity}。",
+        speechWearLine: "{items}を着ます。",
+        speechBringLine: "{items}を持ちます。",
         outfitReady: "<strong>着る準備ができています。</strong>4点すべて使えます。",
         sensoryCheck: "<strong>肌ざわりを確認しました。</strong>肌に触れる部分は綿です。服のタグは外してあります。",
         chooseOutfit: "この服を選ぶ",
@@ -1226,7 +2137,8 @@
         fullDay: "一日",
         movieContext: "室内で座る活動 · Hubの予定",
         parkContext: "屋外で歩く活動 · Hubの予定",
-        bringWithYou: "持っていく物",
+        bringWithYou: "今日だけの持ち物",
+        noSpecialItems: "今日だけの持ち物はありません。",
         umbrella: "かさ",
         rainAfterLunch: "昼食後に雨の可能性",
         waterBottle: "水筒",
@@ -1250,14 +2162,16 @@
         helpIntro: "この予定を見たまま、必要な一項目だけを信頼できる支援者に相談できます。他の情報は共有しません。",
         helpOutfit: "服",
         helpActivities: "活動",
-        helpBring: "持ち物",
+        helpBring: "今日だけの持ち物",
         close: "閉じる",
         scheduleTitle: "Dougの週間予定を追加",
         scheduleIntro: "Dougの通う場所から予定を取り込み、Dougの活動だけを確認して、保存先を選びます。",
         chooseSchedule: "1. 場所の予定を選ぶ",
         useHubExample: "Hubの例を使う",
+        useSep8Example: "9月8日の画像を使う",
         sourceHelp: "WayfinderはICSや表計算ファイルを優先しますが、写真やPDFも処理できます。製品版では、抽出後に他の参加者の行を削除します。",
         importLoaded: "Hubの予定例を読み込みました。5日間でDougの活動が9件見つかりました。",
+        sep8ImportLoaded: "9月8日の画像を読み込みました。4日間でDougの活動が8件見つかりました。",
         reviewActivities: "2. Dougの活動を確認",
         timePrecisionHelp: "正確な時刻はありません。午前、午後、一日の区分をそのまま使います。",
         needsClarification: "活動内容の確認が必要",
@@ -1286,16 +2200,60 @@
         hubAnnounce: "DougのHub予定例を読み込みました。",
         publishStatus: "確認した活動{count}件を{destination}に保存する予定です。このデモでは送信していません。",
         publishAnnounce: "確認した活動{count}件を{destination}へ保存する準備ができました。送信はしていません。",
+        wardrobeTitle: "Dougの服を設定",
+        wardrobeIntro: "まずグループ写真から始めます。Wayfinderが再利用できる服カードを提案し、不明なカードだけ個別に撮り直します。",
+        chooseWardrobePhotos: "1. 服のグループ写真を選ぶ",
+        useWardrobeExample: "Dougのグループ写真の例を使う",
+        wardrobeFileHelp: "トップス、パンツ、上着、靴、靴下、スポーツウェアなど、種類ごとに数枚撮ります。全てを完璧に1点ずつ撮る必要はありません。",
+        wardrobeExampleLoaded: "Dougのグループ写真の例を読み込みました。Wayfinderが18個の候補カードを見つけました。",
+        wardrobeFilesSelected: "{count}枚の写真を選びました。Wayfinderは確認用の再利用カードを提案します。",
+        reviewWardrobeCards: "2. 再利用できる服カードを確認",
+        wardrobeReviewHelp: "切り抜き、分かりやすい名前、暖かさ、素材、タグ、感覚メモを確認します。不明なことは推測せず不明のまま残します。",
+        suggestedWardrobeCards: "提案された服カード",
+        cropTop: "切り抜き",
+        cropPants: "切り抜き",
+        cropJacket: "切り抜き",
+        cropShoes: "切り抜き",
+        cropSocks: "切り抜き",
+        retakeIfNeeded: "撮り直し?",
+        cardLongTop: "綿の長袖トップス",
+        cardJoggingPants: "長いジョギングパンツ",
+        cropShirt: "切り抜き",
+        cardRainJacket: "軽いジャケット",
+        cardCottonTshirt: "綿Tシャツ",
+        cardRunningShoes: "ランニングシューズ",
+        cardWalkingShoes: "歩きやすい靴",
+        cardWarmSocks: "暖かい靴下",
+        cardConfusingItem: "分かりにくい服",
+        confirmedCotton: "肌に触れる部分は綿",
+        confirmedWarmth: "暖かさ: 中",
+        confirmedRain: "雨に対応",
+        confirmedWalking: "屋外歩行",
+        needsTagCheck: "タグ確認が必要",
+        retakeOnlyThis: "これだけ撮り直す",
+        reuseWardrobeTitle: "3. 一度保存して毎日使う",
+        wardrobeCaptureFlow: "服の取り込みの流れ",
+        flowGroupPhotos: "グループ写真",
+        flowGroupHelp: "素早く一覧を作る",
+        flowItemCards: "再利用カード",
+        flowCardsHelp: "少しずつ切り抜き確認",
+        flowDailyPlan: "毎日の予定",
+        flowPlanHelp: "新しい写真は不要",
+        reuseWardrobeDescription: "保存したカードが正しい情報になります。分かりにくい服や変わった服を改善したい時だけ、新しい写真を求めます。",
+        saveWardrobeCards: "再利用カード5件を保存",
+        wardrobeSavedButton: "服カードを保存しました",
+        wardrobeSavedStatus: "毎日の服のおすすめに使える再利用カード5件を保存しました。分かりにくい1件は後で撮り直します。",
+        wardrobeSavedAnnounce: "服カードを保存しました。毎日のおすすめで再利用できます。",
         outfitShown: "別の服を表示しました。{items}",
         outfitChosenButton: "この服を選びました",
         outfitChosenAnnounce: "今日の服として選びました。",
-        readyProgress: "持ち物{total}個のうち{complete}個を準備しました。",
+        readyProgress: "今日だけの持ち物{total}個のうち{complete}個を準備しました。",
         checkRequestedButton: "確認をお願いしました",
         finishedTitle: "Dougの準備が終わりました",
         familyCheckProgress: "家族に確認をお願いしました。Dougの選択はそのままです。",
         familyCheckAnnounce: "Dougが準備を終え、家族に確認をお願いしました。選択はそのままです。",
         helpRequested: "{topic}の手伝いをお願いする予定です。このデモでは送信していません。",
-        speechPlan: "Dougの今日の予定です。現在は摂氏12度、体感温度は10度、最高気温は15度です。昼食後は雨と風の予報です。午前はFilm.ca Scoob movieです。午後はTrafalgar Parkです。綿の長袖トップス、長いジョギングパンツ、軽い防水ジャケット、歩きやすい靴を着ます。かさ、水筒、Hubのデイバッグを持っていきます。"
+        speechPlan: "Dougの予定です。午前は映画。午後はTrafalgar Park。灰色の長袖、灰色のジョギングパンツ、軽いジャケット、歩きやすい靴を着ます。かさ。"
       },
       "fr-CA": {
         pageTitle: "Projet Wayfinder - Prototype de préparation quotidienne",
@@ -1303,23 +2261,194 @@
         prototypeNote: "Concept interactif utilisant un exemple de Doug réduit au minimum nécessaire. Aucune donnée ne quitte cette page.",
         language: "Langue",
         addWeeklySchedule: "Ajouter l'horaire de la semaine",
+        addWardrobe: "Ajouter la garde-robe",
         displaySettings: "Réglages d'affichage",
         dailyPlan: "Votre plan de préparation quotidienne",
-        goodMorning: "Bonjour, Doug",
+        goodMorning: "Plan de Doug",
+        planDay: "Jour du plan",
+        sep3Plan: "jeu. 3 sept.",
+        sep4Plan: "ven. 4 sept.",
         hubReady: "<strong>L'horaire du Hub est prêt :</strong> vous avez un film ce matin et Trafalgar Park cet après-midi. Il pourrait pleuvoir après le dîner.",
-        readPlan: "Lire le plan d'aujourd'hui",
+        readPlan: "Lire le plan",
         stopReading: "Arrêter la lecture",
         weather: "Météo",
         degreesCelsius: "degrés Celsius",
-        temperatureSummary: "Maintenant 12 degrés Celsius. Ressenti 10. Maximum 15.",
+        temperatureSummary: "Minimum 10 degrés Celsius. Maximum 15.",
+        low: "Minimum",
         now: "Maintenant",
         feelsLike: "Ressenti",
         high: "Maximum",
-        weatherSummary: "Il fait frais. Pluie et vent après le dîner.",
+        weatherSummary: "Minimum 10 °C. Maximum 15 °C. Pluie après le dîner.",
         weatherDetail: "Pluie après 13 h · Vent 22 km/h",
         updated: "Mis à jour il y a 12 minutes",
+        loadingForecast: "Chargement de la prévision publique...",
+        forecastUnavailable: "Prévision publique indisponible. Utiliser d'abord les besoins de l'activité.",
+        publicForecastSource: "Prévision publique Open-Meteo pour {location}",
+        noRainExpected: "Aucune pluie prévue",
+        rainPossible: "Pluie possible",
+        rainLikely: "Pluie probable",
+        rainChance: "{chance} % de probabilité de pluie",
+        windDetail: "Vent jusqu'à {speed} km/h",
+        lowHighSummary: "Minimum {low}. Maximum {high}. {rain}.",
         recommendedOutfit: "Tenue recommandée",
         recommendedClothing: "Vêtements recommandés",
+        outfitReadyCount: "<strong>Prêt à porter :</strong> les {count} articles sont disponibles.",
+        addItemTitle: "4. Ajouter des vêtements",
+        burstHelp: "Reste devant la garde-robe et continue de photographier. L'étiquette s'il y en a une, puis le vêtement. Tu classeras à la fin.",
+        burstShootTag: "Photographier l'étiquette",
+        burstShootItem: "Photographier le vêtement",
+        burstNoTagHelp: "Pas d'étiquette? Photographie seulement le vêtement. Tu peux en prendre plusieurs.",
+        burstTagReady: "Étiquette enregistrée. Photographie maintenant le vêtement.",
+        burstCaptured: "{count} article(s) capturé(s). Continue ou vérifie ci-dessous.",
+        burstReviewTitle: "Vérifie avant d'enregistrer",
+        burstReviewHelp: "Wayfinder a rempli ces champs. Corrige ce qui ne va pas.",
+        burstFromTag: "D'après l'étiquette",
+        burstFromPhoto: "D'après la photo",
+        burstNeedsCheck: "Incertain — à vérifier",
+        burstUnnamed: "Nouvel article",
+        burstSave: "Tout enregistrer",
+        burstDiscard: "Abandonner",
+        burstSaved: "{count} article(s) ajouté(s) à la garde-robe.",
+        burstDiscarded: "Les photos ont été abandonnées.",
+        singleItemToggle: "Ajouter un article en détail",
+        guess_baseTop: "Nouveau haut",
+        guess_bottom: "Nouveau pantalon",
+        guess_outer: "Nouveau manteau",
+        guess_footwear: "Nouvelles chaussures",
+        guess_socks: "Nouvelles chaussettes",
+        guess_accessory: "Nouvel accessoire",
+        wardrobe_snowBoots: "Bottes de neige",
+        wardrobe_socksRegular: "Chaussettes régulières",
+        wardrobe_socksShort: "Chaussettes de sport courtes",
+        wardrobe_socksThick: "Chaussettes épaisses",
+        slotSocks: "Chaussettes",
+        wizStep1: "1. Scanner le code-barres",
+        wizStep1Help: "Le plus rapide si l'étiquette est encore là",
+        wizStep2: "2. Photographier l'étiquette",
+        wizStep2Help: "Lit le tissu et l'entretien",
+        wizStep3: "3. Confirmer les détails",
+        wizStep3Help: "Tu approuves toujours",
+        wizStep4: "4. Photo et confort",
+        wizStep4Help: "Les deux sont facultatifs",
+        wizScanAction: "Scanner un code-barres ou QR",
+        wizSkipScan: "Pas de code-barres — photographier l'étiquette",
+        wizScanHelp: "Un code-barres sert seulement s'il identifie le vêtement exact. Les numéros RN ne sont pas utilisés, car ils identifient le fabricant et non l'article.",
+        wizSkipTag: "Pas d'étiquette — saisir moi-même",
+        wizTagHelp: "Wayfinder lit le texte de l'étiquette et propose le tissu, la chaleur et l'entretien.",
+        wizFromBarcode: "Trouvé à partir du code-barres. Vérifie avant d'enregistrer.",
+        wizFromTag: "Lu depuis la photo de l'étiquette. Vérifie avant d'enregistrer.",
+        wizManualEntry: "Saisis les détails toi-même.",
+        wizEditing: "Modification de {label}.",
+        wizConfirm: "Confirmer et continuer",
+        wizPhotoHelp: "La photo est facultative, mais elle aide Doug à reconnaître l'article.",
+        wizStartOver: "Recommencer",
+        addItemWarmth: "Convient à ces journées",
+        warmthMultiHelp: "Choisis tous les types de journée où ça convient.",
+        band_cold: "Froid (moins de 3 °C)",
+        band_cool: "Frais (2 à 12 °C)",
+        band_mild: "Tempéré (10 à 20 °C)",
+        band_warm: "Doux (18 à 28 °C)",
+        band_hot: "Chaud (25 °C et plus)",
+        addItemFabric: "Tissu",
+        addItemFabricPlaceholder: "Par exemple : coton",
+        sensoryTagless: "Étiquettes retirées",
+        sensoryFavourite: "Doug aime celui-ci",
+        sensoryAvoid: "Inconfortable — à éviter",
+        manageItemsTitle: "5. Modifier ou retirer des vêtements",
+        manageItemsHelp: "Choisis une catégorie, puis modifie ou retire un article. Le retrait le cache des recommandations; rien n'est supprimé définitivement.",
+        manageCategory: "Catégorie",
+        editItem: "Modifier",
+        saveChanges: "Enregistrer",
+        itemUpdated: "{label} a été mis à jour.",
+        itemRemoved: "{label} a été retiré des recommandations.",
+        itemsRestored: "Les articles retirés sont de retour.",
+        archivedCount: "{count} article(s) sont cachés des recommandations.",
+        restoreRemoved: "Remettre les articles retirés",
+        noteEveryday: "Choix de tous les jours",
+        notePhotoLater: "Photo pas encore ajoutée",
+        noteAvoid: "Marqué inconfortable",
+        wardrobe_downVest: "Veste sans manches en duvet",
+        reasonSnow: "Il y a de la neige; il faut des bottes qui adhèrent.",
+        reasonWind: "Il vente; la couche extérieure coupe le vent.",
+        itemSnowBoots: "Bottes de neige nécessaires",
+        reasonSnowBootsMissing: "Pas encore dans la garde-robe — ajoutes-en une paire",
+        addItemTitle: "4. Ajouter un nouveau vêtement",
+        addItemHelp: "Ajoute les vêtements que tu viens d'acheter. Wayfinder les utilise tout de suite.",
+        addItemName: "Nom",
+        addItemNamePlaceholder: "Par exemple : imperméable vert",
+        addItemType: "Type",
+        addItemWarmth: "Chaleur",
+        addItemPhoto: "Photo (facultative)",
+        addItemSave: "Ajouter à la garde-robe",
+        addItemAdded: "{label} a été ajouté. Wayfinder peut l'utiliser aujourd'hui.",
+        addItemNeedsName: "Donne d'abord un nom à l'article.",
+        slotBaseTop: "Haut",
+        slotBottom: "Pantalon ou short",
+        slotOuter: "Veste ou manteau",
+        slotFootwear: "Chaussures ou bottes",
+        slotAccessory: "Accessoire",
+        warmthHot: "Pour les journées chaudes (25 °C et plus)",
+        warmthWarm: "Pour les journées douces (18 à 28 °C)",
+        warmthMild: "Pour les journées tempérées (10 à 20 °C)",
+        warmthCool: "Pour les journées fraîches (2 à 12 °C)",
+        warmthCold: "Pour les journées froides (moins de 3 °C)",
+        flagWater: "Résiste à la pluie",
+        flagWind: "Coupe le vent",
+        flagSnow: "Bon pour la neige et la glace",
+        flagActive: "Bon pour l'exercice",
+        customItems: "Articles que tu as ajoutés",
+        removeItem: "Retirer",
+        wardrobe_teeGrey: "T-shirt gris",
+        wardrobe_teeNavy: "T-shirt marine",
+        wardrobe_teeBlack: "T-shirt noir",
+        wardrobe_longSleeveThin: "Haut mince à manches longues",
+        wardrobe_longSleeveGrey: "Haut gris à manches longues",
+        wardrobe_longSleeveWarm: "Haut chaud à manches longues",
+        wardrobe_shortsGrey: "Short gris",
+        wardrobe_shortsNavy: "Short marine",
+        wardrobe_joggingPants: "Pantalon de jogging gris",
+        wardrobe_thinPants: "Pantalon long léger",
+        reasonIndoorSeated: "Tu seras assis à l'intérieur un moment, et l'intérieur est souvent plus frais qu'une journée chaude dehors.",
+        wardrobe_winterSweats: "Pantalon d'hiver chaud",
+        wardrobe_winterDownPants: "Pantalon en duvet",
+        wardrobe_windbreaker: "Coupe-vent léger",
+        wardrobe_stretchJacket: "Veste extensible légère",
+        wardrobe_fleece: "Veste polaire",
+        wardrobe_lightDown: "Doudoune légère",
+        wardrobe_heavyDown: "Doudoune épaisse",
+        wardrobe_parka: "Parka à glissière",
+        wardrobe_walkingShoes: "Chaussures de marche",
+        wardrobe_runningShoes: "Chaussures de course",
+        wardrobe_winterSocks: "Chaussettes d'hiver",
+        reasonTemps: "Minimum {low}, maximum {high}.",
+        reasonBand_hot: "Il fera chaud.",
+        reasonBand_warm: "Il fera doux et chaud.",
+        reasonBand_mild: "Il fera doux.",
+        reasonBand_cool: "Il fera frais.",
+        reasonBand_chilly: "Il fera froid.",
+        reasonBand_cold: "Il fera très froid.",
+        reasonBand_freezing: "Il fera sous zéro.",
+        reasonRain: "De la pluie est probable; prends le coupe-vent léger.",
+        reasonCoolMorning: "Le matin est plus frais; la couche légère peut être retirée plus tard.",
+        reasonActive: "Tu bougeras beaucoup dehors, alors les vêtements du dessous sont légers.",
+        reasonSpread: "Il fait {morning} dehors le matin et {afternoon} l'après-midi.",
+        reasonTakeOff: "Porte la veste en partant et retire-la quand tu as chaud.",
+        reasonRemovableLayer: "Il fait {morning} dehors le matin et {afternoon} l'après-midi. Porte la veste légère en partant et retire-la quand tu as chaud.",
+        reasonOutdoor: "Tu seras dehors une partie de la journée.",
+        reasonIndoor: "La journée se passe surtout à l'intérieur.",
+        reasonAlternate: "C'est le deuxième choix.",
+        reasonNoForecast: "La prévision publique n'est pas chargée; ce choix se base seulement sur l'activité. Vérifie la météo avant de sortir.",
+        itemUmbrella: "Parapluie",
+        reasonUmbrella: "Pluie probable aujourd'hui",
+        itemSunscreen: "Écran solaire",
+        reasonSunscreen: "Chaud et à l'extérieur",
+        itemWarmAccessories: "Tuque et gants",
+        reasonWarmAccessories: "Températures sous zéro",
+        speechIntro: "Plan de Doug.",
+        speechMorningLine: "Matin : {activity}.",
+        speechAfternoonLine: "Après-midi : {activity}.",
+        speechWearLine: "Porte {items}.",
+        speechBringLine: "Apporte {items}.",
         outfitReady: "<strong>Prêt à porter :</strong> les quatre articles sont disponibles.",
         sensoryCheck: "<strong>Vérification sensorielle :</strong> le coton touche la peau. Les étiquettes sont retirées.",
         chooseOutfit: "Choisir cette tenue",
@@ -1332,7 +2461,8 @@
         fullDay: "Journée complète",
         movieContext: "Activité assise à l'intérieur · Horaire du Hub",
         parkContext: "Marche à l'extérieur · Horaire du Hub",
-        bringWithYou: "À apporter",
+        bringWithYou: "Articles spéciaux aujourd'hui",
+        noSpecialItems: "Aucun article spécial aujourd'hui.",
         umbrella: "Parapluie",
         rainAfterLunch: "Pluie après le dîner",
         waterBottle: "Bouteille d'eau",
@@ -1356,14 +2486,16 @@
         helpIntro: "Vous restez dans ce plan. Dans l'application complète, vous pourriez demander l'aide d'une personne de confiance pour une section sans partager le reste.",
         helpOutfit: "Tenue",
         helpActivities: "Activités",
-        helpBring: "Articles à apporter",
+        helpBring: "Articles spéciaux",
         close: "Fermer",
         scheduleTitle: "Ajouter l'horaire hebdomadaire de Doug",
         scheduleIntro: "Importez l'horaire du lieu fréquenté par Doug, gardez seulement ses activités, révisez-les et choisissez où les enregistrer.",
         chooseSchedule: "1. Choisir l'horaire du lieu",
         useHubExample: "Utiliser l'exemple du Hub",
+        useSep8Example: "Utiliser l'image du 8 sept.",
         sourceHelp: "Wayfinder privilégie les fichiers ICS ou les feuilles de calcul, mais peut traiter une photo ou un PDF. La version de production supprime les lignes des autres participants après le filtrage.",
         importLoaded: "L'exemple d'horaire du Hub est chargé. Neuf activités de Doug ont été trouvées sur cinq jours.",
+        sep8ImportLoaded: "L'image du 8 sept. est chargée. Huit activités de Doug ont été trouvées sur quatre jours.",
         reviewActivities: "2. Réviser les activités de Doug",
         timePrecisionHelp: "Aucune heure exacte n'est fournie. Les périodes matin, après-midi et journée complète sont conservées.",
         needsClarification: "Activité à préciser",
@@ -1392,66 +2524,258 @@
         hubAnnounce: "L'exemple d'horaire du Hub est chargé pour Doug.",
         publishStatus: "{count} activités approuvées seraient enregistrées dans {destination}. Rien n'a été envoyé dans ce prototype.",
         publishAnnounce: "{count} activités approuvées sont prêtes pour {destination}. Rien n'a été envoyé.",
+        wardrobeTitle: "Configurer la garde-robe de Doug",
+        wardrobeIntro: "Commencez avec des photos de groupe. Wayfinder suggère des fiches réutilisables; reprenez une photo individuelle seulement quand une fiche n'est pas claire.",
+        chooseWardrobePhotos: "1. Choisir des photos de groupe",
+        useWardrobeExample: "Utiliser l'exemple de photos de Doug",
+        wardrobeFileHelp: "Prenez quelques photos par catégorie : hauts, pantalons, manteaux, chaussures, chaussettes et vêtements de sport. Une photo parfaite par article n'est pas requise.",
+        wardrobeExampleLoaded: "L'exemple de photos de groupe de Doug est chargé. Wayfinder a trouvé 18 fiches possibles.",
+        wardrobeFilesSelected: "{count} photo(s) sélectionnée(s). Wayfinder suggérerait des fiches réutilisables à réviser.",
+        reviewWardrobeCards: "2. Réviser les fiches réutilisables",
+        wardrobeReviewHelp: "Confirmez le recadrage, le libellé simple, la chaleur, le tissu, les étiquettes et les notes sensorielles. Gardez les inconnues visibles au lieu de deviner.",
+        suggestedWardrobeCards: "Fiches de garde-robe suggérées",
+        cropTop: "Recadrage",
+        cropPants: "Recadrage",
+        cropJacket: "Recadrage",
+        cropShoes: "Recadrage",
+        cropSocks: "Recadrage",
+        retakeIfNeeded: "Reprendre?",
+        cardLongTop: "Haut en coton à manches longues",
+        cardJoggingPants: "Pantalon de jogging long",
+        cropShirt: "Recadrage",
+        cardRainJacket: "Manteau léger",
+        cardCottonTshirt: "T-shirt en coton",
+        cardRunningShoes: "Chaussures de course",
+        cardWalkingShoes: "Chaussures de marche",
+        cardWarmSocks: "Chaussettes chaudes",
+        cardConfusingItem: "Article incertain",
+        confirmedCotton: "Coton sur la peau",
+        confirmedWarmth: "Chaleur : moyenne",
+        confirmedRain: "Adapté à la pluie",
+        confirmedWalking: "Marche extérieure",
+        needsTagCheck: "Étiquette à vérifier",
+        retakeOnlyThis: "Reprendre seulement celui-ci",
+        reuseWardrobeTitle: "3. Enregistrer une fois, réutiliser chaque jour",
+        wardrobeCaptureFlow: "Flux de capture de la garde-robe",
+        flowGroupPhotos: "Photos de groupe",
+        flowGroupHelp: "Inventaire rapide",
+        flowItemCards: "Fiches réutilisables",
+        flowCardsHelp: "Recadrer et confirmer avec le temps",
+        flowDailyPlan: "Plan quotidien",
+        flowPlanHelp: "Aucune nouvelle photo requise",
+        reuseWardrobeDescription: "La fiche enregistrée devient la source de vérité. Wayfinder demande une nouvelle photo seulement si l'utilisateur veut améliorer un article confus ou modifié.",
+        saveWardrobeCards: "Enregistrer 5 fiches",
+        wardrobeSavedButton: "Fiches enregistrées",
+        wardrobeSavedStatus: "Cinq fiches réutilisables sont enregistrées pour les recommandations quotidiennes. Un article incertain reste à reprendre plus tard.",
+        wardrobeSavedAnnounce: "Fiches de garde-robe enregistrées. Les recommandations quotidiennes peuvent les réutiliser.",
         outfitShown: "Une autre tenue est affichée : {items}.",
         outfitChosenButton: "Tenue choisie",
         outfitChosenAnnounce: "Cette tenue est choisie pour aujourd'hui.",
-        readyProgress: "{complete} article(s) sur {total} sont prêts.",
+        readyProgress: "{complete} article(s) spécial(aux) sur {total} sont prêts.",
         checkRequestedButton: "Vérification demandée",
         finishedTitle: "Doug a terminé son plan",
         familyCheckProgress: "Une vérification familiale a été demandée. Les choix de Doug restent sélectionnés.",
         familyCheckAnnounce: "Doug a terminé et demandé une vérification familiale. Ses choix restent sélectionnés.",
         helpRequested: "Une demande d'aide pour {topic} serait faite. Rien n'a été envoyé dans ce prototype.",
-        speechPlan: "Voici le plan de Doug. Il fait maintenant 12 degrés Celsius, avec un ressenti de 10 et un maximum de 15. De la pluie et du vent sont prévus après le dîner. Matin : Film.ca Scoob movie. Après-midi : Trafalgar Park. Porte un haut en coton à manches longues, un pantalon de jogging long, un imperméable léger et des chaussures de marche. Apporte un parapluie, une bouteille d'eau et le sac de jour du Hub."
+        speechPlan: "Plan de Doug. Matin : film. Après-midi : Trafalgar Park. Porte le haut gris à manches longues, le pantalon gris, le manteau léger et les chaussures de marche. Apporte parapluie."
       }
     };
 
-    const localizedOutfits = {
-      "en-CA": [
-        {
-          items: ["Long-sleeved cotton top", "Long jogging pants", "Light waterproof jacket", "Walking shoes"],
-          reason: "Cotton touches skin and the clothing tags are removed. The feels-like temperature is 10°C. The long top and jogging pants add warmth, while the light waterproof jacket and walking shoes prepare Doug for Trafalgar Park, wind, and afternoon rain."
+    const localizedPlans = {
+      "en-CA": {
+        "2026-09-03": {
+          hubReady: "<strong>Thursday plan:</strong> Movie in the morning. Trafalgar Park in the afternoon. Rain after lunch.",
+          low: "10°C",
+          high: "15°C",
+          weatherSummary: "Low 10°C. High 15°C. Rain after lunch.",
+          weatherDetail: "Rain after 1:00 PM",
+          updated: "Updated 12 minutes ago",
+          activities: {
+            morning: ["Film.ca Scoob movie", "Indoor seated activity · Hub schedule"],
+            afternoon: ["Trafalgar Park", "Outdoor walking · Hub schedule"]
+          },
+          expectation: "The movie is indoors this morning. Trafalgar Park is outdoors this afternoon. The Hub schedule did not include exact times, so Wayfinder shows morning and afternoon.",
+          bringItems: [],
+          speechMorning: "movie",
+          speechAfternoon: "Trafalgar Park"
         },
-        {
-          items: ["Cotton T-shirt + hoodie", "Long stretch pants", "Waterproof shell", "Running shoes"],
-          reason: "Cotton touches skin and the clothing tags are removed. The removable hoodie adds warmth for the 10°C feels-like temperature and can come off indoors. The shell and running shoes support rain, wind, and outdoor walking."
-        }
-      ],
-      "ja-JP": [
-        {
-          items: ["綿の長袖トップス", "長いジョギングパンツ", "軽い防水ジャケット", "歩きやすい靴"],
-          reason: "肌に触れる部分は綿で、服のタグは外してあります。体感温度は10°Cです。長袖とジョギングパンツで暖かさを足し、軽い防水ジャケットと歩きやすい靴でTrafalgar Park、風、午後の雨に備えます。"
+        "2026-09-04": {
+          hubReady: "<strong>Friday preview:</strong> Hamilton Bayfront picnic lunch is outside. This can be checked the night before.",
+          low: "14°C",
+          high: "23°C",
+          weatherSummary: "Low 14°C. High 23°C. Outside most of the day.",
+          weatherDetail: "No rain expected",
+          updated: "Preview for Friday",
+          activities: {
+            morning: ["Hamilton Bayfront picnic lunch", "Outdoor activity · Hub schedule"],
+            afternoon: ["Hamilton Bayfront picnic lunch", "Outdoor activity · Hub schedule"]
+          },
+          expectation: "Hamilton Bayfront picnic lunch is outside and listed as a full-day Hub activity. Wayfinder keeps the familiar morning and afternoon pattern.",
+          bringItems: [],
+          speechMorning: "Hamilton Bayfront picnic",
+          speechAfternoon: "Hamilton Bayfront picnic"
         },
-        {
-          items: ["綿Tシャツ + パーカー", "長いストレッチパンツ", "防水シェル", "ランニングシューズ"],
-          reason: "肌に触れる部分は綿で、服のタグは外してあります。脱ぎ着できるパーカーは体感温度10°Cに合い、室内では脱げます。防水シェルとランニングシューズで雨、風、屋外歩行に備えます。"
-        }
-      ],
-      "fr-CA": [
-        {
-          items: ["Haut en coton à manches longues", "Pantalon de jogging long", "Imperméable léger", "Chaussures de marche"],
-          reason: "Le coton touche la peau et les étiquettes sont retirées. Le ressenti est de 10 °C. Le haut à manches longues et le pantalon ajoutent de la chaleur; l'imperméable léger et les chaussures de marche préparent Doug pour Trafalgar Park, le vent et la pluie."
+        "2026-09-08": {
+          hubReady: "<strong>Tuesday preview:</strong> Florence St. jog in the morning. Laundry and dishwashing in the afternoon.",
+          low: "--",
+          high: "--",
+          weatherSummary: "Weather forecast not loaded yet.",
+          weatherDetail: "Use activity needs first",
+          updated: "Schedule from Sep. 8 screenshot",
+          activities: {
+            morning: ["Florence St. jog", "Active outdoor activity · Hub schedule"],
+            afternoon: ["Laundry and dishwashing duty", "Indoor household activity · Hub schedule"]
+          },
+          expectation: "Morning is active. Afternoon is indoor household work. Weather can be added when the forecast is available.",
+          bringItems: [],
+          speechMorning: "Florence Street jog",
+          speechAfternoon: "laundry and dishes"
         },
-        {
-          items: ["T-shirt en coton + coton ouaté", "Pantalon extensible long", "Coquille imperméable", "Chaussures de course"],
-          reason: "Le coton touche la peau et les étiquettes sont retirées. Le coton ouaté amovible ajoute de la chaleur pour le ressenti de 10 °C et peut être retiré à l'intérieur. La coquille et les chaussures conviennent à la pluie, au vent et à la marche."
+        "2026-09-09": {
+          hubReady: "<strong>Wednesday preview:</strong> September scavenger hunt in the morning. Charter boat ride in the afternoon.",
+          low: "--",
+          high: "--",
+          weatherSummary: "Weather forecast not loaded yet.",
+          weatherDetail: "Boat ride may need a light layer",
+          updated: "Schedule from Sep. 8 screenshot",
+          activities: {
+            morning: ["September Scavenger Hunt", "Active searching activity · Hub schedule"],
+            afternoon: ["Charter Boat Ride", "Outdoor trip · Hub schedule"]
+          },
+          expectation: "The afternoon boat ride may feel cooler or windy. Wayfinder keeps that as a visible reason, not a hidden rule.",
+          bringItems: [],
+          speechMorning: "scavenger hunt",
+          speechAfternoon: "charter boat ride"
+        },
+        "2026-09-10": {
+          hubReady: "<strong>Thursday preview:</strong> Sundae Thursday in the morning. Fortinos grocery list in the afternoon.",
+          low: "--",
+          high: "--",
+          weatherSummary: "Weather forecast not loaded yet.",
+          weatherDetail: "Mostly indoor and community outing",
+          updated: "Schedule from Sep. 8 screenshot",
+          activities: {
+            morning: ["Sundae Thursday", "Indoor social activity · Hub schedule"],
+            afternoon: ["Fortinos grocery list", "Community errand · Hub schedule"]
+          },
+          expectation: "This is a mostly indoor day with a community grocery errand in the afternoon.",
+          bringItems: [
+            ["Grocery list", "For Fortinos"]
+          ],
+          speechMorning: "Sundae Thursday",
+          speechAfternoon: "Fortinos grocery list"
+        },
+        "2026-09-11": {
+          hubReady: "<strong>Friday preview:</strong> Food Basics chips crew in the morning. Frizbee Friday in the afternoon.",
+          low: "--",
+          high: "--",
+          weatherSummary: "Weather forecast not loaded yet.",
+          weatherDetail: "Outdoor active afternoon",
+          updated: "Schedule from Sep. 8 screenshot",
+          activities: {
+            morning: ["Food Basics - Chips Crew", "Community errand · Hub schedule"],
+            afternoon: ["Frizbee Friday", "Outdoor active activity · Hub schedule"]
+          },
+          expectation: "Morning is a community errand. Afternoon is active and outdoors.",
+          bringItems: [
+            ["No lunch box", "Hotdogs and chips at Hub if Doug wants them"]
+          ],
+          speechMorning: "Food Basics chips crew",
+          speechAfternoon: "Frizbee Friday"
         }
-      ]
+      },
+      "ja-JP": {
+        "2026-09-03": {
+          hubReady: "<strong>木曜の予定:</strong> 午前は映画。午後はTrafalgar Park。昼食後に雨。",
+          low: "10°C",
+          high: "15°C",
+          weatherSummary: "最低10°C、最高15°C。昼食後に雨。",
+          weatherDetail: "午後1時以降に雨",
+          updated: "12分前に更新",
+          activities: {
+            morning: ["Film.ca Scoob movie", "室内で座る活動 · Hubの予定"],
+            afternoon: ["Trafalgar Park", "屋外で歩く活動 · Hubの予定"]
+          },
+          expectation: "午前の映画は室内です。午後のTrafalgar Parkは屋外です。Hubの予定には正確な時刻がないため、午前と午後で表示します。",
+          bringItems: [],
+          speechMorning: "映画",
+          speechAfternoon: "Trafalgar Park"
+        },
+        "2026-09-04": {
+          hubReady: "<strong>金曜の確認:</strong> Hamilton Bayfront picnic lunchは屋外です。前の夜に確認できます。",
+          low: "14°C",
+          high: "23°C",
+          weatherSummary: "最低14°C、最高23°C。ほとんど屋外。",
+          weatherDetail: "雨の予報はありません",
+          updated: "金曜の予報",
+          activities: {
+            morning: ["Hamilton Bayfront picnic lunch", "屋外活動 · Hubの予定"],
+            afternoon: ["Hamilton Bayfront picnic lunch", "屋外活動 · Hubの予定"]
+          },
+          expectation: "Hamilton Bayfront picnic lunchは屋外の一日活動です。Wayfinderは慣れた午前と午後の形で表示します。",
+          bringItems: [],
+          speechMorning: "Hamilton Bayfrontのピクニック",
+          speechAfternoon: "Hamilton Bayfrontのピクニック"
+        }
+      },
+      "fr-CA": {
+        "2026-09-03": {
+          hubReady: "<strong>Plan de jeudi :</strong> film le matin. Trafalgar Park l'après-midi. Pluie après le dîner.",
+          low: "10 °C",
+          high: "15 °C",
+          weatherSummary: "Minimum 10 °C. Maximum 15 °C. Pluie après le dîner.",
+          weatherDetail: "Pluie après 13 h",
+          updated: "Mis à jour il y a 12 minutes",
+          activities: {
+            morning: ["Film.ca Scoob movie", "Activité assise à l'intérieur · Horaire du Hub"],
+            afternoon: ["Trafalgar Park", "Marche à l'extérieur · Horaire du Hub"]
+          },
+          expectation: "Le film est à l'intérieur ce matin. Trafalgar Park est à l'extérieur cet après-midi. L'horaire du Hub n'indique pas les heures exactes; Wayfinder affiche donc matin et après-midi.",
+          bringItems: [],
+          speechMorning: "film",
+          speechAfternoon: "Trafalgar Park"
+        },
+        "2026-09-04": {
+          hubReady: "<strong>Aperçu de vendredi :</strong> Hamilton Bayfront picnic lunch est à l'extérieur. Il peut être vérifié la veille.",
+          low: "14 °C",
+          high: "23 °C",
+          weatherSummary: "Minimum 14 °C. Maximum 23 °C. Surtout à l'extérieur.",
+          weatherDetail: "Aucune pluie prévue",
+          updated: "Aperçu pour vendredi",
+          activities: {
+            morning: ["Hamilton Bayfront picnic lunch", "Activité extérieure · Horaire du Hub"],
+            afternoon: ["Hamilton Bayfront picnic lunch", "Activité extérieure · Horaire du Hub"]
+          },
+          expectation: "Hamilton Bayfront picnic lunch est une activité extérieure pour la journée. Wayfinder garde le format familier matin et après-midi.",
+          bringItems: [],
+          speechMorning: "pique-nique Hamilton Bayfront",
+          speechAfternoon: "pique-nique Hamilton Bayfront"
+        }
+      }
     };
 
     const body = document.body;
     const settingsDialog = document.querySelector("#settings-dialog");
     const helpDialog = document.querySelector("#help-dialog");
     const scheduleDialog = document.querySelector("#schedule-dialog");
+    const wardrobeDialog = document.querySelector("#wardrobe-dialog");
     const announcer = document.querySelector("#announcer");
     const state = {
       locale: "en-CA",
+      planDate: "2026-09-03",
       outfitIndex: 0,
       outfitChosen: false,
       familyCheckRequested: false,
       readyCount: 0,
       selectedFileName: null,
+      scheduleExample: "hub",
       publishedCount: null,
       publishedDestination: null,
+      wardrobeFileCount: 0,
+      wardrobeSaved: false,
+      weatherForecasts: {},
+      weatherErrors: {},
+      weatherLoadingDate: null,
       speaking: false
     };
 
@@ -1476,21 +2800,690 @@
       ics: "downloadIcs"
     }[value]);
 
-    const renderOutfit = () => {
-      const outfit = localizedOutfits[state.locale][state.outfitIndex];
-      const labels = document.querySelectorAll("#outfit-visual .garment span");
-      labels.forEach((label, index) => {
-        label.textContent = outfit.items[index];
+    const scheduleExamples = {
+      hub: [
+        ["2026-08-31", "morning", "Summer lake messages", "Needs activity clarification"],
+        ["2026-08-31", "afternoon", "August hand weight challenge", "Active clothes + secure shoes"],
+        ["2026-09-01", "morning", "Frosty Tuesday", "Comfortable indoor clothes"],
+        ["2026-09-01", "afternoon", "2000 Steps into September", "Walking shoes + breathable layer"],
+        ["2026-09-02", "morning", "BU Cafe visit", "Comfortable casual clothes"],
+        ["2026-09-02", "afternoon", "August Hand Weight Challenge", "Active clothes + secure shoes"],
+        ["2026-09-03", "morning", "Film.ca Scoob movie", "Comfortable indoor layer"],
+        ["2026-09-03", "afternoon", "Trafalgar Park", "Weather layer + walking shoes"],
+        ["2026-09-04", "fullDay", "Hamilton Bayfront picnic lunch", "Outdoor layers + walking shoes"]
+      ],
+      sep8: [
+        ["2026-09-08", "morning", "Florence St. jog", "Active clothes + running shoes"],
+        ["2026-09-08", "afternoon", "Laundry and dishwashing duty", "Comfortable indoor clothes"],
+        ["2026-09-09", "morning", "September Scavenger Hunt", "Active clothes + secure shoes"],
+        ["2026-09-09", "afternoon", "Charter Boat Ride", "Light layer + walking shoes"],
+        ["2026-09-10", "morning", "Sundae Thursday", "Comfortable indoor clothes"],
+        ["2026-09-10", "afternoon", "Fortinos grocery list", "Grocery list"],
+        ["2026-09-11", "morning", "Food Basics - Chips Crew", "Community outing clothes"],
+        ["2026-09-11", "afternoon", "Frizbee Friday", "No lunch box note + active clothes"]
+      ]
+    };
+
+    const weatherLocations = {
+      oakville: {
+        latitude: 43.4675,
+        longitude: -79.6877,
+        names: {
+          "en-CA": "Oakville",
+          "ja-JP": "Oakville",
+          "fr-CA": "Oakville"
+        }
+      },
+      hamiltonBayfront: {
+        latitude: 43.2709,
+        longitude: -79.8711,
+        names: {
+          "en-CA": "Hamilton Bayfront",
+          "ja-JP": "Hamilton Bayfront",
+          "fr-CA": "Hamilton Bayfront"
+        }
+      }
+    };
+
+    const planWeatherLocations = {
+      "2026-09-03": "oakville",
+      "2026-09-04": "hamiltonBayfront",
+      "2026-09-08": "oakville",
+      "2026-09-09": "oakville",
+      "2026-09-10": "oakville",
+      "2026-09-11": "oakville"
+    };
+
+    // Each item declares the slot it fills and the effective-temperature range it suits.
+    // Rules never name a garment. They ask for a slot at a temperature, so a new item is
+    // usable the moment it is added.
+    // Ranges are deliberately wide where a garment genuinely spans several kinds of day.
+    // A t-shirt is not a "warm day" item; it works from a mild day through a hot one.
+    const builtInWardrobe = [
+      { id: "teeGrey", slot: "baseTop", min: 14, max: 40, photo: "1. Tops/20260905_150221312_iOS.jpg" },
+      { id: "teeNavy", slot: "baseTop", min: 14, max: 40, photo: "1. Tops/20260905_144331910_iOS.jpg" },
+      { id: "teeBlack", slot: "baseTop", min: 14, max: 40, photo: "1. Tops/20260905_144354095_iOS.jpg" },
+      { id: "longSleeveThin", slot: "baseTop", min: 6, max: 20, photo: "1. Tops/20260905_144611306_iOS.jpg" },
+      { id: "longSleeveGrey", slot: "baseTop", min: 2, max: 17, photo: "1. Tops/20260905_144632312_iOS.jpg" },
+      { id: "longSleeveWarm", slot: "baseTop", min: -15, max: 12, photo: "1. Tops/20260905_144735308_iOS.jpg" },
+
+      { id: "shortsGrey", slot: "bottom", min: 19, max: 40, activeOk: true, photo: "2. Bottoms/20260905_144938139_iOS.jpg" },
+      { id: "shortsNavy", slot: "bottom", min: 19, max: 40, activeOk: true, photo: "2. Bottoms/20260905_144955003_iOS.jpg" },
+      { id: "thinPants", slot: "bottom", min: 10, max: 28, activeOk: true, photo: "2. Bottoms/Spring & Fall pants 2.jpg" },
+      { id: "joggingPants", slot: "bottom", min: 2, max: 19, photo: "2. Bottoms/Spring & Fall pants.jpg" },
+      { id: "winterSweats", slot: "bottom", min: -10, max: 10, photo: "2. Bottoms/Winter sweats.jpg" },
+      { id: "winterDownPants", slot: "bottom", min: -30, max: 2, snowReady: true, photo: "2. Bottoms/Winter down pants.jpg" },
+
+      { id: "stretchJacket", slot: "outer", min: 10, max: 22, photo: "3. Outerwear/Stretch Light Jacket.jpg" },
+      { id: "windbreaker", slot: "outer", min: 6, max: 22, waterResistant: true, windResistant: true, photo: "3. Outerwear/Light windbreaker 2.jpg" },
+      { id: "downVest", slot: "outer", min: 4, max: 16, photo: "3. Outerwear/Down vest.jpg" },
+      { id: "fleece", slot: "outer", min: 1, max: 15, photo: "3. Outerwear/Fleece.jpg" },
+      { id: "lightDown", slot: "outer", min: -8, max: 8, photo: "3. Outerwear/Light down.jpg" },
+      { id: "parka", slot: "outer", min: -20, max: 4, waterResistant: true, windResistant: true, snowReady: true, photo: "3. Outerwear/Full-zip Parka.jpg" },
+      { id: "heavyDown", slot: "outer", min: -30, max: 0, windResistant: true, photo: "3. Outerwear/Heavy Down Jacket.jpg" },
+
+      { id: "walkingShoes", slot: "footwear", min: -10, max: 40, photo: "4. Footwear/Hiking and Walking shoes (Merrell).jpg" },
+      { id: "runningShoes", slot: "footwear", min: -5, max: 40, activeOk: true, photo: "4. Footwear/Running and Sports Shoes (Asics).jpg" },
+      { id: "snowBoots", slot: "footwear", min: -30, max: 5, snowReady: true, waterResistant: true, photo: "", needsPhoto: true },
+
+      // Socks are a decision, not a default, only when they differ from the everyday pair.
+      // Regular socks are marked as the silent default and never shown on the plan.
+      { id: "socksRegular", slot: "socks", min: 4, max: 40, isDefault: true, photo: "4. Footwear/Regular socks.jpg" },
+      { id: "socksShort", slot: "socks", min: 8, max: 40, activeOk: true, photo: "4. Footwear/Sports socks.jpg" },
+      { id: "socksThick", slot: "socks", min: -30, max: 10, photo: "4. Footwear/Winter socks.jpg" }
+    ];
+
+    const customWardrobeKey = "wayfinder.customWardrobe.v1";
+    const wardrobeOverridesKey = "wayfinder.wardrobeOverrides.v1";
+
+    const readStore = (key, fallback) => {
+      try {
+        const raw = window.localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (error) {
+        return fallback;
+      }
+    };
+
+    const writeStore = (key, value) => {
+      try {
+        window.localStorage.setItem(key, JSON.stringify(value));
+      } catch (error) {
+        // A prototype opened straight from disk may block storage. Changes still apply for
+        // this session; they simply do not persist.
+      }
+    };
+
+    let customWardrobe = Array.isArray(readStore(customWardrobeKey, [])) ? readStore(customWardrobeKey, []) : [];
+    // Edits and removals apply to built-in items too. The built-in list stays untouched and
+    // the change is recorded as an override, so nothing is ever lost.
+    let wardrobeOverrides = readStore(wardrobeOverridesKey, {}) ?? {};
+
+    const persistWardrobe = () => {
+      writeStore(customWardrobeKey, customWardrobe);
+      writeStore(wardrobeOverridesKey, wardrobeOverrides);
+    };
+
+    const allWardrobeItems = () =>
+      [...builtInWardrobe, ...customWardrobe]
+        .map((item) => ({ ...item, ...(wardrobeOverrides[item.id] ?? {}) }))
+        .filter((item) => !item.archived);
+
+    const wardrobeItem = (id) => allWardrobeItems().find((item) => item.id === id) ?? null;
+
+    const itemLabel = (item) => {
+      if (!item) return "";
+      if (item.label) return item.label;
+      return t(`wardrobe_${item.id}`);
+    };
+
+    const wardrobePhotoUrl = (item) => {
+      if (!item || !item.photo) return "";
+      if (item.custom || item.photo.startsWith("blob:") || item.photo.startsWith("data:")) return item.photo;
+      const encoded = item.photo.split("/").map(encodeURIComponent).join("/");
+      return `../../wayfinder-private/poc-assets/wardrobe/${encoded}`;
+    };
+
+    // Each period is evaluated separately: is the person outside, and how hard are they
+    // moving? Activity changes perceived warmth far more than a couple of degrees does.
+    const planContexts = {
+      "2026-09-03": {
+        indoorSeated: true,
+        periods: [
+          { outdoor: false, intensity: "casual" },
+          { outdoor: true, intensity: "walking" }
+        ]
+      },
+      "2026-09-04": {
+        indoorSeated: false,
+        periods: [
+          { outdoor: true, intensity: "casual" },
+          { outdoor: true, intensity: "casual" }
+        ]
+      },
+      "2026-09-08": {
+        indoorSeated: false,
+        periods: [
+          { outdoor: true, intensity: "active" },
+          { outdoor: false, intensity: "casual" }
+        ]
+      },
+      "2026-09-09": {
+        indoorSeated: false,
+        periods: [
+          { outdoor: true, intensity: "active" },
+          { outdoor: true, intensity: "casual" }
+        ]
+      },
+      "2026-09-10": {
+        indoorSeated: true,
+        periods: [
+          { outdoor: false, intensity: "casual" },
+          { outdoor: true, intensity: "casual" }
+        ]
+      },
+      "2026-09-11": {
+        indoorSeated: false,
+        periods: [
+          { outdoor: true, intensity: "casual" },
+          { outdoor: true, intensity: "active" }
+        ]
+      }
+    };
+
+    // Approximate warmth added by movement, in degrees. Vigorous activity is the reason a
+    // 17°C jog must not be dressed like a 17°C errand.
+    const intensityWarmth = { active: 8, walking: 2, casual: 0 };
+
+    const windPenalty = (windSpeed) => {
+      if (!Number.isFinite(windSpeed)) return 0;
+      if (windSpeed >= 35) return 5;
+      if (windSpeed >= 20) return 3;
+      return 0;
+    };
+
+    const temperatureBand = (high) => {
+      if (high >= 25) return "hot";
+      if (high >= 20) return "warm";
+      if (high >= 15) return "mild";
+      if (high >= 10) return "cool";
+      if (high >= 5) return "chilly";
+      if (high >= 0) return "cold";
+      return "freezing";
+    };
+
+    // One ranking function serves every slot. A rule asks for a slot at a temperature and
+    // optionally states preferences; it never names a garment.
+    const rankForSlot = (slot, target, prefer = {}) => {
+      const candidates = allWardrobeItems().filter((item) => {
+        if (item.slot !== slot) return false;
+        if (item.available === false) return false;
+        if (prefer.requireSnow && !item.snowReady) return false;
+        return true;
       });
-      document.querySelector("#outfit-reason").textContent = outfit.reason;
+
+      const score = (item) => {
+        let value = 0;
+        if (target < item.min) value += 100 + (item.min - target);
+        else if (target > item.max) value += 100 + (target - item.max);
+        // Among items that work, prefer the lightest one — the highest minimum. This is
+        // the "err lighter, add a removable layer" principle expressed as a tiebreak.
+        else value += (target - item.min) * 0.1;
+        if (prefer.active !== undefined && Boolean(item.activeOk) !== prefer.active) value += 5;
+        if (prefer.water && !item.waterResistant) value += 25;
+        if (prefer.wind && !item.windResistant) value += 12;
+        return value;
+      };
+
+      return candidates.sort((a, b) => score(a) - score(b));
+    };
+
+    const pickPair = (slot, target, prefer = {}) => {
+      const ranked = rankForSlot(slot, target, prefer);
+      return { primary: ranked[0] ?? null, alternate: ranked[1] ?? ranked[0] ?? null };
+    };
+
+    const buildOutfits = (context, forecast) => {
+      const periods = context.periods ?? [];
+      const anyActive = periods.some((period) => period.outdoor && period.intensity === "active");
+      const collect = (items) => items.filter(Boolean).map((item) => item.id);
+
+      if (!forecast) {
+        const top = pickPair("baseTop", 16);
+        const bottom = pickPair("bottom", 14);
+        const outer = pickPair("outer", 14);
+        const shoes = pickPair("footwear", 16, { active: anyActive });
+        return [
+          { itemIds: collect([top.primary, bottom.primary, outer.primary, shoes.primary]), facts: null, variant: "primary" },
+          { itemIds: collect([top.alternate, bottom.alternate, outer.alternate, shoes.alternate]), facts: null, variant: "alternate" }
+        ];
+      }
+
+      const high = Math.round(forecast.high);
+      const low = Math.round(forecast.low);
+      const rain = Math.round(forecast.precipitationChance ?? 0);
+      const wind = Math.round(forecast.windSpeed ?? 0);
+      const snowfall = forecast.snowfall ?? 0;
+      const morningTemp = Math.round(forecast.morningTemp ?? low);
+      const afternoonTemp = Math.round(forecast.afternoonTemp ?? high);
+      const periodTemps = [morningTemp, afternoonTemp];
+      const chill = windPenalty(wind);
+
+      const outdoorPeriods = periods
+        .map((period, index) => ({
+          intensity: period.intensity ?? "casual",
+          outdoor: Boolean(period.outdoor),
+          actual: periodTemps[index]
+        }))
+        .filter((period) => period.outdoor && Number.isFinite(period.actual));
+
+      const outdoor = outdoorPeriods.length > 0;
+      const effective = outdoorPeriods.map(
+        (period) => period.actual + (intensityWarmth[period.intensity] ?? 0) - chill
+      );
+      const still = outdoorPeriods.map((period) => period.actual - chill);
+
+      // Three targets, because the slots are not symmetric.
+      const warmTarget = outdoor ? Math.max(...effective) : high;   // base top: hottest moment
+      const legTarget = outdoor ? Math.min(...effective) : high;    // bottom: stays on all day
+      const outerTarget = outdoor ? Math.min(...still) : high;      // outer: coldest still moment
+      // The no-jacket cap is about real air temperature, not activity-adjusted warmth.
+      // Otherwise a warm afternoon plus exercise would cancel a jacket that is genuinely
+      // needed on a cold morning.
+      const warmestActual = outdoor ? Math.max(...outdoorPeriods.map((period) => period.actual)) : high;
+
+      const rainy = rain >= 50;
+      const windy = wind >= 25;
+      const snowy = snowfall > 0 || (outerTarget <= 1 && rain >= 40);
+
+      // Documented proxy, not a measured fact: an indoor seated venue on a warm day is
+      // usually cooler than the air outside. Cover the legs rather than add a layer that
+      // could be worn outdoors and cause overheating.
+      const coveredLegs = Boolean(context.indoorSeated) && high >= 20;
+      const bottomTarget = coveredLegs ? Math.min(legTarget, 18) : legTarget;
+
+      const top = pickPair("baseTop", warmTarget);
+      const bottom = pickPair("bottom", bottomTarget, { active: anyActive || undefined });
+      const shoes = pickPair("footwear", outerTarget, {
+        active: snowy ? undefined : anyActive,
+        requireSnow: snowy
+      });
+      const fallbackShoes = snowy ? pickPair("footwear", outerTarget, { active: false }) : shoes;
+
+      // Hard cap from the fit model: above 25°C at the hottest moment, no outer layer at
+      // all. Otherwise offer one whenever the coldest still moment is below 18°C.
+      const needsOuter = warmestActual <= 25 && outerTarget < 18;
+      const outer = needsOuter
+        ? pickPair("outer", outerTarget, { water: rainy, wind: windy || rainy })
+        : { primary: null, alternate: null };
+
+      const accessory = outerTarget <= 0 ? pickPair("accessory", outerTarget) : { primary: null, alternate: null };
+      // Socks only appear when they differ from the everyday pair.
+      const socks = pickPair("socks", outerTarget, { active: anyActive });
+      const socksPrimary = socks.primary?.isDefault ? null : socks.primary;
+      const socksAlternate = socks.alternate?.isDefault ? null : socks.alternate;
+
+      // Doug owns snow boots. If the photo has not been added yet the item is still used;
+      // the plan simply notes that a picture is missing.
+      const snowBootsNeedPhoto = snowy && Boolean(shoes.primary?.needsPhoto);
+      const footwearPrimary = shoes.primary ?? fallbackShoes.primary;
+      const footwearAlternate = shoes.alternate ?? fallbackShoes.alternate;
+
+      const outerBand = temperatureBand(outerTarget);
+      const facts = {
+        high,
+        low,
+        rain,
+        wind,
+        band: temperatureBand(high),
+        rainy,
+        windy,
+        snowy,
+        missingSnowBoots: snowy && !shoes.primary,
+        snowBootsNeedPhoto,
+        activeOutdoor: anyActive,
+        // Only a light outer layer is meant to come off partway through the day. A parka
+        // at minus seven is not a removable layer.
+        removableLayer:
+          Boolean(outer.primary) &&
+          warmTarget - outerTarget >= 5 &&
+          (outerBand === "mild" || outerBand === "cool" || outerBand === "chilly"),
+        coveredLegs: coveredLegs && legTarget >= 19,
+        morningTemp,
+        afternoonTemp,
+        outdoor
+      };
+
+      return [
+        {
+          itemIds: collect([top.primary, bottom.primary, outer.primary, footwearPrimary, socksPrimary, accessory.primary]),
+          facts,
+          variant: "primary"
+        },
+        {
+          itemIds: collect([top.alternate, bottom.alternate, outer.alternate, footwearAlternate, socksAlternate, accessory.alternate]),
+          facts,
+          variant: "alternate"
+        }
+      ];
+    };
+
+    const currentPlan = () =>
+      localizedPlans[state.locale]?.[state.planDate] ??
+      localizedPlans["en-CA"][state.planDate] ??
+      localizedPlans["en-CA"]["2026-09-03"];
+
+    const locationName = (locationKey) => {
+      const location = weatherLocations[locationKey];
+      return location?.names[state.locale] ?? location?.names["en-CA"] ?? "selected area";
+    };
+
+    const formatTemperature = (value) =>
+      state.locale === "fr-CA" ? `${Math.round(value)} °C` : `${Math.round(value)}°C`;
+
+    const formatPublicWeather = (forecast) => {
+      const low = formatTemperature(forecast.low);
+      const high = formatTemperature(forecast.high);
+      let rain = t("noRainExpected");
+      if (forecast.precipitationChance >= 60) {
+        rain = t("rainLikely");
+      } else if (forecast.precipitationChance >= 30) {
+        rain = t("rainPossible");
+      }
+
+      const details = [t("rainChance", { chance: forecast.precipitationChance })];
+      if (forecast.windSpeed >= 20) {
+        details.push(t("windDetail", { speed: Math.round(forecast.windSpeed) }));
+      }
+
+      return {
+        low,
+        high,
+        summary: t("lowHighSummary", { low, high, rain }),
+        detail: details.join(" · "),
+        source: t("publicForecastSource", { location: locationName(forecast.locationKey) })
+      };
+    };
+
+    let readyItems = [];
+
+    const refreshReadyItems = () => {
+      readyItems = [...document.querySelectorAll("[data-ready-item]")];
+      readyItems.forEach((item) => {
+        item.addEventListener("change", () => {
+          state.readyCount = readyItems.filter((candidate) => candidate.checked).length;
+          renderReadyProgress();
+        });
+      });
+    };
+
+    const renderSpecialItems = (items) => {
+      const list = document.querySelector("#bring-list");
+      if (items.length === 0) {
+        list.innerHTML = `<li class="check-row"><span>${t("noSpecialItems")}</span></li>`;
+        refreshReadyItems();
+        return;
+      }
+
+      list.innerHTML = items.map(([name, reason]) => `<li>
+          <label class="check-row">
+            <input type="checkbox" data-ready-item="${name}">
+            <span><strong class="bring-item-name">${name}</strong><br><span class="muted optional-detail bring-item-reason">${reason}</span></span>
+          </label>
+        </li>`).join("");
+      refreshReadyItems();
+    };
+
+    const renderPlan = () => {
+      const plan = currentPlan();
+      const forecast = state.weatherForecasts[state.planDate];
+      const weather = forecast ? formatPublicWeather(forecast) : null;
+      const isLoadingWeather = state.weatherLoadingDate === state.planDate;
+      const hasWeatherError = state.weatherErrors[state.planDate];
+      document.querySelector("#today-date").textContent = formatDate(
+        state.planDate,
+        { weekday: "long", month: "long", day: "numeric" }
+      );
+      document.querySelector("#weather-low").textContent = weather?.low ?? (isLoadingWeather ? "--" : plan.low);
+      document.querySelector("#weather-high").textContent = weather?.high ?? (isLoadingWeather ? "--" : plan.high);
+      document.querySelector("[data-i18n='weatherSummary']").textContent =
+        weather?.summary ?? (isLoadingWeather ? t("loadingForecast") : hasWeatherError ? t("forecastUnavailable") : plan.weatherSummary);
+      document.querySelector("[data-i18n='weatherDetail']").textContent =
+        weather?.detail ?? (isLoadingWeather ? locationName(planWeatherLocations[state.planDate]) : plan.weatherDetail);
+      document.querySelector("[data-i18n='updated']").textContent = weather?.source ?? plan.updated;
+      document.querySelector("[data-i18n-html='hubReady']").innerHTML = plan.hubReady;
+      document.querySelector("#morning-activity").textContent = plan.activities.morning[0];
+      document.querySelector("#morning-context").textContent = plan.activities.morning[1];
+      document.querySelector("#afternoon-activity").textContent = plan.activities.afternoon[0];
+      document.querySelector("#afternoon-context").textContent = plan.activities.afternoon[1];
+      document.querySelector("[data-i18n='expectation']").textContent = plan.expectation;
+      renderSpecialItems(computeSpecialItems());
+    };
+
+    const loadForecastForSelectedDate = async () => {
+      const date = state.planDate;
+      const locationKey = planWeatherLocations[date];
+      const location = weatherLocations[locationKey];
+      if (!location || state.weatherForecasts[date] || state.weatherLoadingDate === date) return;
+
+      state.weatherLoadingDate = date;
+      delete state.weatherErrors[date];
+      renderDynamicState();
+
+      const params = new URLSearchParams({
+        latitude: String(location.latitude),
+        longitude: String(location.longitude),
+        daily: "temperature_2m_min,temperature_2m_max,precipitation_probability_max,wind_speed_10m_max,snowfall_sum",
+        hourly: "temperature_2m",
+        timezone: "America/Toronto",
+        start_date: date,
+        end_date: date
+      });
+
+      try {
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
+        if (!response.ok) {
+          throw new Error(`Forecast request failed with ${response.status}`);
+        }
+        const data = await response.json();
+        const index = data.daily?.time?.indexOf(date) ?? -1;
+        if (index < 0) {
+          throw new Error("Selected date was not returned by the forecast provider.");
+        }
+        const low = data.daily.temperature_2m_min[index];
+        const high = data.daily.temperature_2m_max[index];
+        if (!Number.isFinite(low) || !Number.isFinite(high)) {
+          throw new Error("Forecast provider did not return usable temperatures.");
+        }
+
+        const hourlyTimes = data.hourly?.time ?? [];
+        const hourlyTemps = data.hourly?.temperature_2m ?? [];
+        const windowValues = (startHour, endHour) => {
+          const values = [];
+          hourlyTimes.forEach((stamp, position) => {
+            if (typeof stamp !== "string" || !stamp.startsWith(date)) return;
+            const hour = Number(stamp.slice(11, 13));
+            const value = hourlyTemps[position];
+            if (hour >= startHour && hour <= endHour && Number.isFinite(value)) {
+              values.push(value);
+            }
+          });
+          return values;
+        };
+        const morningValues = windowValues(8, 11);
+        const afternoonValues = windowValues(12, 17);
+
+        state.weatherForecasts[date] = {
+          locationKey,
+          low,
+          high,
+          // Measured hourly values when the provider supplies them. The daily low is a
+          // conservative fallback so a cold start is never hidden.
+          morningTemp: morningValues.length ? Math.min(...morningValues) : low,
+          afternoonTemp: afternoonValues.length ? Math.max(...afternoonValues) : high,
+          precipitationChance: data.daily.precipitation_probability_max[index] ?? 0,
+          windSpeed: data.daily.wind_speed_10m_max[index] ?? 0,
+          snowfall: data.daily.snowfall_sum?.[index] ?? 0
+        };
+      } catch (error) {
+        state.weatherErrors[date] = true;
+      } finally {
+        if (state.weatherLoadingDate === date) {
+          state.weatherLoadingDate = null;
+        }
+        renderDynamicState();
+      }
+    };
+
+    const currentOutfits = () =>
+      buildOutfits(
+        planContexts[state.planDate] ?? {
+          periods: [
+            { outdoor: true, intensity: "casual" },
+            { outdoor: true, intensity: "casual" }
+          ]
+        },
+        state.weatherForecasts[state.planDate]
+      );
+
+    const currentOutfit = () => {
+      const outfits = currentOutfits();
+      return outfits[state.outfitIndex % outfits.length];
+    };
+
+    // Exactly one driver is named, chosen by priority. Rules may keep growing; the
+    // explanation must not.
+    const outfitReasonText = (outfit) => {
+      const parts = [];
+      if (!outfit.facts) {
+        parts.push(t("reasonNoForecast"));
+      } else {
+        const facts = outfit.facts;
+        if (facts.removableLayer) {
+          parts.push(t("reasonSpread", {
+            morning: formatTemperature(facts.morningTemp),
+            afternoon: formatTemperature(facts.afternoonTemp)
+          }));
+        } else {
+          parts.push(t("reasonTemps", {
+            low: formatTemperature(facts.low),
+            high: formatTemperature(facts.high)
+          }));
+          parts.push(t(`reasonBand_${facts.band}`));
+        }
+
+        if (facts.snowy) {
+          parts.push(t("reasonSnow"));
+        } else if (facts.rainy) {
+          parts.push(t("reasonRain"));
+        } else if (facts.windy) {
+          parts.push(t("reasonWind"));
+        } else if (facts.activeOutdoor) {
+          parts.push(t("reasonActive"));
+        } else if (facts.coveredLegs) {
+          parts.push(t("reasonIndoorSeated"));
+        } else {
+          parts.push(facts.outdoor ? t("reasonOutdoor") : t("reasonIndoor"));
+        }
+
+        if (facts.removableLayer) parts.push(t("reasonTakeOff"));
+      }
+      if (outfit.variant === "alternate") parts.push(t("reasonAlternate"));
+      return parts.join(" ");
+    };
+
+    const computeSpecialItems = () => {
+      const plan = currentPlan();
+      const forecast = state.weatherForecasts[state.planDate];
+      const items = [...(plan.bringItems ?? [])];
+      const facts = currentOutfit().facts;
+      if (forecast) {
+        if ((forecast.precipitationChance ?? 0) >= 50 && !facts?.snowy) {
+          items.unshift([t("itemUmbrella"), t("reasonUmbrella")]);
+        }
+        if (forecast.high <= 0) {
+          items.push([t("itemWarmAccessories"), t("reasonWarmAccessories")]);
+        }
+      }
+      // Say plainly when the wardrobe cannot meet the conditions instead of recommending
+      // something Doug does not own. Skin protection is deliberately out of scope here and
+      // belongs to the future health and medication module.
+      if (facts?.missingSnowBoots) {
+        items.push([t("itemSnowBoots"), t("reasonSnowBootsMissing")]);
+      }      return items;
+    };
+
+    const buildSpeech = () => {
+      const plan = currentPlan();
+      const outfit = currentOutfit();
+      const parts = [t("speechIntro")];
+      parts.push(t("speechMorningLine", {
+        activity: plan.speechMorning ?? plan.activities.morning[0]
+      }));
+      parts.push(t("speechAfternoonLine", {
+        activity: plan.speechAfternoon ?? plan.activities.afternoon[0]
+      }));
+      parts.push(t("speechWearLine", {
+        items: outfit.itemIds.map((id) => itemLabel(wardrobeItem(id))).join(", ")
+      }));
+      const special = computeSpecialItems().map((item) => item[0]);
+      if (special.length > 0) {
+        parts.push(t("speechBringLine", { items: special.join(", ") }));
+      }
+      return parts.join(" ");
+    };
+
+    const renderOutfit = () => {
+      const outfit = currentOutfit();
+      document.querySelector("#outfit-visual").innerHTML = outfit.itemIds
+        .map((id) => {
+          const item = wardrobeItem(id);
+          const label = itemLabel(item);
+          return `<div class="garment">
+            <img class="garment-photo" src="${wardrobePhotoUrl(item)}" alt="${label}" onerror="this.hidden = true">
+            <span>${label}</span>
+          </div>`;
+        })
+        .join("");
+      document.querySelector("#outfit-summary").innerHTML =
+        t("outfitReadyCount", { count: outfit.itemIds.length });
+      document.querySelector("#outfit-reason").textContent = outfitReasonText(outfit);
     };
 
     const renderReadyProgress = () => {
       if (state.familyCheckRequested) return;
+      if (readyItems.length === 0) {
+        document.querySelector("#progress-text").textContent = t("noSpecialItems");
+        return;
+      }
       document.querySelector("#progress-text").textContent = t("readyProgress", {
         complete: state.readyCount,
         total: readyItems.length
       });
+    };
+
+    let scheduleSelections = [];
+
+    const refreshScheduleSelections = () => {
+      scheduleSelections = [...document.querySelectorAll("#schedule-events input[type='checkbox']")];
+      scheduleSelections.forEach((item) => {
+        item.addEventListener("change", renderScheduleCount);
+      });
+    };
+
+    const renderScheduleEvents = (exampleKey) => {
+      const events = scheduleExamples[exampleKey];
+      document.querySelector("#schedule-events").innerHTML = events.map(([date, periodKey, title, context]) => {
+        const dateLabel = formatDate(date, { weekday: "short", month: "short", day: "numeric" });
+        const period = t(periodKey);
+        return `<li class="schedule-event">
+            <input type="checkbox" checked aria-label="${t("includeActivity", { date: dateLabel, period, title })}">
+            <span><strong data-schedule-date="${date}">${dateLabel}</strong><span class="muted">${period}</span></span>
+            <span><strong>${title}</strong><span class="context-chip">${context}</span></span>
+          </li>`;
+      }).join("");
+      refreshScheduleSelections();
+      renderScheduleCount();
     };
 
     const renderScheduleCount = () => {
@@ -1499,14 +3492,34 @@
         count === 1 ? t("addOneActivity") : t("addManyActivities", { count });
     };
 
+    const renderWardrobeState = () => {
+      const status = document.querySelector("#wardrobe-status");
+      const saveButton = document.querySelector("#save-wardrobe");
+      saveButton.disabled = state.wardrobeSaved;
+
+      if (state.wardrobeSaved) {
+        status.textContent = t("wardrobeSavedStatus");
+        saveButton.textContent = t("wardrobeSavedButton");
+        return;
+      }
+
+      status.textContent = state.wardrobeFileCount > 0
+        ? t("wardrobeFilesSelected", { count: state.wardrobeFileCount })
+        : t("wardrobeExampleLoaded");
+      saveButton.textContent = t("saveWardrobeCards");
+    };
+
     const renderDynamicState = () => {
+      renderPlan();
       renderOutfit();
       renderReadyProgress();
       renderScheduleCount();
+      renderWardrobeState();
+      renderManageList();
 
       document.querySelector("#import-status").textContent = state.selectedFileName
         ? t("fileSelected", { file: state.selectedFileName })
-        : t("importLoaded");
+        : t(state.scheduleExample === "sep8" ? "sep8ImportLoaded" : "importLoaded");
 
       if (state.publishedCount !== null) {
         document.querySelector("#publish-status").textContent = t("publishStatus", {
@@ -1515,9 +3528,11 @@
         });
       }
 
-      if (state.outfitChosen) {
-        document.querySelector("#choose-outfit").textContent = t("outfitChosenButton");
-      }
+      const chooseOutfitButton = document.querySelector("#choose-outfit");
+      chooseOutfitButton.textContent = state.outfitChosen
+        ? t("outfitChosenButton")
+        : t("chooseOutfit");
+      chooseOutfitButton.disabled = state.outfitChosen;
 
       if (state.familyCheckRequested) {
         document.querySelector("#finish-plan").textContent = t("checkRequestedButton");
@@ -1544,11 +3559,9 @@
       document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
         element.setAttribute("aria-label", t(element.dataset.i18nAriaLabel));
       });
-
-      document.querySelector("#today-date").textContent = formatDate(
-        "2026-09-03",
-        { weekday: "long", month: "long", day: "numeric" }
-      );
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+        element.setAttribute("placeholder", t(element.dataset.i18nPlaceholder));
+      });
 
       document.querySelectorAll("[data-schedule-date]").forEach((element) => {
         element.textContent = formatDate(
@@ -1560,7 +3573,7 @@
       document.querySelectorAll("#schedule-events .schedule-event").forEach((event) => {
         const checkbox = event.querySelector("input");
         const date = event.querySelector("[data-schedule-date]").textContent;
-        const periodElement = event.querySelector("[data-i18n]");
+        const periodElement = event.querySelector(".muted");
         const title = event.querySelector(":scope > span:last-child strong").textContent;
         checkbox.setAttribute("aria-label", t("includeActivity", {
           date,
@@ -1579,6 +3592,29 @@
       announcer.textContent = event.target.selectedOptions[0].textContent;
     });
 
+    document.querySelector("#plan-date").addEventListener("change", (event) => {
+      window.speechSynthesis?.cancel();
+      state.planDate = event.target.value;
+      state.outfitIndex = 0;
+      state.outfitChosen = false;
+      state.familyCheckRequested = false;
+      state.readyCount = 0;
+      state.speaking = false;
+      readyItems.forEach((item) => {
+        item.checked = false;
+      });
+      document.querySelector("#finish-plan").disabled = false;
+      document.querySelector("#finish-plan").textContent = t("finishedCheck");
+      document.querySelector("#ready-title").textContent = t("gettingReady");
+      renderDynamicState();
+      loadForecastForSelectedDate();
+      announcer.textContent = formatDate(state.planDate, {
+        weekday: "long",
+        month: "long",
+        day: "numeric"
+      });
+    });
+
     document.querySelector("#read-plan").addEventListener("click", () => {
       if (!("speechSynthesis" in window)) return;
       if (state.speaking) {
@@ -1587,7 +3623,7 @@
         renderDynamicState();
         return;
       }
-      const utterance = new SpeechSynthesisUtterance(t("speechPlan"));
+      const utterance = new SpeechSynthesisUtterance(buildSpeech());
       utterance.lang = state.locale;
       utterance.onend = () => {
         state.speaking = false;
@@ -1606,32 +3642,70 @@
       scheduleDialog.showModal();
     });
 
+    document.querySelector("#open-wardrobe").addEventListener("click", () => {
+      wardrobeDialog.showModal();
+    });
+
+    document.querySelector("#close-wardrobe").addEventListener("click", () => {
+      wardrobeDialog.close();
+    });
+
+    document.querySelector("#use-wardrobe-example").addEventListener("click", () => {
+      state.wardrobeFileCount = 0;
+      state.wardrobeSaved = false;
+      renderWardrobeState();
+      announcer.textContent = t("wardrobeExampleLoaded");
+    });
+
+    document.querySelector("#wardrobe-file").addEventListener("change", (event) => {
+      state.wardrobeFileCount = event.target.files.length;
+      state.wardrobeSaved = false;
+      renderWardrobeState();
+    });
+
+    document.querySelector("#save-wardrobe").addEventListener("click", (event) => {
+      state.wardrobeSaved = true;
+      event.currentTarget.disabled = true;
+      renderWardrobeState();
+      announcer.textContent = t("wardrobeSavedAnnounce");
+    });
+
     document.querySelector("#close-schedule").addEventListener("click", () => {
       scheduleDialog.close();
     });
 
     document.querySelector("#use-hub-example").addEventListener("click", () => {
       state.selectedFileName = null;
+      state.scheduleExample = "hub";
+      renderScheduleEvents("hub");
       document.querySelector("#import-status").textContent = t("importLoaded");
       announcer.textContent = t("hubAnnounce");
+    });
+
+    document.querySelector("#use-sep8-example").addEventListener("click", () => {
+      state.selectedFileName = null;
+      state.scheduleExample = "sep8";
+      renderScheduleEvents("sep8");
+      document.querySelector("#import-status").textContent = t("sep8ImportLoaded");
+      document.querySelector("#plan-date").value = "2026-09-08";
+      state.planDate = "2026-09-08";
+      state.outfitIndex = 0;
+      state.outfitChosen = false;
+      renderDynamicState();
+      loadForecastForSelectedDate();
+      announcer.textContent = t("sep8ImportLoaded");
     });
 
     document.querySelector("#schedule-file").addEventListener("change", (event) => {
       const file = event.target.files[0];
       if (!file) return;
       state.selectedFileName = file.name;
+      state.scheduleExample = "file";
       document.querySelector("#import-status").textContent =
         t("fileSelected", { file: file.name });
     });
 
-    const scheduleSelections = [...document.querySelectorAll("#schedule-events input[type='checkbox']")];
-    const updateScheduleCount = () => {
-      renderScheduleCount();
-    };
-
-    scheduleSelections.forEach((item) => {
-      item.addEventListener("change", updateScheduleCount);
-    });
+    refreshScheduleSelections();
 
     document.querySelector("#publish-schedule").addEventListener("click", () => {
       const count = scheduleSelections.filter((item) => item.checked).length;
@@ -1665,10 +3739,12 @@
     });
 
     document.querySelector("#show-other").addEventListener("click", () => {
-      state.outfitIndex = (state.outfitIndex + 1) % localizedOutfits[state.locale].length;
-      const outfit = localizedOutfits[state.locale][state.outfitIndex];
+      state.outfitIndex = (state.outfitIndex + 1) % currentOutfits().length;
+      const outfit = currentOutfit();
       renderOutfit();
-      announcer.textContent = t("outfitShown", { items: outfit.items.join(", ") });
+      announcer.textContent = t("outfitShown", {
+        items: outfit.itemIds.map((id) => itemLabel(wardrobeItem(id))).join(", ")
+      });
     });
 
     document.querySelector("#choose-outfit").addEventListener("click", (event) => {
@@ -1676,14 +3752,6 @@
       event.currentTarget.textContent = t("outfitChosenButton");
       event.currentTarget.disabled = true;
       announcer.textContent = t("outfitChosenAnnounce");
-    });
-
-    const readyItems = [...document.querySelectorAll("[data-ready-item]")];
-    readyItems.forEach((item) => {
-      item.addEventListener("change", () => {
-        state.readyCount = readyItems.filter((candidate) => candidate.checked).length;
-        renderReadyProgress();
-      });
     });
 
     document.querySelector("#finish-plan").addEventListener("click", (event) => {
@@ -1712,7 +3780,401 @@
       });
     });
 
+    const warmthRanges = {
+      hot: { min: 25, max: 40 },
+      warm: { min: 18, max: 28 },
+      mild: { min: 10, max: 20 },
+      cool: { min: 2, max: 12 },
+      cold: { min: -30, max: 3 }
+    };
+
+    const warmthOrder = ["cold", "cool", "mild", "warm", "hot"];
+
+    // Most clothes span several bands. A t-shirt is fine from a mild day right through a
+    // hot one, so the person picks every band that applies and the range is the union.
+    const rangeFromBands = (bands) => {
+      const chosen = bands.filter((band) => warmthRanges[band]);
+      if (chosen.length === 0) return warmthRanges.mild;
+      return {
+        min: Math.min(...chosen.map((band) => warmthRanges[band].min)),
+        max: Math.max(...chosen.map((band) => warmthRanges[band].max))
+      };
+    };
+
+    const bandsFromRange = (item) =>
+      warmthOrder.filter((band) => {
+        const range = warmthRanges[band];
+        // A band counts as covered when the item's range overlaps most of it.
+        const overlap = Math.min(item.max, range.max) - Math.max(item.min, range.min);
+        return overlap >= (range.max - range.min) * 0.5;
+      });
+
+    const readWarmthBands = (scope) =>
+      [...scope.querySelectorAll("input[type='checkbox'][data-warmth-band]:checked")].map((box) => box.value);
+
+    // The wizard is ordered by effort: the cheapest reliable signal first, manual entry
+    // last. Every step can be skipped, and nothing is saved until the user confirms.
+    const wizard = { step: 1, source: null, editingId: null };
+
+    const showWizardStep = (step) => {
+      wizard.step = step;
+      document.querySelectorAll("[data-wizard-panel]").forEach((panel) => {
+        panel.hidden = Number(panel.dataset.wizardPanel) !== step;
+      });
+      document.querySelectorAll("#wizard-steps li").forEach((li) => {
+        li.classList.toggle("is-current", Number(li.dataset.step) === step);
+        li.classList.toggle("is-done", Number(li.dataset.step) < step);
+      });
+    };
+
+    const resetWizard = () => {
+      wizard.source = null;
+      wizard.editingId = null;
+      document.querySelector("#wiz-save-now").hidden = true;
+      document.querySelector("#new-item-name").value = "";
+      document.querySelector("#new-item-fabric").value = "";
+      document.querySelectorAll("#new-item-warmth [data-warmth-band]").forEach((box) => {
+        box.checked = box.value === "mild";
+      });
+      document.querySelector("#new-item-slot").value = "baseTop";
+      document.querySelector("#wiz-tag-photo").value = "";
+      document.querySelector("#new-item-photo").value = "";
+      [
+        "#new-item-water", "#new-item-wind", "#new-item-snow", "#new-item-active"
+      ].forEach((selector) => {
+        document.querySelector(selector).checked = false;
+      });
+      document.querySelector("#wiz-source-note").textContent = "";
+      document.querySelector("#add-wardrobe-item").textContent = t("addItemSave");
+      showWizardStep(1);
+    };
+
+    // A stand-in for barcode and OCR services. It demonstrates the flow and, importantly,
+    // the confirmation step: suggestions are never saved without review.
+    const simulateLookup = (kind) => {
+      const suggestion = kind === "barcode"
+        ? { label: "Navy rain shell", slot: "outer", bands: ["cool", "mild"], fabric: "Nylon", water: true, wind: true }
+        : { label: "Cotton long-sleeved top", slot: "baseTop", bands: ["cool", "mild"], fabric: "100% cotton" };
+      document.querySelector("#new-item-name").value = suggestion.label;
+      document.querySelector("#new-item-slot").value = suggestion.slot;
+      document.querySelectorAll("#new-item-warmth [data-warmth-band]").forEach((box) => {
+        box.checked = (suggestion.bands ?? ["mild"]).includes(box.value);
+      });
+      document.querySelector("#new-item-fabric").value = suggestion.fabric;
+      document.querySelector("#new-item-water").checked = Boolean(suggestion.water);
+      document.querySelector("#new-item-wind").checked = Boolean(suggestion.wind);
+      document.querySelector("#wiz-source-note").textContent =
+        kind === "barcode" ? t("wizFromBarcode") : t("wizFromTag");
+      wizard.source = kind;
+      showWizardStep(3);
+    };
+
+    document.querySelector("#wiz-scan").addEventListener("click", () => simulateLookup("barcode"));
+    document.querySelector("#wiz-skip-scan").addEventListener("click", () => showWizardStep(2));
+    document.querySelector("#wiz-tag-photo").addEventListener("change", (event) => {
+      if (event.target.files[0]) simulateLookup("tag");
+    });
+    document.querySelector("#wiz-skip-tag").addEventListener("click", () => {
+      document.querySelector("#wiz-source-note").textContent = t("wizManualEntry");
+      wizard.source = "manual";
+      showWizardStep(3);
+    });
+    document.querySelector("#wiz-confirm").addEventListener("click", () => {
+      const status = document.querySelector("#add-item-status");
+      if (!document.querySelector("#new-item-name").value.trim()) {
+        status.hidden = false;
+        status.textContent = t("addItemNeedsName");
+        document.querySelector("#new-item-name").focus();
+        return;
+      }
+      status.hidden = true;
+      showWizardStep(4);
+    });
+    document.querySelector("#wiz-restart").addEventListener("click", resetWizard);
+
+    const saveWardrobeEntry = () => {
+      const nameInput = document.querySelector("#new-item-name");
+      const status = document.querySelector("#add-item-status");
+      const label = nameInput.value.trim();
+      if (!label) {
+        status.hidden = false;
+        status.textContent = t("addItemNeedsName");
+        showWizardStep(3);
+        nameInput.focus();
+        return;
+      }
+
+      const warmth = rangeFromBands(readWarmthBands(document.querySelector("#new-item-warmth")));
+      const photoFile = document.querySelector("#new-item-photo").files[0];
+      const details = {
+        label,
+        slot: document.querySelector("#new-item-slot").value,
+        min: warmth.min,
+        max: warmth.max,
+        fabric: document.querySelector("#new-item-fabric").value.trim(),
+        waterResistant: document.querySelector("#new-item-water").checked,
+        windResistant: document.querySelector("#new-item-wind").checked,
+        snowReady: document.querySelector("#new-item-snow").checked,
+        activeOk: document.querySelector("#new-item-active").checked
+      };
+      if (photoFile) {
+        details.photo = URL.createObjectURL(photoFile);
+        details.needsPhoto = false;
+      }
+
+      if (wizard.editingId) {
+        wardrobeOverrides[wizard.editingId] = { ...(wardrobeOverrides[wizard.editingId] ?? {}), ...details };
+        status.textContent = t("itemUpdated", { label });
+      } else {
+        customWardrobe.push({ id: `custom-${Date.now()}`, custom: true, photo: "", ...details });
+        status.textContent = t("addItemAdded", { label });
+      }
+      persistWardrobe();
+
+      status.hidden = false;
+      announcer.textContent = status.textContent;
+      resetWizard();
+      renderDynamicState();
+    };
+
+    document.querySelector("#wiz-save-now").addEventListener("click", saveWardrobeEntry);
+
+    const startEditing = (item) => {
+      wizard.editingId = item.id;
+      document.querySelector("#new-item-name").value = itemLabel(item);
+      document.querySelector("#new-item-slot").value = item.slot;
+      const bands = bandsFromRange(item);
+      document.querySelectorAll("#new-item-warmth [data-warmth-band]").forEach((box) => {
+        box.checked = bands.includes(box.value);
+      });
+      document.querySelector("#new-item-fabric").value = item.fabric ?? "";
+      document.querySelector("#new-item-water").checked = Boolean(item.waterResistant);
+      document.querySelector("#new-item-wind").checked = Boolean(item.windResistant);
+      document.querySelector("#new-item-snow").checked = Boolean(item.snowReady);
+      document.querySelector("#new-item-active").checked = Boolean(item.activeOk);
+      document.querySelector("#wiz-source-note").textContent = t("wizEditing", { label: itemLabel(item) });
+      document.querySelector("#add-wardrobe-item").textContent = t("saveChanges");
+      // Editing usually only needs a detail change, so saving is available immediately
+      // instead of forcing a walk through the photo step.
+      // Editing writes into the single-item form, so make sure it is actually open.
+      document.querySelector("#single-item-details").open = true;
+      document.querySelector("#wiz-save-now").hidden = false;
+      showWizardStep(3);
+      document.querySelector("#add-item-title").scrollIntoView({ block: "nearest" });
+    };
+
+    const renderManageList = () => {
+      const slot = document.querySelector("#manage-category").value;
+      const list = document.querySelector("#manage-item-list");
+      const items = allWardrobeItems().filter((item) => item.slot === slot);
+      list.innerHTML = items
+        .map((item) => {
+          const notes = [];
+          if (item.isDefault) notes.push(t("noteEveryday"));
+          if (item.needsPhoto || !item.photo) notes.push(t("notePhotoLater"));
+          return `<li>
+            <span><strong>${itemLabel(item)}</strong><br><span class="muted">${item.min}°C – ${item.max}°C${notes.length ? ` · ${notes.join(" · ")}` : ""}</span></span>
+            <span class="item-actions">
+              <button class="quiet-button" type="button" data-edit-item="${item.id}">${t("editItem")}</button>
+              <button class="quiet-button" type="button" data-remove-item="${item.id}">${t("removeItem")}</button>
+            </span>
+          </li>`;
+        })
+        .join("");
+
+      list.querySelectorAll("[data-edit-item]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const item = wardrobeItem(button.dataset.editItem);
+          if (item) startEditing(item);
+        });
+      });
+      list.querySelectorAll("[data-remove-item]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const id = button.dataset.removeItem;
+          const item = wardrobeItem(id);
+          wardrobeOverrides[id] = { ...(wardrobeOverrides[id] ?? {}), archived: true };
+          persistWardrobe();
+          announcer.textContent = t("itemRemoved", { label: itemLabel(item) });
+          renderDynamicState();
+        });
+      });
+
+      const archivedCount = Object.values(wardrobeOverrides).filter((entry) => entry.archived).length;
+      const note = document.querySelector("#archived-note");
+      const restore = document.querySelector("#restore-archived");
+      note.hidden = archivedCount === 0;
+      restore.hidden = archivedCount === 0;
+      if (archivedCount > 0) note.textContent = t("archivedCount", { count: archivedCount });
+    };
+
+    document.querySelector("#manage-category").addEventListener("change", renderManageList);
+    document.querySelector("#restore-archived").addEventListener("click", () => {
+      Object.keys(wardrobeOverrides).forEach((id) => {
+        delete wardrobeOverrides[id].archived;
+        if (Object.keys(wardrobeOverrides[id]).length === 0) delete wardrobeOverrides[id];
+      });
+      persistWardrobe();
+      announcer.textContent = t("itemsRestored");
+      renderDynamicState();
+    });
+
+    document.querySelector("#add-wardrobe-item").addEventListener("click", saveWardrobeEntry);
+
+    // Burst capture: shoot everything first, sort it out once. Standing at a closet with
+    // forty garments, a per-item form is the thing that makes people give up.
+    const burst = { pendingTag: null, drafts: [] };
+
+    // Stand-in for on-device classification. A real build would run a small vision model;
+    // what matters for the design is that every guess is shown for correction and low
+    // confidence is visible rather than hidden.
+    const classifyGarment = (fileName, tagText) => {
+      const hint = `${fileName} ${tagText ?? ""}`.toLowerCase();
+      const match = (slot, bands, extra = {}) => ({ slot, bands, confident: true, ...extra });
+      if (/(parka|puff|down|jacket|coat|fleece|blouson|windbreaker|shell|vest)/.test(hint)) {
+        if (/(puff|down|parka)/.test(hint)) return match("outer", ["cold"]);
+        if (/(blouson|windbreaker|shell)/.test(hint)) return match("outer", ["cool", "mild"], { wind: true, water: true });
+        return match("outer", ["cold", "cool"]);
+      }
+      if (/(jogger|pant|trouser|sweat|short)/.test(hint)) {
+        if (/short/.test(hint)) return match("bottom", ["warm", "hot"], { active: true });
+        return match("bottom", ["cool", "mild"], { active: /(jogger|active|stretch)/.test(hint) });
+      }
+      if (/(boot|shoe|sneaker|runner)/.test(hint)) return match("footwear", ["cold", "cool", "mild", "warm"]);
+      if (/sock/.test(hint)) return match("socks", ["cool", "mild", "warm"]);
+      if (/(shirt|tee|top|sleeve|hood)/.test(hint)) {
+        return /(long|hood)/.test(hint)
+          ? match("baseTop", ["cool", "mild"])
+          : match("baseTop", ["mild", "warm", "hot"]);
+      }
+      // Nothing recognizable: keep the item, flag it for review, never guess silently.
+      return { slot: "baseTop", bands: ["mild"], confident: false };
+    };
+
+    const renderBurstReview = () => {
+      const wrap = document.querySelector("#burst-review");
+      const grid = document.querySelector("#burst-grid");
+      wrap.hidden = burst.drafts.length === 0;
+      grid.innerHTML = burst.drafts
+        .map((draft, index) => `
+          <div class="burst-card" data-draft="${index}">
+            <img src="${draft.photo}" alt="">
+            <input type="text" data-field="label" value="${draft.label}" class="${draft.confident ? "" : "needs-check"}">
+            <select data-field="slot">
+              <option value="baseTop"${draft.slot === "baseTop" ? " selected" : ""}>${t("slotBaseTop")}</option>
+              <option value="bottom"${draft.slot === "bottom" ? " selected" : ""}>${t("slotBottom")}</option>
+              <option value="outer"${draft.slot === "outer" ? " selected" : ""}>${t("slotOuter")}</option>
+              <option value="footwear"${draft.slot === "footwear" ? " selected" : ""}>${t("slotFootwear")}</option>
+              <option value="socks"${draft.slot === "socks" ? " selected" : ""}>${t("slotSocks")}</option>
+              <option value="accessory"${draft.slot === "accessory" ? " selected" : ""}>${t("slotAccessory")}</option>
+            </select>
+            <div class="warmth-chips" data-field-group="bands">
+              ${warmthOrder.map((band) => `<label class="warmth-chip">
+                <input type="checkbox" data-draft-band="${band}"${draft.bands.includes(band) ? " checked" : ""}>
+                <span>${t(`band_${band}`)}</span>
+              </label>`).join("")}
+            </div>
+            <span class="muted">${draft.confident ? (draft.tagText ? t("burstFromTag") : t("burstFromPhoto")) : t("burstNeedsCheck")}</span>
+            <button class="quiet-button" type="button" data-drop-draft="${index}">${t("removeItem")}</button>
+          </div>`)
+        .join("");
+
+      grid.querySelectorAll("[data-draft-band]").forEach((box) => {
+        box.addEventListener("change", (event) => {
+          const card = event.target.closest("[data-draft]");
+          const index = Number(card.dataset.draft);
+          burst.drafts[index].bands = [...card.querySelectorAll("[data-draft-band]:checked")].map(
+            (checked) => checked.dataset.draftBand
+          );
+        });
+      });
+      grid.querySelectorAll("[data-field]").forEach((field) => {
+        field.addEventListener("change", (event) => {
+          const index = Number(event.target.closest("[data-draft]").dataset.draft);
+          burst.drafts[index][event.target.dataset.field] = event.target.value;
+        });
+      });
+      grid.querySelectorAll("[data-drop-draft]").forEach((button) => {
+        button.addEventListener("click", () => {
+          burst.drafts.splice(Number(button.dataset.dropDraft), 1);
+          renderBurstReview();
+        });
+      });
+    };
+
+    const burstStatus = (key, vars) => {
+      const status = document.querySelector("#burst-status");
+      status.hidden = false;
+      status.textContent = t(key, vars);
+      announcer.textContent = status.textContent;
+    };
+
+    document.querySelector("#burst-tag").addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      // The tag is held until the garment photo arrives, so the pair stays together.
+      burst.pendingTag = { name: file.name, url: URL.createObjectURL(file) };
+      burstStatus("burstTagReady");
+      event.target.value = "";
+    });
+
+    document.querySelector("#burst-item").addEventListener("change", (event) => {
+      const files = [...event.target.files];
+      if (files.length === 0) return;
+      files.forEach((file, index) => {
+        const tag = index === 0 ? burst.pendingTag : null;
+        const guess = classifyGarment(file.name, tag?.name);
+        burst.drafts.push({
+          photo: URL.createObjectURL(file),
+          tagText: tag?.name ?? "",
+          label: guess.confident ? t(`guess_${guess.slot}`) : t("burstUnnamed"),
+          slot: guess.slot,
+          bands: guess.bands,
+          active: Boolean(guess.active),
+          wind: Boolean(guess.wind),
+          water: Boolean(guess.water),
+          confident: guess.confident
+        });
+      });
+      burst.pendingTag = null;
+      event.target.value = "";
+      renderBurstReview();
+      burstStatus("burstCaptured", { count: burst.drafts.length });
+    });
+
+    document.querySelector("#burst-save").addEventListener("click", () => {
+      const saved = burst.drafts.length;
+      burst.drafts.forEach((draft) => {
+        const warmth = rangeFromBands(draft.bands ?? []);
+        customWardrobe.push({
+          id: `custom-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+          custom: true,
+          label: draft.label.trim() || t("burstUnnamed"),
+          slot: draft.slot,
+          min: warmth.min,
+          max: warmth.max,
+          activeOk: draft.active,
+          windResistant: draft.wind,
+          waterResistant: draft.water,
+          snowReady: false,
+          photo: draft.photo
+        });
+      });
+      persistWardrobe();
+      burst.drafts = [];
+      renderBurstReview();
+      burstStatus("burstSaved", { count: saved });
+      renderDynamicState();
+    });
+
+    document.querySelector("#burst-discard").addEventListener("click", () => {
+      burst.drafts = [];
+      burst.pendingTag = null;
+      renderBurstReview();
+      burstStatus("burstDiscarded");
+    });
+
     applyLocale("en-CA");
+    loadForecastForSelectedDate();
   </script>
 </body>
 </html>

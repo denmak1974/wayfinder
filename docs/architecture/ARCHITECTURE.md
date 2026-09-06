@@ -109,12 +109,14 @@ The MVP engine is deterministic and explainable.
 
 - local date and time;
 - normalized current conditions and forecast windows;
+- selected plan date and coarse forecast area;
 - activities, locations, mobility expectations, and dress requirements;
 - normalized activity contexts such as active walking, exercise, water, indoor seated, and extended outdoor time;
 - wardrobe availability and item attributes;
+- default routine items and schedule-specific item exceptions;
 - sensory and presentation preferences;
 - user-approved outfit templates;
-- explicit supporter notes and bring-items.
+- explicit supporter notes, special items, and routine-item exceptions.
 
 ### Pipeline
 
@@ -122,13 +124,35 @@ The MVP engine is deterministic and explainable.
 2. Derive day facts: current and apparent temperature, relevant outdoor-window minimum/maximum, precipitation windows, wind, activity transitions, exposure duration, and travel buffers.
 3. Build constraints: available, sensory-safe, weather-suitable, activity-suitable.
 4. Rank valid outfit templates/items using stable user-defined preferences.
-5. Aggregate required bring-items and remove duplicates.
+5. Aggregate special items, remove default routine items, and preserve routine-item exceptions such as "no lunch box."
 6. Generate plain-language explanations from controlled templates.
 7. Persist the plan and its input snapshot so it is reproducible.
 
 The engine returns alternatives and uncertainty; it does not fabricate missing facts. The same inputs and ruleset version produce the same plan.
 
 Temperature bands select a draft starting layer set. Rain, wind, snow/ice, exposure duration, activity intensity, and indoor/outdoor transitions modify it. Hard sensory and availability constraints apply before ranking. Near a band boundary or when comfort evidence is incomplete, return two valid choices rather than hiding a brittle threshold decision.
+
+Outfits must always be computed from the day's facts. A recommendation must never be stored against a calendar date, because a stored outfit will contradict the forecast as soon as the weather changes. The band is selected from the expected daytime high for outdoor activity, not from the overnight low.
+
+When a needed fact is missing, the engine may apply a documented proxy rather than inventing the fact or ignoring the need. A proxy must be stated in the explanation, must express a general pattern rather than a specific claim, must fail toward mild discomfort rather than harm, and must be replaced permanently once real evidence is recorded. Where two exposures conflict, the engine prefers a single outfit that satisfies both over adding an item the participant has to carry, remove, and remember.
+
+For preview days, the weather adapter fetches a public daily forecast by coarse area and selected date. Forecast failure, provider-window limits, and stale data are visible states. The engine can still provide activity-based clothing guidance, but it must not show guessed Low/High values.
+
+## Wardrobe capture ingestion
+
+Wardrobe capture is progressive rather than all-or-nothing. The MVP supports a low-friction inventory pass where a participant or supporter captures group photos by category, then reviews suggested cropped item cards. Individual photos are a refinement path, not a setup prerequisite.
+
+```mermaid
+flowchart LR
+  G[Group or single-item photo] --> M[Strip metadata and store locally]
+  M --> C[Suggest item crops]
+  C --> R[Participant/supporter review]
+  R --> A[Confirm label and attributes]
+  A --> W[(Wardrobe items)]
+  W --> T[(Outfit templates)]
+```
+
+The classifier may assist with crop, category, warmth, and duplicate suggestions, but the confirmed item card is the source of truth. Unknown attributes remain explicit and block only recommendations that depend on them.
 
 ## Weekly schedule ingestion
 

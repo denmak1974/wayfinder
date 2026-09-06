@@ -176,9 +176,11 @@ Editable architecture diagrams are in [`docs/diagrams`](docs/diagrams). They can
 Open the self-contained [Daily Readiness Assistant prototype](prototypes/daily-readiness.html). It uses the Doug Hub example and demonstrates:
 
 - the calm five-section Today screen;
+- a selectable plan day for previewing tomorrow's clothing the previous evening;
 - participant-filtered weekly schedule review;
+- a second imported Hub schedule example from the Sep. 8 screenshot;
 - the familiar Hub morning/activity and afternoon/activity quadrant;
-- Now, Feels like, High, rain timing, wind, and explainable clothing changes;
+- Low, High, rain timing, and explainable clothing changes;
 - Outlook, Google, device, Wayfinder, or ICS destination selection;
 - activity-aware clothing recommendations;
 - two sensory-safe outfit choices and a participant-initiated "Finished, please check" handoff;

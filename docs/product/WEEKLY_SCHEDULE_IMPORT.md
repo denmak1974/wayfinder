@@ -9,7 +9,7 @@ Wayfinder turns a location-provided weekly schedule into:
 1. the participant's own clear weekly activities;
 2. approved events in their preferred calendar;
 3. activity context for Daily Readiness; and
-4. explainable clothing and bring-item requirements.
+4. explainable clothing and day-specific item exceptions.
 
 The participant remains the owner of the resulting schedule even when a supporter or location supplies the source.
 
@@ -65,7 +65,7 @@ Use structured data before optical character recognition:
 4. image or scanned PDF; and
 5. manual entry.
 
-Locations receive a documented template with date, period/start/end, activity, participant identifier, location, clothing context, bring-items, and update/cancellation fields.
+Locations receive a documented template with date, period/start/end, activity, participant identifier, location, clothing context, day-specific items, routine-item exceptions, and update/cancellation fields.
 
 ## MVP flow: import, review, publish
 
@@ -74,10 +74,10 @@ Locations receive a documented template with date, period/start/end, activity, p
 3. **Extract privately.** The importer detects table boundaries, dates, activity titles, periods, and participant lists.
 4. **Minimize immediately.** Non-matching participant names and activities are discarded after extraction. They are not added to Doug's profile or logs.
 5. **Normalize.** Dates and periods are converted using the selected location's schedule profile.
-6. **Classify activity context.** Deterministic rules suggest indoor/outdoor, activity level, water exposure, formality, temperature exposure, footwear, layers, and bring-items.
+6. **Classify activity context.** Deterministic rules suggest indoor/outdoor, activity level, water exposure, formality, temperature exposure, footwear, layers, day-specific items, and routine-item exceptions.
 7. **Review exceptions.** The user confirms ambiguous names, uncertain text, missing times, duplicates, cancellations, and clothing requirements.
 8. **Publish once.** Approved activities are written to Wayfinder and, if selected, Outlook, Google Calendar, or an ICS file.
-9. **Generate readiness.** Weather, activity context, sensory needs, wardrobe availability, and travel combine into the daily outfit and bring-list.
+9. **Generate readiness.** Weather, activity context, sensory needs, wardrobe availability, travel, default-item profile, and schedule exceptions combine into the daily outfit and special-item list.
 10. **Render familiarly.** The participant's Today view preserves the approved location schedule pattern.
 
 The review presents only Doug's extracted events. It does not reproduce the full multi-person schedule.
@@ -100,11 +100,26 @@ Each published event contains:
 - exact time or honest period label;
 - location when supplied;
 - preparation and departure guidance;
-- participant-approved bring-items;
+- participant-approved special items and routine-item exceptions;
 - short clothing context where helpful; and
 - source and last-updated provenance.
 
 Other participants' names are never included.
+
+## Special item and exception model
+
+Default routine items are configured once and suppressed from the daily card unless something changes. For Doug, examples may include Hub bag, water bottle, lunch box, wallet/card, or other always-packed items. The daily plan should show only schedule-specific items or exceptions.
+
+| Schedule clue | Daily result |
+| --- | --- |
+| Swimming, pool, water day | Swim bag, towel, change of clothes, water-safe footwear |
+| Pizza party, hot-dog day, lunch supplied | No lunch box, or confirm whether lunch is needed |
+| Grocery list, shopping list | Bring grocery list |
+| Rain forecast during outing | Umbrella or rain gear if not already default |
+| Outdoor full-day event | Sunscreen, hat, or weather item when not already default |
+| No special clue | Show "No special items today" rather than listing defaults |
+
+The importer should preserve uncertain wording for review. For example, "No need to bring a lunch if you'd like some hotdogs and chips" becomes a visible exception, not a hidden deletion of lunch.
 
 ## Clothing-context model
 
@@ -185,6 +200,8 @@ Do not expose other participants' names or the original multi-person schedule in
 - Re-importing the same source produces no duplicate events.
 - A changed or cancelled source event updates its prior calendar event.
 - Every outfit explanation identifies both weather and relevant activity constraints.
+- Default routine items are not repeated on the daily card.
+- Schedule-specific exceptions, such as swim bag, change of clothes, grocery list, pizza party, or no lunch box, are extracted for review and shown on the daily card.
 - Calendar access can be revoked without disabling local readiness.
 - The original multi-person source follows a short, disclosed retention policy.
 - Future automatic processing operates only under an explicit location-specific policy and produces an auditable result.
