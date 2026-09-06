@@ -1884,7 +1884,9 @@
         wardrobe_bottomHeavySweats: "Heavy sweatpants",
         reasonIndoorSeated: "You sit inside for a while, and inside is usually cooler than a warm day outside.",
         wardrobe_winterDownPants: "Winter down pants",
-        wardrobe_windbreaker: "Light windbreaker",
+        wardrobe_windbreaker: "Blue hooded windbreaker",
+        wardrobe_windbreakerTan: "Tan zip jacket",
+        wardrobe_swimCompetition: "Special Olympics swim kit",
         wardrobe_stretchJacket: "Light stretch jacket",
         wardrobe_fleece: "Fleece jacket",
         wardrobe_lightDown: "Light down jacket",
@@ -2258,7 +2260,9 @@
         wardrobe_bottomHeavySweats: "厚手のスウェットパンツ",
         reasonIndoorSeated: "室内で座る時間があり、室内は外より涼しいことが多いです。",
         wardrobe_winterDownPants: "冬用ダウンパンツ",
-        wardrobe_windbreaker: "軽いウインドブレーカー",
+        wardrobe_windbreaker: "青いフード付きウインドブレーカー",
+        wardrobe_windbreakerTan: "ベージュのジップジャケット",
+        wardrobe_swimCompetition: "スペシャルオリンピックスの水泳セット",
         wardrobe_stretchJacket: "軽いストレッチジャケット",
         wardrobe_fleece: "フリース",
         wardrobe_lightDown: "軽いダウンジャケット",
@@ -2632,7 +2636,9 @@
         wardrobe_bottomHeavySweats: "Pantalon d'entraînement épais",
         reasonIndoorSeated: "Tu seras assis à l'intérieur un moment, et l'intérieur est souvent plus frais qu'une journée chaude dehors.",
         wardrobe_winterDownPants: "Pantalon en duvet",
-        wardrobe_windbreaker: "Coupe-vent léger",
+        wardrobe_windbreaker: "Coupe-vent bleu à capuchon",
+        wardrobe_windbreakerTan: "Veste beige à glissière",
+        wardrobe_swimCompetition: "Ensemble de natation Olympiques spéciaux",
         wardrobe_stretchJacket: "Veste extensible légère",
         wardrobe_fleece: "Veste polaire",
         wardrobe_lightDown: "Doudoune légère",
@@ -3096,15 +3102,18 @@
       // Jackets stay individual. This is the decision Doug most needs help with: two coats
       // of the same colour can be completely different in warmth.
       { id: "stretchJacket", slot: "outer", min: 10, max: 22, photo: "3. Outerwear/Stretch Light Jacket.jpg" },
+      { id: "windbreakerTan", slot: "outer", min: 10, max: 24, windResistant: true, photo: "3. Outerwear/Light windbreaker.jpg" },
       { id: "windbreaker", slot: "outer", min: 6, max: 22, waterResistant: true, windResistant: true, photo: "3. Outerwear/Light windbreaker 2.jpg" },
       { id: "downVest", slot: "outer", min: 4, max: 16, photo: "3. Outerwear/Down vest.jpg" },
       { id: "fleece", slot: "outer", min: 1, max: 15, photo: "3. Outerwear/Fleece.jpg" },
+      { id: "lightDown", slot: "outer", min: -2, max: 10, windResistant: true, photo: "3. Outerwear/Light down.jpg" },
       { id: "parka", slot: "outer", min: -20, max: 4, waterResistant: true, windResistant: true, snowReady: true, photo: "3. Outerwear/Full-zip Parka.jpg" },
       { id: "heavyDown", slot: "outer", min: -30, max: 0, windResistant: true, photo: "3. Outerwear/Heavy Down Jacket.jpg" },
 
-      // Added Sep. 6, 2026 from photographed Uniqlo tags. Fabric and colour come from the
-      // tag; a garment photograph can be attached later through Edit. The two pairs of
-      // joggers added the same day are gone: they are light sweatpants.
+      // Bought Sep. 6, 2026 and still unworn. Their tags were photographed, which is where
+      // the fabric and colour below come from; the garments themselves have not been
+      // photographed yet because they were new that evening. This is a pending photo, not
+      // a gap in the wardrobe capture.
       { id: "puffTechNavy", slot: "outer", min: -12, max: 6, fabric: "Nylon shell, polyester fill", windResistant: true, photo: "", needsPhoto: true },
       { id: "blousonBlack", slot: "outer", min: 5, max: 20, fabric: "Recycled nylon, polyester lining", windResistant: true, waterResistant: true, photo: "", needsPhoto: true },
       { id: "fleeceNavy", slot: "outer", min: 1, max: 15, fabric: "Recycled polyester", photo: "", needsPhoto: true },
@@ -3120,8 +3129,11 @@
       { id: "socksShort", slot: "socks", generic: true, min: 8, max: 40, activeOk: true, photo: "4. Footwear/Sports socks.jpg" },
       { id: "socksThick", slot: "socks", generic: true, min: -30, max: 10, photo: "4. Footwear/Winter socks.jpg" },
 
-      // Not a worn layer. This fills the swim bag, never the outfit.
-      { id: "swimKit", slot: "swim", min: -30, max: 40, photo: "6. Sportswear/Hub Swimming.jpg" }
+      // Not a worn layer. These fill the swim bag, never the outfit. The competition kit is
+      // for Special Olympics and is only offered when the day calls for it, so it never
+      // turns up by accident on a Hub swim.
+      { id: "swimKit", slot: "swim", min: -30, max: 40, photo: "6. Sportswear/Hub Swimming.jpg" },
+      { id: "swimCompetition", slot: "swim", min: -30, max: 40, occasion: "competition", photo: "6. Sportswear/Special Olympics swimming.jpg" }
     ];
 
     const customWardrobeKey = "wayfinder.customWardrobe.v1";
@@ -3302,6 +3314,9 @@
         if (item.slot !== slot) return false;
         if (item.available === false) return false;
         if (prefer.requireSnow && !item.snowReady) return false;
+        // An occasion item is worn for a reason, not for a temperature. It is offered only
+        // when the day asks for that occasion.
+        if (item.occasion && prefer.occasion !== item.occasion) return false;
         return true;
       });
 
@@ -3463,7 +3478,7 @@
       if (!change) return null;
 
       if (change.kind === "swim") {
-        const kit = rankForSlot("swim", 20)[0];
+        const kit = rankForSlot("swim", 20, { occasion: change.occasion })[0];
         return {
           kind: "swim",
           itemIds: kit ? [kit.id] : [],

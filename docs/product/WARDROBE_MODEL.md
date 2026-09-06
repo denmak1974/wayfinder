@@ -32,6 +32,8 @@ These keep individual photographs and individual attributes.
 
 **Exceptions.** Down bottoms, for a full day outdoors in snow, and dress shirts. Both are worn rarely and chosen for a specific reason.
 
+An item chosen for a reason rather than a temperature carries an `occasion` and is offered only when the day asks for it. Douglas's Special Olympics swim kit is the implemented case: it sits in the wardrobe beside the Hub swim kit and never appears on a Hub swim.
+
 ### A personalisation axis, not a fixed rule
 
 Douglas is the fit model and needs the photographs for jackets. A more independent person might be well served by type names alone. Where the boundary between generic and specific sits should eventually be a per-person setting rather than a constant.
@@ -85,11 +87,19 @@ Tops, bottoms and socks are three types each, carrying a `generic` flag and one 
 
 The change of clothes is computed, and it returns nothing when the worn outfit already suits the activity. The real September week therefore never shows the card, which is the correct answer for that week and also means the feature cannot be seen. Two clearly labelled example days — a winter indoor run and a swim — sit at the end of the plan-day list with fixed sample weather so the case can be shown and tested. The weather card says plainly that the forecast is an example.
 
+Doug owns two swim kits: the Hub one, and a Special Olympics competition kit. The competition kit carries an `occasion` and is offered only when the day calls for it, so it never turns up by accident on a Hub swim. The same mechanism would suit anything else worn for a reason rather than a temperature, dress shirts included.
+
 "What to expect" is no longer authored per day. It is chosen in priority order: Hub closed or empty, then a change of clothes, then a fact from the schedule that is not in the activity list, then an unusual weather transition, and otherwise "Today is a normal day." The two schedule facts currently encoded both come from the real September 8 Hub schedule: hot dogs at the Hub on the Friday, and the afternoon charter boat on the Wednesday.
+
+### Every jacket is modelled
+
+All eight photographed jackets are in the catalogue: the blue hooded windbreaker, the tan zip jacket, the light stretch jacket, the down vest, the patterned fleece, the light down jacket, the full-zip parka, and the heavy down jacket.
+
+Three further jackets bought on September 6 have their tags photographed but not the garments, because they were still new that evening. Their fabric, colour, and wind and water resistance come from the tag, which is enough for the engine to rank them; the missing picture is a pending photo rather than a gap in the wardrobe. It matters more here than anywhere else, since recognising the right coat is the whole point of modelling jackets individually.
 
 ### Not yet resolved
 
 - Free and closed days still assume a normal amount of going outside. That may be wrong for Douglas.
-- The three jackets added on September 6 still have no photographs, and jackets are exactly where photographs matter most.
 - The boundary between generic and specific is fixed in code. It should be per-person.
+- Snow boots are in the catalogue and used when snow is forecast, but no pair has been photographed. If Douglas does not own a pair, the item should be removed so the wardrobe gap is reported honestly instead.
 - The prototype has still never been used with Douglas. That, not another feature, is the next test.

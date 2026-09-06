@@ -95,6 +95,8 @@ Future inbound-agent authorization: `id`, participant ID, schedule source ID, op
 
 `category` also admits `swim`, which never fills a worn outfit slot and is only ever drawn into a change of clothes.
 
+`occasion` marks an item worn for a stated reason rather than for a temperature — competition kit, formal wear. An occasion item is excluded from ranking unless the day requests that occasion, so it can sit in the wardrobe without ever being offered by accident.
+
 Fabric-contact and tag-status requirements can be configured as hard constraints. A hard constraint excludes an item before outfit ranking; it is not a preference that a higher score can override.
 
 ### WardrobeCaptureSession

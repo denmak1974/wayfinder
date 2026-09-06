@@ -54,6 +54,8 @@ Indoor periods contribute nothing to these targets.
 
 Every garment declares the slot it fills and the temperature range it suits. Rules ask for *a slot at a temperature*; they never name a garment. Adding a new item to the wardrobe therefore requires no rule change.
 
+An item that carries an `occasion` is the exception, and a deliberate one: it is worn for a stated reason rather than for a temperature, so it is excluded from ranking unless the day asks for that occasion.
+
 | Slot | Target used | Preference applied |
 | --- | --- | --- |
 | Base top | `warmTarget` | — |
