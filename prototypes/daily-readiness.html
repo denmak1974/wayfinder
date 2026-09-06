@@ -485,6 +485,28 @@
       color: var(--cp-text-muted);
     }
 
+    .garment-note {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--cp-text-muted);
+    }
+
+    /* A generic type is a category, not one object. The dashed edge says "any one of
+       these" without adding words to the card. */
+    .generic-garment {
+      border-style: dashed;
+    }
+
+    .change-card #change-reason {
+      margin: 0 0 0.85rem;
+      font-size: 1.05rem;
+    }
+
+    .change-card .bring-list li {
+      padding: 0.5rem 0;
+      color: var(--cp-text-muted);
+    }
+
     .outfit-actions,
     .footer-actions {
       display: flex;
@@ -1136,6 +1158,10 @@
             <option value="2026-09-09">Wed, Sep 9</option>
             <option value="2026-09-10">Thu, Sep 10</option>
             <option value="2026-09-11">Fri, Sep 11</option>
+            <optgroup label="Examples">
+              <option value="example-winterRun">Example: winter indoor run</option>
+              <option value="example-swim">Example: swim day</option>
+            </optgroup>
           </select>
         </label>
         <div class="change-notice" role="status">
@@ -1228,6 +1254,22 @@
           </details>
         </section>
 
+        <section class="plan-card change-card" id="change-card" aria-labelledby="change-title" hidden>
+          <div class="card-heading">
+            <span class="card-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 8h16v12H4z"></path>
+                <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+                <path d="M4 13h16"></path>
+              </svg>
+            </span>
+            <h2 id="change-title" data-i18n="changeOfClothes">Change of clothes</h2>
+          </div>
+          <p id="change-reason">You will change clothes partway through the day.</p>
+          <div class="outfit-visual" id="change-visual" aria-label="Clothes to put in your bag" data-i18n-aria-label="changeBagLabel"></div>
+          <ul class="bring-list" id="change-extras" hidden></ul>
+        </section>
+
         <section class="plan-card" aria-labelledby="activities-title">
           <div class="card-heading">
             <span class="card-icon" aria-hidden="true">
@@ -1275,7 +1317,7 @@
             </span>
             <h2 id="notes-title" data-i18n="whatToExpect">What to expect</h2>
           </div>
-          <p data-i18n="expectation">The movie is indoors this morning. Trafalgar Park is outdoors this afternoon. The Hub schedule did not include exact times, so Wayfinder shows the honest morning and afternoon periods.</p>
+          <p id="expectation-text">Today is a normal day.</p>
         </section>
       </div>
 
@@ -1429,6 +1471,7 @@
     <div class="dialog-inner">
       <h2 id="wardrobe-title" data-i18n="wardrobeTitle">Set up Doug's wardrobe</h2>
       <p class="muted" data-i18n="wardrobeIntro">Start from group photos. Wayfinder suggests reusable item cards; retake individual photos only when a card is unclear.</p>
+      <p class="muted" data-i18n="wardrobeTypeNote">Tops, pants and socks are types, not individual garments — one card each, and Doug picks which one. Jackets and shoes are photographed individually, because that is where the choice is hard and getting it wrong is unsafe.</p>
 
       <section class="wardrobe-step" aria-labelledby="wardrobe-source-title">
         <h3 id="wardrobe-source-title" data-i18n="chooseWardrobePhotos">1. Choose group wardrobe photos</h3>
@@ -1555,6 +1598,7 @@
                 <option value="outer" data-i18n="slotOuter">Jacket or outer layer</option>
                 <option value="footwear" data-i18n="slotFootwear">Shoes or boots</option>
                 <option value="socks" data-i18n="slotSocks">Socks</option>
+                <option value="swim" data-i18n="slotSwim">Swim kit</option>
                 <option value="accessory" data-i18n="slotAccessory">Accessory</option>
               </select>
             </label>
@@ -1613,6 +1657,7 @@
             <option value="outer" data-i18n="slotOuter">Jacket or outer layer</option>
             <option value="footwear" data-i18n="slotFootwear">Shoes or boots</option>
             <option value="socks" data-i18n="slotSocks">Socks</option>
+            <option value="swim" data-i18n="slotSwim">Swim kit</option>
             <option value="accessory" data-i18n="slotAccessory">Accessory</option>
           </select>
         </label>
@@ -1653,8 +1698,42 @@
         freeDay: "No activities were sent for today.",
         noActivity: "No Hub activity",
         noActivityContext: "Free time",
-        closedExpectation: "The Hub is closed, so there is nothing to get ready for there. The weather and clothes below are still for today, in case you go out.",
-        freeExpectation: "There is nothing from the Hub today. The weather and clothes below are still for today, in case you go out.",
+        expectClosed: "The Hub is closed today. There is nothing to get ready for there.",
+        expectFree: "Nothing came from the Hub today.",
+        expectNormal: "Today is a normal day.",
+        expectSwimChange: "You will change clothes for the swim.",
+        expectRunChange: "You will change clothes for the run.",
+        expectSnow: "There is snow today. Getting anywhere will take longer than usual.",
+        expectRain: "It will rain today. That is the only change.",
+        expectLayerChange: "It is {morning} in the morning and {afternoon} in the afternoon, so you will take the jacket off partway through.",
+        notableFullDayOut: "You are away from the Hub for the whole day.",
+        notableBoatColder: "The boat ride in the afternoon may feel colder than the morning.",
+        notableLunchProvided: "Lunch is at the Hub today. Hot dogs and chips, so you do not need to bring one.",
+        changeOfClothes: "Change of clothes",
+        changeBagLabel: "Clothes to put in your bag",
+        changeReasonRun: "Wear today's outfit to get there. Put these in a bag and change into them for the run.",
+        changeReasonSwim: "Wear today's outfit to get there. Put these in a bag for the swim.",
+        changeKitMissing: "Swim kit is not in the wardrobe yet — add it",
+        bagTowel: "A towel",
+        bagDryClothes: "Dry clothes to change back into afterwards",
+        genericChoice: "Any one of yours",
+        speechChangeLine: "Put {items} in your bag.",
+        exampleDaysGroup: "Examples",
+        exampleBadge: "Example day:",
+        exampleWeatherNote: "Example weather, not a real forecast.",
+        exampleForecastSource: "Example weather, not a real forecast",
+        "example-winterRun_dayLabel": "Example: winter indoor run",
+        "example-winterRun_summary": "A cold day with an indoor run. You leave the house dressed for minus seven.",
+        "example-winterRun_morning": "Indoor run",
+        "example-winterRun_morningContext": "Active indoor activity · Example",
+        "example-winterRun_afternoon": "Back home",
+        "example-winterRun_afternoonContext": "Outdoors on the way · Example",
+        "example-swim_dayLabel": "Example: swim day",
+        "example-swim_summary": "A swim in the afternoon, so there is a bag to pack.",
+        "example-swim_morning": "Walk to the pool",
+        "example-swim_morningContext": "Outdoor walking · Example",
+        "example-swim_afternoon": "Swimming",
+        "example-swim_afternoonContext": "Indoor pool · Example",
         pastDayNotice: "This day has already happened ({when}). It is here so you can look back at what you wore.",
         pastDayTitle: "What you wore",
         pastDayProgress: "This day is finished.",
@@ -1713,8 +1792,10 @@
         wardrobe_snowBoots: "Snow boots",
         wardrobe_socksRegular: "Regular socks",
         wardrobe_socksShort: "Short sports socks",
-        wardrobe_socksThick: "Thick warm socks",
+        wardrobe_socksThick: "Thick socks",
+        wardrobe_swimKit: "Swim kit",
         slotSocks: "Socks",
+        slotSwim: "Swim kit",
         wizStep1: "1. Scan barcode",
         wizStep1Help: "Fastest if the tag is still on",
         wizStep2: "2. Photograph tag",
@@ -1758,13 +1839,12 @@
         archivedCount: "{count} item(s) are hidden from recommendations.",
         restoreRemoved: "Put removed items back",
         noteEveryday: "Everyday default",
+        noteGenericType: "A type, not one item",
         notePhotoLater: "Photo not added yet",
         noteAvoid: "Marked uncomfortable",
         wardrobe_puffTechNavy: "Navy puffer jacket",
         wardrobe_blousonBlack: "Black windproof jacket",
         wardrobe_fleeceNavy: "Navy fleece jacket",
-        wardrobe_joggersBlue: "Blue jogger pants",
-        wardrobe_joggersGrey: "Grey jogger pants",
         wardrobe_downVest: "Down vest",
         reasonSnow: "There is snow, so you need boots with grip.",
         reasonWind: "It is windy, so the outer layer blocks the wind.",
@@ -1796,18 +1876,13 @@
         flagActive: "Good for exercise",
         customItems: "Items you added",
         removeItem: "Remove",
-        wardrobe_teeGrey: "Grey T-shirt",
-        wardrobe_teeNavy: "Navy T-shirt",
-        wardrobe_teeBlack: "Black T-shirt",
-        wardrobe_longSleeveThin: "Thin long-sleeved top",
-        wardrobe_longSleeveGrey: "Grey long-sleeved top",
-        wardrobe_longSleeveWarm: "Warm long-sleeved top",
-        wardrobe_shortsGrey: "Grey shorts",
-        wardrobe_shortsNavy: "Navy shorts",
-        wardrobe_joggingPants: "Grey jogging pants",
-        wardrobe_thinPants: "Thin long pants",
+        wardrobe_topTee: "T-shirt",
+        wardrobe_topLongSleeve: "Long-sleeved top",
+        wardrobe_topSweatshirt: "Sweatshirt",
+        wardrobe_bottomShorts: "Shorts",
+        wardrobe_bottomLightSweats: "Light sweatpants",
+        wardrobe_bottomHeavySweats: "Heavy sweatpants",
         reasonIndoorSeated: "You sit inside for a while, and inside is usually cooler than a warm day outside.",
-        wardrobe_winterSweats: "Warm sweatpants",
         wardrobe_winterDownPants: "Winter down pants",
         wardrobe_windbreaker: "Light windbreaker",
         wardrobe_stretchJacket: "Light stretch jacket",
@@ -1817,7 +1892,6 @@
         wardrobe_parka: "Full-zip parka",
         wardrobe_walkingShoes: "Walking shoes",
         wardrobe_runningShoes: "Running shoes",
-        wardrobe_winterSocks: "Winter socks",
         reasonTemps: "Low {low}, high {high}.",
         reasonBand_hot: "It will be hot.",
         reasonBand_warm: "It will be warm.",
@@ -1868,7 +1942,6 @@
         dayBag: "Hub day bag",
         bagReason: "Keep your day items together",
         whatToExpect: "What to expect",
-        expectation: "The movie is indoors this morning. Trafalgar Park is outdoors this afternoon. The Hub schedule did not include exact times, so Wayfinder shows the honest morning and afternoon periods.",
         gettingReady: "You are getting ready",
         finishedCheck: "Finished, please check",
         wantHelp: "I want help with one part",
@@ -1924,6 +1997,7 @@
         publishAnnounce: "{count} approved activities are ready for {destination}. Nothing was sent.",
         wardrobeTitle: "Set up Doug's wardrobe",
         wardrobeIntro: "Start from group photos. Wayfinder suggests reusable item cards; retake individual photos only when a card is unclear.",
+        wardrobeTypeNote: "Tops, pants and socks are types, not individual garments — one card each, and Doug picks which one. Jackets and shoes are photographed individually, because that is where the choice is hard and getting it wrong is unsafe.",
         chooseWardrobePhotos: "1. Choose group wardrobe photos",
         useWardrobeExample: "Use Doug group-photo example",
         wardrobeFileHelp: "Take a few category photos: tops, pants, jackets, shoes, socks, and sportswear. One perfect photo per item is not required.",
@@ -1998,8 +2072,42 @@
         freeDay: "今日の予定は届いていません。",
         noActivity: "Hubの予定なし",
         noActivityContext: "自由時間",
-        closedExpectation: "Hubは休みなので、準備することはありません。外に出る時のために、今日の天気と服を表示しています。",
-        freeExpectation: "今日はHubの予定がありません。外に出る時のために、今日の天気と服を表示しています。",
+        expectClosed: "今日はHubが休みです。Hubの準備はありません。",
+        expectFree: "今日はHubからの予定が届いていません。",
+        expectNormal: "今日はいつもどおりの日です。",
+        expectSwimChange: "プールのために着替えます。",
+        expectRunChange: "ランニングのために着替えます。",
+        expectSnow: "今日は雪です。移動にいつもより時間がかかります。",
+        expectRain: "今日は雨が降ります。変わるのはそれだけです。",
+        expectLayerChange: "午前は{morning}、午後は{afternoon}です。途中でジャケットを脱ぎます。",
+        notableFullDayOut: "今日は一日中Hubの外で過ごします。",
+        notableBoatColder: "午後のボートは午前より寒く感じるかもしれません。",
+        notableLunchProvided: "今日はHubで昼食が出ます。ホットドッグとチップスなので、持って行かなくて大丈夫です。",
+        changeOfClothes: "着替え",
+        changeBagLabel: "バッグに入れる服",
+        changeReasonRun: "行くときは今日の服を着ます。これはバッグに入れて、ランニングのときに着替えます。",
+        changeReasonSwim: "行くときは今日の服を着ます。これはプール用にバッグに入れます。",
+        changeKitMissing: "水泳セットがまだ登録されていません。追加してください",
+        bagTowel: "タオル",
+        bagDryClothes: "あとで着替える乾いた服",
+        genericChoice: "どれでも1つ",
+        speechChangeLine: "{items}をバッグに入れてください。",
+        exampleDaysGroup: "例",
+        exampleBadge: "例の日:",
+        exampleWeatherNote: "例の天気です。実際の予報ではありません。",
+        exampleForecastSource: "例の天気です。実際の予報ではありません",
+        "example-winterRun_dayLabel": "例: 冬の室内ランニング",
+        "example-winterRun_summary": "寒い日の室内ランニングです。家を出るときはマイナス7度の服装です。",
+        "example-winterRun_morning": "室内ランニング",
+        "example-winterRun_morningContext": "室内の運動 · 例",
+        "example-winterRun_afternoon": "帰宅",
+        "example-winterRun_afternoonContext": "移動は屋外 · 例",
+        "example-swim_dayLabel": "例: 水泳の日",
+        "example-swim_summary": "午後に水泳があるので、バッグの準備が必要です。",
+        "example-swim_morning": "プールまで歩く",
+        "example-swim_morningContext": "屋外の歩行 · 例",
+        "example-swim_afternoon": "水泳",
+        "example-swim_afternoonContext": "屋内プール · 例",
         pastDayNotice: "この日は終わりました（{when}）。何を着たか振り返るために残しています。",
         pastDayTitle: "着たもの",
         pastDayProgress: "この日は終わりました。",
@@ -2058,8 +2166,10 @@
         wardrobe_snowBoots: "スノーブーツ",
         wardrobe_socksRegular: "普通の靴下",
         wardrobe_socksShort: "短いスポーツ靴下",
-        wardrobe_socksThick: "厚い暖かい靴下",
+        wardrobe_socksThick: "厚い靴下",
+        wardrobe_swimKit: "水泳セット",
         slotSocks: "靴下",
+        slotSwim: "水泳セット",
         wizStep1: "1. バーコードを読む",
         wizStep1Help: "タグが付いていれば一番早い",
         wizStep2: "2. タグを撮影",
@@ -2103,13 +2213,12 @@
         archivedCount: "{count}点をおすすめから外しています。",
         restoreRemoved: "外した服を戻す",
         noteEveryday: "普段の標準",
+        noteGenericType: "種類であって1着ではありません",
         notePhotoLater: "写真はまだ",
         noteAvoid: "着心地が悪い",
         wardrobe_puffTechNavy: "紺のダウンジャケット",
         wardrobe_blousonBlack: "黒の防風ジャケット",
         wardrobe_fleeceNavy: "紺のフリース",
-        wardrobe_joggersBlue: "青のジョガーパンツ",
-        wardrobe_joggersGrey: "灰色のジョガーパンツ",
         wardrobe_downVest: "ダウンベスト",
         reasonSnow: "雪があるので、滑りにくいブーツが必要です。",
         reasonWind: "風が強いので、上着で風を防ぎます。",
@@ -2141,18 +2250,13 @@
         flagActive: "運動に向く",
         customItems: "追加した服",
         removeItem: "削除",
-        wardrobe_teeGrey: "灰色のTシャツ",
-        wardrobe_teeNavy: "紺のTシャツ",
-        wardrobe_teeBlack: "黒のTシャツ",
-        wardrobe_longSleeveThin: "薄手の長袖トップス",
-        wardrobe_longSleeveGrey: "灰色の長袖トップス",
-        wardrobe_longSleeveWarm: "暖かい長袖トップス",
-        wardrobe_shortsGrey: "灰色のショートパンツ",
-        wardrobe_shortsNavy: "紺のショートパンツ",
-        wardrobe_joggingPants: "灰色のジョギングパンツ",
-        wardrobe_thinPants: "薄手のロングパンツ",
+        wardrobe_topTee: "Tシャツ",
+        wardrobe_topLongSleeve: "長袖トップス",
+        wardrobe_topSweatshirt: "トレーナー",
+        wardrobe_bottomShorts: "ショートパンツ",
+        wardrobe_bottomLightSweats: "薄手のスウェットパンツ",
+        wardrobe_bottomHeavySweats: "厚手のスウェットパンツ",
         reasonIndoorSeated: "室内で座る時間があり、室内は外より涼しいことが多いです。",
-        wardrobe_winterSweats: "暖かいスウェットパンツ",
         wardrobe_winterDownPants: "冬用ダウンパンツ",
         wardrobe_windbreaker: "軽いウインドブレーカー",
         wardrobe_stretchJacket: "軽いストレッチジャケット",
@@ -2162,7 +2266,6 @@
         wardrobe_parka: "フルジップパーカ",
         wardrobe_walkingShoes: "歩きやすい靴",
         wardrobe_runningShoes: "ランニングシューズ",
-        wardrobe_winterSocks: "冬用ソックス",
         reasonTemps: "最低{low}、最高{high}。",
         reasonBand_hot: "今日は暑くなります。",
         reasonBand_warm: "今日は暖かいです。",
@@ -2213,7 +2316,6 @@
         dayBag: "Hubのデイバッグ",
         bagReason: "今日の持ち物をまとめます",
         whatToExpect: "今日の見通し",
-        expectation: "午前の映画は室内です。午後のTrafalgar Parkは屋外です。Hubの予定には正確な時刻がないため、Wayfinderは午前と午後で表示します。",
         gettingReady: "準備を進めています",
         finishedCheck: "終わりました。確認してください",
         wantHelp: "一つ手伝ってほしい",
@@ -2269,6 +2371,7 @@
         publishAnnounce: "確認した活動{count}件を{destination}へ保存する準備ができました。送信はしていません。",
         wardrobeTitle: "Dougの服を設定",
         wardrobeIntro: "まずグループ写真から始めます。Wayfinderが再利用できる服カードを提案し、不明なカードだけ個別に撮り直します。",
+        wardrobeTypeNote: "トップス、パンツ、靴下は個別の服ではなく「種類」として登録します。カードは1枚ずつで、どれを着るかはDougが選びます。ジャケットと靴は1点ずつ撮影します。選ぶのが難しく、間違えると危ないからです。",
         chooseWardrobePhotos: "1. 服のグループ写真を選ぶ",
         useWardrobeExample: "Dougのグループ写真の例を使う",
         wardrobeFileHelp: "トップス、パンツ、上着、靴、靴下、スポーツウェアなど、種類ごとに数枚撮ります。全てを完璧に1点ずつ撮る必要はありません。",
@@ -2343,8 +2446,42 @@
         freeDay: "Aucune activité n'a été envoyée pour aujourd'hui.",
         noActivity: "Aucune activité du Hub",
         noActivityContext: "Temps libre",
-        closedExpectation: "Le Hub est fermé, il n'y a donc rien à préparer. La météo et les vêtements ci-dessous sont quand même pour aujourd'hui, au cas où tu sortirais.",
-        freeExpectation: "Il n'y a rien du Hub aujourd'hui. La météo et les vêtements ci-dessous sont quand même pour aujourd'hui, au cas où tu sortirais.",
+        expectClosed: "Le Hub est fermé aujourd'hui. Il n'y a rien à préparer pour là-bas.",
+        expectFree: "Rien n'est arrivé du Hub aujourd'hui.",
+        expectNormal: "Aujourd'hui est une journée normale.",
+        expectSwimChange: "Tu vas te changer pour la baignade.",
+        expectRunChange: "Tu vas te changer pour la course.",
+        expectSnow: "Il y a de la neige aujourd'hui. Les déplacements prendront plus de temps.",
+        expectRain: "Il va pleuvoir aujourd'hui. C'est le seul changement.",
+        expectLayerChange: "Il fait {morning} le matin et {afternoon} l'après-midi; tu enlèveras le manteau en cours de journée.",
+        notableFullDayOut: "Tu es à l'extérieur du Hub toute la journée.",
+        notableBoatColder: "Le bateau de l'après-midi peut sembler plus froid que le matin.",
+        notableLunchProvided: "Le dîner est servi au Hub aujourd'hui. Hot-dogs et chips, donc tu n'as pas besoin d'en apporter.",
+        changeOfClothes: "Change de vêtements",
+        changeBagLabel: "Vêtements à mettre dans ton sac",
+        changeReasonRun: "Porte la tenue du jour pour t'y rendre. Mets ceux-ci dans un sac et change-toi pour la course.",
+        changeReasonSwim: "Porte la tenue du jour pour t'y rendre. Mets ceux-ci dans un sac pour la baignade.",
+        changeKitMissing: "L'ensemble de natation n'est pas encore dans la garde-robe — ajoute-le",
+        bagTowel: "Une serviette",
+        bagDryClothes: "Des vêtements secs pour te changer après",
+        genericChoice: "N'importe lequel des tiens",
+        speechChangeLine: "Mets {items} dans ton sac.",
+        exampleDaysGroup: "Exemples",
+        exampleBadge: "Journée exemple:",
+        exampleWeatherNote: "Météo d'exemple, pas une vraie prévision.",
+        exampleForecastSource: "Météo d'exemple, pas une vraie prévision",
+        "example-winterRun_dayLabel": "Exemple: course à l'intérieur en hiver",
+        "example-winterRun_summary": "Une journée froide avec une course à l'intérieur. Tu pars de la maison habillé pour moins sept.",
+        "example-winterRun_morning": "Course à l'intérieur",
+        "example-winterRun_morningContext": "Activité active à l'intérieur · Exemple",
+        "example-winterRun_afternoon": "Retour à la maison",
+        "example-winterRun_afternoonContext": "Dehors sur le chemin · Exemple",
+        "example-swim_dayLabel": "Exemple: journée de natation",
+        "example-swim_summary": "Une baignade l'après-midi, donc il y a un sac à préparer.",
+        "example-swim_morning": "Marche jusqu'à la piscine",
+        "example-swim_morningContext": "Marche à l'extérieur · Exemple",
+        "example-swim_afternoon": "Natation",
+        "example-swim_afternoonContext": "Piscine intérieure · Exemple",
         pastDayNotice: "Cette journée est passée ({when}). Elle reste ici pour revoir ce que tu as porté.",
         pastDayTitle: "Ce que tu as porté",
         pastDayProgress: "Cette journée est terminée.",
@@ -2404,7 +2541,9 @@
         wardrobe_socksRegular: "Chaussettes régulières",
         wardrobe_socksShort: "Chaussettes de sport courtes",
         wardrobe_socksThick: "Chaussettes épaisses",
+        wardrobe_swimKit: "Ensemble de natation",
         slotSocks: "Chaussettes",
+        slotSwim: "Ensemble de natation",
         wizStep1: "1. Scanner le code-barres",
         wizStep1Help: "Le plus rapide si l'étiquette est encore là",
         wizStep2: "2. Photographier l'étiquette",
@@ -2448,13 +2587,12 @@
         archivedCount: "{count} article(s) sont cachés des recommandations.",
         restoreRemoved: "Remettre les articles retirés",
         noteEveryday: "Choix de tous les jours",
+        noteGenericType: "Un type, pas un article",
         notePhotoLater: "Photo pas encore ajoutée",
         noteAvoid: "Marqué inconfortable",
         wardrobe_puffTechNavy: "Doudoune marine",
         wardrobe_blousonBlack: "Blouson coupe-vent noir",
         wardrobe_fleeceNavy: "Veste polaire marine",
-        wardrobe_joggersBlue: "Pantalon de jogging bleu",
-        wardrobe_joggersGrey: "Pantalon de jogging gris",
         wardrobe_downVest: "Veste sans manches en duvet",
         reasonSnow: "Il y a de la neige; il faut des bottes qui adhèrent.",
         reasonWind: "Il vente; la couche extérieure coupe le vent.",
@@ -2486,18 +2624,13 @@
         flagActive: "Bon pour l'exercice",
         customItems: "Articles que tu as ajoutés",
         removeItem: "Retirer",
-        wardrobe_teeGrey: "T-shirt gris",
-        wardrobe_teeNavy: "T-shirt marine",
-        wardrobe_teeBlack: "T-shirt noir",
-        wardrobe_longSleeveThin: "Haut mince à manches longues",
-        wardrobe_longSleeveGrey: "Haut gris à manches longues",
-        wardrobe_longSleeveWarm: "Haut chaud à manches longues",
-        wardrobe_shortsGrey: "Short gris",
-        wardrobe_shortsNavy: "Short marine",
-        wardrobe_joggingPants: "Pantalon de jogging gris",
-        wardrobe_thinPants: "Pantalon long léger",
+        wardrobe_topTee: "T-shirt",
+        wardrobe_topLongSleeve: "Haut à manches longues",
+        wardrobe_topSweatshirt: "Chandail ouaté",
+        wardrobe_bottomShorts: "Short",
+        wardrobe_bottomLightSweats: "Pantalon d'entraînement léger",
+        wardrobe_bottomHeavySweats: "Pantalon d'entraînement épais",
         reasonIndoorSeated: "Tu seras assis à l'intérieur un moment, et l'intérieur est souvent plus frais qu'une journée chaude dehors.",
-        wardrobe_winterSweats: "Pantalon d'hiver chaud",
         wardrobe_winterDownPants: "Pantalon en duvet",
         wardrobe_windbreaker: "Coupe-vent léger",
         wardrobe_stretchJacket: "Veste extensible légère",
@@ -2507,7 +2640,6 @@
         wardrobe_parka: "Parka à glissière",
         wardrobe_walkingShoes: "Chaussures de marche",
         wardrobe_runningShoes: "Chaussures de course",
-        wardrobe_winterSocks: "Chaussettes d'hiver",
         reasonTemps: "Minimum {low}, maximum {high}.",
         reasonBand_hot: "Il fera chaud.",
         reasonBand_warm: "Il fera doux et chaud.",
@@ -2558,7 +2690,6 @@
         dayBag: "Sac de jour du Hub",
         bagReason: "Garde les articles de la journée ensemble",
         whatToExpect: "À quoi s'attendre",
-        expectation: "Le film est à l'intérieur ce matin. Trafalgar Park est à l'extérieur cet après-midi. L'horaire du Hub n'indique pas les heures exactes; Wayfinder affiche donc matin et après-midi.",
         gettingReady: "Vous vous préparez",
         finishedCheck: "J'ai fini, vérifiez s'il vous plaît",
         wantHelp: "Je veux de l'aide pour une étape",
@@ -2614,6 +2745,7 @@
         publishAnnounce: "{count} activités approuvées sont prêtes pour {destination}. Rien n'a été envoyé.",
         wardrobeTitle: "Configurer la garde-robe de Doug",
         wardrobeIntro: "Commencez avec des photos de groupe. Wayfinder suggère des fiches réutilisables; reprenez une photo individuelle seulement quand une fiche n'est pas claire.",
+        wardrobeTypeNote: "Les hauts, les pantalons et les chaussettes sont des types, pas des vêtements précis — une fiche chacun, et Doug choisit lequel. Les vestes et les chaussures sont photographiées une par une, parce que c'est là que le choix est difficile et qu'une erreur est risquée.",
         chooseWardrobePhotos: "1. Choisir des photos de groupe",
         useWardrobeExample: "Utiliser l'exemple de photos de Doug",
         wardrobeFileHelp: "Prenez quelques photos par catégorie : hauts, pantalons, manteaux, chaussures, chaussettes et vêtements de sport. Une photo parfaite par article n'est pas requise.",
@@ -2682,7 +2814,6 @@
             morning: ["Film.ca Scoob movie", "Indoor seated activity · Hub schedule"],
             afternoon: ["Trafalgar Park", "Outdoor walking · Hub schedule"]
           },
-          expectation: "The movie is indoors this morning. Trafalgar Park is outdoors this afternoon. The Hub schedule did not include exact times, so Wayfinder shows morning and afternoon.",
           bringItems: [],
           speechMorning: "movie",
           speechAfternoon: "Trafalgar Park"
@@ -2698,7 +2829,6 @@
             morning: ["Hamilton Bayfront picnic lunch", "Outdoor activity · Hub schedule"],
             afternoon: ["Hamilton Bayfront picnic lunch", "Outdoor activity · Hub schedule"]
           },
-          expectation: "Hamilton Bayfront picnic lunch is outside and listed as a full-day Hub activity. Wayfinder keeps the familiar morning and afternoon pattern.",
           bringItems: [],
           speechMorning: "Hamilton Bayfront picnic",
           speechAfternoon: "Hamilton Bayfront picnic"
@@ -2714,7 +2844,6 @@
             morning: ["Florence St. jog", "Active outdoor activity · Hub schedule"],
             afternoon: ["Laundry and dishwashing duty", "Indoor household activity · Hub schedule"]
           },
-          expectation: "Morning is active. Afternoon is indoor household work. Weather can be added when the forecast is available.",
           bringItems: [],
           speechMorning: "Florence Street jog",
           speechAfternoon: "laundry and dishes"
@@ -2730,7 +2859,6 @@
             morning: ["September Scavenger Hunt", "Active searching activity · Hub schedule"],
             afternoon: ["Charter Boat Ride", "Outdoor trip · Hub schedule"]
           },
-          expectation: "The afternoon boat ride may feel cooler or windy. Wayfinder keeps that as a visible reason, not a hidden rule.",
           bringItems: [],
           speechMorning: "scavenger hunt",
           speechAfternoon: "charter boat ride"
@@ -2746,7 +2874,6 @@
             morning: ["Sundae Thursday", "Indoor social activity · Hub schedule"],
             afternoon: ["Fortinos grocery list", "Community errand · Hub schedule"]
           },
-          expectation: "This is a mostly indoor day with a community grocery errand in the afternoon.",
           bringItems: [
             ["Grocery list", "For Fortinos"]
           ],
@@ -2764,7 +2891,6 @@
             morning: ["Food Basics - Chips Crew", "Community errand · Hub schedule"],
             afternoon: ["Frizbee Friday", "Outdoor active activity · Hub schedule"]
           },
-          expectation: "Morning is a community errand. Afternoon is active and outdoors.",
           bringItems: [
             ["No lunch box", "Hotdogs and chips at Hub if Doug wants them"]
           ],
@@ -2784,7 +2910,6 @@
             morning: ["Film.ca Scoob movie", "室内で座る活動 · Hubの予定"],
             afternoon: ["Trafalgar Park", "屋外で歩く活動 · Hubの予定"]
           },
-          expectation: "午前の映画は室内です。午後のTrafalgar Parkは屋外です。Hubの予定には正確な時刻がないため、午前と午後で表示します。",
           bringItems: [],
           speechMorning: "映画",
           speechAfternoon: "Trafalgar Park"
@@ -2800,7 +2925,6 @@
             morning: ["Hamilton Bayfront picnic lunch", "屋外活動 · Hubの予定"],
             afternoon: ["Hamilton Bayfront picnic lunch", "屋外活動 · Hubの予定"]
           },
-          expectation: "Hamilton Bayfront picnic lunchは屋外の一日活動です。Wayfinderは慣れた午前と午後の形で表示します。",
           bringItems: [],
           speechMorning: "Hamilton Bayfrontのピクニック",
           speechAfternoon: "Hamilton Bayfrontのピクニック"
@@ -2818,7 +2942,6 @@
             morning: ["Film.ca Scoob movie", "Activité assise à l'intérieur · Horaire du Hub"],
             afternoon: ["Trafalgar Park", "Marche à l'extérieur · Horaire du Hub"]
           },
-          expectation: "Le film est à l'intérieur ce matin. Trafalgar Park est à l'extérieur cet après-midi. L'horaire du Hub n'indique pas les heures exactes; Wayfinder affiche donc matin et après-midi.",
           bringItems: [],
           speechMorning: "film",
           speechAfternoon: "Trafalgar Park"
@@ -2834,7 +2957,6 @@
             morning: ["Hamilton Bayfront picnic lunch", "Activité extérieure · Horaire du Hub"],
             afternoon: ["Hamilton Bayfront picnic lunch", "Activité extérieure · Horaire du Hub"]
           },
-          expectation: "Hamilton Bayfront picnic lunch est une activité extérieure pour la journée. Wayfinder garde le format familier matin et après-midi.",
           bringItems: [],
           speechMorning: "pique-nique Hamilton Bayfront",
           speechAfternoon: "pique-nique Hamilton Bayfront"
@@ -2950,21 +3072,29 @@
     // usable the moment it is added.
     // Ranges are deliberately wide where a garment genuinely spans several kinds of day.
     // A t-shirt is not a "warm day" item; it works from a mild day through a hot one.
+    //
+    // Sep. 6, 2026 pivot (docs/product/WARDROBE_MODEL.md): model a garment individually
+    // only when the choice is hard or getting it wrong is unsafe. Tops, bottoms and socks
+    // are therefore types, marked `generic`, with one representative photograph each.
+    // Telling an adult which particular t-shirt to wear is not assistance.
     const builtInWardrobe = [
-      { id: "teeGrey", slot: "baseTop", min: 14, max: 40, photo: "1. Tops/20260905_150221312_iOS.jpg" },
-      { id: "teeNavy", slot: "baseTop", min: 14, max: 40, photo: "1. Tops/20260905_144331910_iOS.jpg" },
-      { id: "teeBlack", slot: "baseTop", min: 14, max: 40, photo: "1. Tops/20260905_144354095_iOS.jpg" },
-      { id: "longSleeveThin", slot: "baseTop", min: 6, max: 20, photo: "1. Tops/20260905_144611306_iOS.jpg" },
-      { id: "longSleeveGrey", slot: "baseTop", min: 2, max: 17, photo: "1. Tops/20260905_144632312_iOS.jpg" },
-      { id: "longSleeveWarm", slot: "baseTop", min: -15, max: 12, photo: "1. Tops/20260905_144735308_iOS.jpg" },
+      { id: "topTee", slot: "baseTop", generic: true, min: 14, max: 40, photo: "1. Tops/20260905_150221312_iOS.jpg" },
+      { id: "topLongSleeve", slot: "baseTop", generic: true, min: 4, max: 20, photo: "1. Tops/20260905_144611306_iOS.jpg" },
+      // Doug's photographed tops are all t-shirts and long-sleeved tees. The sweatshirt
+      // type is real and needed below 12°C, so it is listed with the photo still missing
+      // rather than quietly dropped.
+      { id: "topSweatshirt", slot: "baseTop", generic: true, min: -15, max: 12, photo: "", needsPhoto: true },
 
-      { id: "shortsGrey", slot: "bottom", min: 19, max: 40, activeOk: true, photo: "2. Bottoms/20260905_144938139_iOS.jpg" },
-      { id: "shortsNavy", slot: "bottom", min: 19, max: 40, activeOk: true, photo: "2. Bottoms/20260905_144955003_iOS.jpg" },
-      { id: "thinPants", slot: "bottom", min: 10, max: 28, activeOk: true, photo: "2. Bottoms/Spring & Fall pants 2.jpg" },
-      { id: "joggingPants", slot: "bottom", min: 2, max: 19, photo: "2. Bottoms/Spring & Fall pants.jpg" },
-      { id: "winterSweats", slot: "bottom", min: -10, max: 10, photo: "2. Bottoms/Winter sweats.jpg" },
+      { id: "bottomShorts", slot: "bottom", generic: true, min: 19, max: 40, activeOk: true, photo: "2. Bottoms/20260905_144938139_iOS.jpg" },
+      { id: "bottomLightSweats", slot: "bottom", generic: true, min: 8, max: 26, activeOk: true, photo: "2. Bottoms/Spring & Fall pants.jpg" },
+      { id: "bottomHeavySweats", slot: "bottom", generic: true, min: -10, max: 10, photo: "2. Bottoms/Winter sweats.jpg" },
+      // Exception. Worn for a full day outdoors in snow and chosen for that reason, so it
+      // keeps its own photograph. Dress shirts are the other named exception; none have
+      // been photographed yet, so none are listed.
       { id: "winterDownPants", slot: "bottom", min: -30, max: 2, snowReady: true, photo: "2. Bottoms/Winter down pants.jpg" },
 
+      // Jackets stay individual. This is the decision Doug most needs help with: two coats
+      // of the same colour can be completely different in warmth.
       { id: "stretchJacket", slot: "outer", min: 10, max: 22, photo: "3. Outerwear/Stretch Light Jacket.jpg" },
       { id: "windbreaker", slot: "outer", min: 6, max: 22, waterResistant: true, windResistant: true, photo: "3. Outerwear/Light windbreaker 2.jpg" },
       { id: "downVest", slot: "outer", min: 4, max: 16, photo: "3. Outerwear/Down vest.jpg" },
@@ -2973,22 +3103,25 @@
       { id: "heavyDown", slot: "outer", min: -30, max: 0, windResistant: true, photo: "3. Outerwear/Heavy Down Jacket.jpg" },
 
       // Added Sep. 6, 2026 from photographed Uniqlo tags. Fabric and colour come from the
-      // tag; a garment photograph can be attached later through Edit.
+      // tag; a garment photograph can be attached later through Edit. The two pairs of
+      // joggers added the same day are gone: they are light sweatpants.
       { id: "puffTechNavy", slot: "outer", min: -12, max: 6, fabric: "Nylon shell, polyester fill", windResistant: true, photo: "", needsPhoto: true },
       { id: "blousonBlack", slot: "outer", min: 5, max: 20, fabric: "Recycled nylon, polyester lining", windResistant: true, waterResistant: true, photo: "", needsPhoto: true },
       { id: "fleeceNavy", slot: "outer", min: 1, max: 15, fabric: "Recycled polyester", photo: "", needsPhoto: true },
-      { id: "joggersBlue", slot: "bottom", min: 8, max: 26, fabric: "Stretch active", activeOk: true, photo: "", needsPhoto: true },
-      { id: "joggersGrey", slot: "bottom", min: 8, max: 26, fabric: "Stretch active", activeOk: true, photo: "", needsPhoto: true },
 
+      // Footwear stays individual. Wrong footwear is the failure with real consequences.
       { id: "walkingShoes", slot: "footwear", min: -10, max: 40, photo: "4. Footwear/Hiking and Walking shoes (Merrell).jpg" },
       { id: "runningShoes", slot: "footwear", min: -5, max: 40, activeOk: true, photo: "4. Footwear/Running and Sports Shoes (Asics).jpg" },
       { id: "snowBoots", slot: "footwear", min: -30, max: 5, snowReady: true, waterResistant: true, photo: "", needsPhoto: true },
 
       // Socks are a decision, not a default, only when they differ from the everyday pair.
       // Regular socks are marked as the silent default and never shown on the plan.
-      { id: "socksRegular", slot: "socks", min: 4, max: 40, isDefault: true, photo: "4. Footwear/Regular socks.jpg" },
-      { id: "socksShort", slot: "socks", min: 8, max: 40, activeOk: true, photo: "4. Footwear/Sports socks.jpg" },
-      { id: "socksThick", slot: "socks", min: -30, max: 10, photo: "4. Footwear/Winter socks.jpg" }
+      { id: "socksRegular", slot: "socks", generic: true, min: 4, max: 40, isDefault: true, photo: "4. Footwear/Regular socks.jpg" },
+      { id: "socksShort", slot: "socks", generic: true, min: 8, max: 40, activeOk: true, photo: "4. Footwear/Sports socks.jpg" },
+      { id: "socksThick", slot: "socks", generic: true, min: -30, max: 10, photo: "4. Footwear/Winter socks.jpg" },
+
+      // Not a worn layer. This fills the swim bag, never the outfit.
+      { id: "swimKit", slot: "swim", min: -30, max: 40, photo: "6. Sportswear/Hub Swimming.jpg" }
     ];
 
     const customWardrobeKey = "wayfinder.customWardrobe.v1";
@@ -3088,6 +3221,58 @@
         ]
       }
     };
+
+    // Two clearly labelled examples. The real September week never produces a day that
+    // needs a second outfit, and a feature that cannot be shown cannot be tested with
+    // Doug. The weather here is a fixed sample, not a forecast, and is labelled as such;
+    // the outfit and the bag are still computed by the same engine.
+    const examplePlans = {
+      "example-winterRun": {
+        forecast: {
+          locationKey: "oakville",
+          low: -9,
+          high: -4,
+          morningTemp: -7,
+          afternoonTemp: -4,
+          precipitationChance: 5,
+          windSpeed: 18,
+          snowfall: 0,
+          sample: true
+        },
+        context: {
+          indoorSeated: false,
+          periods: [
+            { outdoor: true, intensity: "walking" },
+            { outdoor: true, intensity: "casual" }
+          ],
+          // The run itself is indoors. He leaves the house dressed for minus seven.
+          changeOfClothes: { kind: "activeIndoor", indoorTemp: 20 }
+        }
+      },
+      "example-swim": {
+        forecast: {
+          locationKey: "oakville",
+          low: 11,
+          high: 17,
+          morningTemp: 12,
+          afternoonTemp: 17,
+          precipitationChance: 10,
+          windSpeed: 12,
+          snowfall: 0,
+          sample: true
+        },
+        context: {
+          indoorSeated: false,
+          periods: [
+            { outdoor: true, intensity: "walking" },
+            { outdoor: true, intensity: "casual" }
+          ],
+          changeOfClothes: { kind: "swim" }
+        }
+      }
+    };
+
+    const isExampleDay = (value) => typeof value === "string" && value.startsWith("example-");
 
     // Approximate warmth added by movement, in degrees. Vigorous activity is the reason a
     // 17°C jog must not be dressed like a 17°C errand.
@@ -3266,6 +3451,43 @@
       ];
     };
 
+    // A change of clothes is a second outfit carried in a bag, not a bring-item. An
+    // umbrella is something you carry; a change of clothes is something you wear later,
+    // and presenting them the same way loses that.
+    //
+    // It is computed from the wardrobe like any other outfit, and it returns nothing when
+    // what he is already wearing works for the activity. That silence is the point: most
+    // days do not need one.
+    const buildChangeOfClothes = (context, worn) => {
+      const change = context.changeOfClothes;
+      if (!change) return null;
+
+      if (change.kind === "swim") {
+        const kit = rankForSlot("swim", 20)[0];
+        return {
+          kind: "swim",
+          itemIds: kit ? [kit.id] : [],
+          extraKeys: ["bagTowel", "bagDryClothes"],
+          missingKit: !kit
+        };
+      }
+
+      // An indoor gym sits near 20°C, and vigorous movement is worth several bands on top
+      // of that. The bag outfit is chosen for the run, not for the walk to get there.
+      const target = (change.indoorTemp ?? 20) + intensityWarmth.active;
+      const picks = [
+        rankForSlot("baseTop", target)[0],
+        rankForSlot("bottom", target, { active: true })[0],
+        rankForSlot("socks", target, { active: true })[0]
+      ].filter(Boolean);
+
+      const wornIds = new Set(worn?.itemIds ?? []);
+      const needed = picks.filter((item) => !wornIds.has(item.id));
+      if (needed.length === 0) return null;
+
+      return { kind: "activeIndoor", itemIds: needed.map((item) => item.id), extraKeys: [] };
+    };
+
     const hubClosedDays = {
       "2026-09-07": "labourDay"
     };
@@ -3289,7 +3511,6 @@
           morning: [t("noActivity"), t("noActivityContext")],
           afternoon: [t("noActivity"), t("noActivityContext")]
         },
-        expectation: t(closed ? "closedExpectation" : "freeExpectation"),
         bringItems: [],
         speechMorning: t("noActivity"),
         speechAfternoon: t("noActivity"),
@@ -3297,11 +3518,33 @@
       };
     };
 
+    // Example days are built from message keys so all three languages come for free.
+    const examplePlan = (key) => ({
+      hubReady: `<strong>${t("exampleBadge")}</strong> ${t(`${key}_summary`)}`,
+      low: "--",
+      high: "--",
+      weatherSummary: t("exampleWeatherNote"),
+      weatherDetail: "",
+      updated: t("exampleForecastSource"),
+      activities: {
+        morning: [t(`${key}_morning`), t(`${key}_morningContext`)],
+        afternoon: [t(`${key}_afternoon`), t(`${key}_afternoonContext`)]
+      },
+      bringItems: [],
+      speechMorning: t(`${key}_morning`),
+      speechAfternoon: t(`${key}_afternoon`),
+      isExample: true
+    });
 
-    const currentPlan = () =>
-      localizedPlans[state.locale]?.[state.planDate] ??
-      localizedPlans["en-CA"][state.planDate] ??
-      emptyDayPlan(state.planDate);
+
+    const currentPlan = () => {
+      if (isExampleDay(state.planDate)) return examplePlan(state.planDate);
+      return (
+        localizedPlans[state.locale]?.[state.planDate] ??
+        localizedPlans["en-CA"][state.planDate] ??
+        emptyDayPlan(state.planDate)
+      );
+    };
 
     const locationName = (locationKey) => {
       const location = weatherLocations[locationKey];
@@ -3331,7 +3574,10 @@
         high,
         summary: t("lowHighSummary", { low, high, rain }),
         detail: details.join(" · "),
-        source: t("publicForecastSource", { location: locationName(forecast.locationKey) })
+        // Never claim a live forecast for a sample. The example days say what they are.
+        source: forecast.sample
+          ? t("exampleForecastSource")
+          : t("publicForecastSource", { location: locationName(forecast.locationKey) })
       };
     };
 
@@ -3376,15 +3622,17 @@
     };
 
     const dayOffset = (isoDate) => {
+      if (isExampleDay(isoDate)) return 0;
       const target = startOfDay(new Date(`${isoDate}T12:00:00`));
       const today = startOfDay(new Date());
       return Math.round((target - today) / 86400000);
     };
 
-    const isPastDate = (isoDate) => dayOffset(isoDate) < 0;
-    const withinHistory = (isoDate) => dayOffset(isoDate) >= -HISTORY_DAYS;
+    const isPastDate = (isoDate) => !isExampleDay(isoDate) && dayOffset(isoDate) < 0;
+    const withinHistory = (isoDate) => isExampleDay(isoDate) || dayOffset(isoDate) >= -HISTORY_DAYS;
 
     const dayRelativeLabel = (isoDate) => {
+      if (isExampleDay(isoDate)) return "";
       const offset = dayOffset(isoDate);
       if (offset === 0) return t("dayToday");
       if (offset === 1) return t("dayTomorrow");
@@ -3395,12 +3643,12 @@
 
     const renderPlanDateOptions = () => {
       const select = document.querySelector("#plan-date");
-      const available = [...select.options]
+      const available = [...select.querySelectorAll("option")]
         .map((option) => option.value)
-        .filter((value) => withinHistory(value))
+        .filter((value) => !isExampleDay(value) && withinHistory(value))
         .sort();
 
-      select.innerHTML = available
+      const days = available
         .map((value) => {
           const label = formatDate(value, { weekday: "short", month: "short", day: "numeric" });
           const relative = dayRelativeLabel(value);
@@ -3409,7 +3657,13 @@
         })
         .join("");
 
-      if (!available.includes(state.planDate)) {
+      const examples = Object.keys(examplePlans)
+        .map((value) => `<option value="${value}">${t(`${value}_dayLabel`)}</option>`)
+        .join("");
+
+      select.innerHTML = `${days}<optgroup label="${t("exampleDaysGroup")}">${examples}</optgroup>`;
+
+      if (!isExampleDay(state.planDate) && !available.includes(state.planDate)) {
         // The selected day aged out. Fall back to today, or the nearest upcoming day.
         state.planDate = available.find((value) => dayOffset(value) >= 0) ?? available[available.length - 1];
       }
@@ -3421,7 +3675,7 @@
     const initialPlanDate = () => {
       const values = [...document.querySelectorAll("#plan-date option")]
         .map((option) => option.value)
-        .filter((value) => withinHistory(value))
+        .filter((value) => !isExampleDay(value) && withinHistory(value))
         .sort();
       return values.find((value) => dayOffset(value) >= 0) ?? values[values.length - 1] ?? state.planDate;
     };
@@ -3452,10 +3706,9 @@
       const weather = forecast ? formatPublicWeather(forecast) : null;
       const isLoadingWeather = state.weatherLoadingDate === state.planDate;
       const hasWeatherError = state.weatherErrors[state.planDate];
-      document.querySelector("#today-date").textContent = formatDate(
-        state.planDate,
-        { weekday: "long", month: "long", day: "numeric" }
-      );
+      document.querySelector("#today-date").textContent = isExampleDay(state.planDate)
+        ? t(`${state.planDate}_dayLabel`)
+        : formatDate(state.planDate, { weekday: "long", month: "long", day: "numeric" });
       document.querySelector("#weather-low").textContent = weather?.low ?? (isLoadingWeather ? "--" : plan.low);
       document.querySelector("#weather-high").textContent = weather?.high ?? (isLoadingWeather ? "--" : plan.high);
       document.querySelector("[data-i18n='weatherSummary']").textContent =
@@ -3468,12 +3721,20 @@
       document.querySelector("#morning-context").textContent = plan.activities.morning[1];
       document.querySelector("#afternoon-activity").textContent = plan.activities.afternoon[0];
       document.querySelector("#afternoon-context").textContent = plan.activities.afternoon[1];
-      document.querySelector("[data-i18n='expectation']").textContent = plan.expectation;
+      document.querySelector("#expectation-text").textContent = expectationText();
       renderSpecialItems(computeSpecialItems());
     };
 
     const loadForecastForSelectedDate = async () => {
       const date = state.planDate;
+      // Example days carry their own sample weather. Nothing is fetched for them.
+      if (isExampleDay(date)) {
+        if (!state.weatherForecasts[date]) {
+          state.weatherForecasts[date] = { ...examplePlans[date].forecast };
+          renderDynamicState();
+        }
+        return;
+      }
       const locationKey = planWeatherLocations[date];
       const location = weatherLocations[locationKey];
       if (!location || state.weatherForecasts[date] || state.weatherLoadingDate === date) return;
@@ -3548,7 +3809,7 @@
     };
 
     const currentPlanContext = () =>
-      planContexts[state.planDate] ?? {
+      (isExampleDay(state.planDate) ? examplePlans[state.planDate]?.context : planContexts[state.planDate]) ?? {
         // No schedule for this day. Assume a normal amount of going outside rather than
         // assuming the person stays in, because under-dressing is the worse failure.
         indoorSeated: false,
@@ -3607,6 +3868,55 @@
       return parts.join(" ");
     };
 
+    const currentChangeOfClothes = () =>
+      buildChangeOfClothes(currentPlanContext(), currentOutfit());
+
+    // Facts taken from the Hub schedule that are not visible in the activity list itself.
+    // Sep. 11: "No need to bring a lunch if you'd like some hotdogs and chips!"
+    // Sep. 9: Doug is on the afternoon charter boat, having spent the morning on foot.
+    // Sep. 4: a full-day trip to Hamilton, away from the Hub.
+    const planNotables = {
+      "2026-09-04": "notableFullDayOut",
+      "2026-09-09": "notableBoatColder",
+      "2026-09-11": "notableLunchProvided"
+    };
+
+    // "What to expect" answers one question: what about today is not like most days? It is
+    // written for Doug, and it must not restate the activities, which are on the screen
+    // directly above it. When nothing is unusual, saying so is a real answer — a
+    // predictable day is itself useful information.
+    const expectationText = () => {
+      const date = state.planDate;
+      const plan = currentPlan();
+
+      // A change in routine.
+      if (plan.isEmptyDay) {
+        return t(hubClosedDays[date] ? "expectClosed" : "expectFree");
+      }
+
+      // Something that needs a decision.
+      const change = currentChangeOfClothes();
+      if (change) {
+        return t(change.kind === "swim" ? "expectSwimChange" : "expectRunChange");
+      }
+
+      // Something that is not on the schedule.
+      if (planNotables[date]) return t(planNotables[date]);
+
+      // An unusual transition.
+      const facts = currentOutfit().facts;
+      if (facts?.snowy) return t("expectSnow");
+      if (facts?.rainy) return t("expectRain");
+      if (facts?.removableLayer) {
+        return t("expectLayerChange", {
+          morning: formatTemperature(facts.morningTemp),
+          afternoon: formatTemperature(facts.afternoonTemp)
+        });
+      }
+
+      return t("expectNormal");
+    };
+
     const computeSpecialItems = () => {
       const plan = currentPlan();
       const forecast = state.weatherForecasts[state.planDate];
@@ -3628,6 +3938,42 @@
       }      return items;
     };
 
+    const garmentTile = (id) => {
+      const item = wardrobeItem(id);
+      const label = itemLabel(item);
+      const photo = wardrobePhotoUrl(item);
+      // A generic type says "pick any one of yours". Choosing which t-shirt is Doug's
+      // decision, and it is one he is perfectly able to make.
+      const note = item?.generic
+        ? `<span class="garment-note">${t("genericChoice")}</span>`
+        : item?.needsPhoto
+          ? `<span class="garment-note">${t("notePhotoLater")}</span>`
+          : "";
+      return `<div class="garment${item?.generic ? " generic-garment" : ""}">
+            ${photo ? `<img class="garment-photo" src="${photo}" alt="${label}" onerror="this.hidden = true">` : ""}
+            <span>${label}</span>
+            ${note}
+          </div>`;
+    };
+
+    const renderChangeOfClothes = () => {
+      const card = document.querySelector("#change-card");
+      const change = currentChangeOfClothes();
+      if (!change) {
+        card.hidden = true;
+        return;
+      }
+      card.hidden = false;
+      document.querySelector("#change-reason").textContent =
+        t(change.kind === "swim" ? "changeReasonSwim" : "changeReasonRun");
+      document.querySelector("#change-visual").innerHTML = change.itemIds.map(garmentTile).join("");
+      const extras = document.querySelector("#change-extras");
+      const lines = (change.extraKeys ?? []).map((key) => t(key));
+      if (change.missingKit) lines.push(t("changeKitMissing"));
+      extras.innerHTML = lines.map((line) => `<li>${line}</li>`).join("");
+      extras.hidden = lines.length === 0;
+    };
+
     const buildSpeech = () => {
       const plan = currentPlan();
       const outfit = currentOutfit();
@@ -3641,6 +3987,12 @@
       parts.push(t("speechWearLine", {
         items: outfit.itemIds.map((id) => itemLabel(wardrobeItem(id))).join(", ")
       }));
+      const change = currentChangeOfClothes();
+      if (change && change.itemIds.length > 0) {
+        parts.push(t("speechChangeLine", {
+          items: change.itemIds.map((id) => itemLabel(wardrobeItem(id))).join(", ")
+        }));
+      }
       const special = computeSpecialItems().map((item) => item[0]);
       if (special.length > 0) {
         parts.push(t("speechBringLine", { items: special.join(", ") }));
@@ -3651,18 +4003,12 @@
     const renderOutfit = () => {
       const outfit = currentOutfit();
       document.querySelector("#outfit-visual").innerHTML = outfit.itemIds
-        .map((id) => {
-          const item = wardrobeItem(id);
-          const label = itemLabel(item);
-          return `<div class="garment">
-            <img class="garment-photo" src="${wardrobePhotoUrl(item)}" alt="${label}" onerror="this.hidden = true">
-            <span>${label}</span>
-          </div>`;
-        })
+        .map(garmentTile)
         .join("");
       document.querySelector("#outfit-summary").innerHTML =
         t("outfitReadyCount", { count: outfit.itemIds.length });
       document.querySelector("#outfit-reason").textContent = outfitReasonText(outfit);
+      renderChangeOfClothes();
     };
 
     const renderReadyProgress = () => {
@@ -3828,11 +4174,13 @@
       document.querySelector("#ready-title").textContent = t("gettingReady");
       renderDynamicState();
       loadForecastForSelectedDate();
-      announcer.textContent = formatDate(state.planDate, {
-        weekday: "long",
-        month: "long",
-        day: "numeric"
-      });
+      announcer.textContent = isExampleDay(state.planDate)
+        ? t(`${state.planDate}_dayLabel`)
+        : formatDate(state.planDate, {
+            weekday: "long",
+            month: "long",
+            day: "numeric"
+          });
     });
 
     document.querySelector("#read-plan").addEventListener("click", () => {
@@ -4190,6 +4538,7 @@
       list.innerHTML = items
         .map((item) => {
           const notes = [];
+          if (item.generic) notes.push(t("noteGenericType"));
           if (item.isDefault) notes.push(t("noteEveryday"));
           if (item.needsPhoto || !item.photo) notes.push(t("notePhotoLater"));
           return `<li>

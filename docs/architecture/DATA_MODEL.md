@@ -91,6 +91,10 @@ Future inbound-agent authorization: `id`, participant ID, schedule source ID, op
 
 `id`, participant ID, local image reference, optional source capture ID, optional source crop coordinates, optional synced object reference, category, layer, warmth, precipitation suitability, wind suitability, activity suitability, fabric materials, whether the garment touches skin, tag status (`unknown`, `present`, `removed`, `tagless`), sensory tags, color label, user label, favorite, classifier suggestion metadata, confirmation state, archived timestamp.
 
+`isGenericType` marks a record that stands for a type rather than one garment — a t-shirt rather than the grey Buffalo t-shirt. See `docs/product/WARDROBE_MODEL.md`. A generic record carries one representative image so the type is recognised, and the participant chooses which actual garment to wear. Tops, bottoms and socks are generic by default; jackets, coats and footwear are not. Where the boundary sits should eventually be a per-participant setting rather than a constant.
+
+`category` also admits `swim`, which never fills a worn outfit slot and is only ever drawn into a change of clothes.
+
 Fabric-contact and tag-status requirements can be configured as hard constraints. A hard constraint excludes an item before outfit ranking; it is not a preference that a higher score can override.
 
 ### WardrobeCaptureSession
@@ -117,7 +121,9 @@ Append-only event: `itemId`, state (`available`, `laundry`, `wet`, `damaged`, `u
 
 ### PlanSection
 
-`id`, plan ID, type (`weather`, `activities`, `outfit`, `bring`, `notes`), display order, summary, visual references, explanation, completion state, source.
+`id`, plan ID, type (`weather`, `activities`, `outfit`, `changeOfClothes`, `bring`, `notes`), display order, summary, visual references, explanation, completion state, source.
+
+A `changeOfClothes` section is a second outfit carried in a bag, not a list of things to carry. It holds item IDs and is rendered as garments, because an umbrella is something you carry and a change of clothes is something you wear later. The section is omitted entirely when the day's outfit already suits every activity.
 
 ### ConsentGrant
 

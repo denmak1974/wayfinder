@@ -161,7 +161,7 @@ The initial product and engineering foundation is now available:
 | Draft temperature bands and weather-driven clothing rules | [Weather and clothing rules](docs/product/WEATHER_CLOTHING_RULES.md) |
 | Solution architecture, technology stack, Azure, local-first, mobile, and AI | [Solution architecture](docs/architecture/ARCHITECTURE.md) |
 | Domain entities and data ownership | [Data model](docs/architecture/DATA_MODEL.md) |
-| Barcode, tag OCR, and garment recognition options | [Capture technology](docs/architecture/CAPTURE_TECHNOLOGY.md) |
+| Barcode, tag OCR, and garment recognition options | [Capture technology](docs/architecture/CAPTURE_TECHNOLOGY.md) — retained as research, superseded by the wardrobe model and not on the build path |
 | API contract | [OpenAPI](openapi/wayfinder-v1.yaml) |
 | Accessibility requirements | [Accessibility architecture](docs/design/ACCESSIBILITY.md) |
 | English, Japanese, and Canadian French behavior | [Localization architecture](docs/design/LOCALIZATION.md) |
@@ -183,6 +183,11 @@ Open the self-contained [Daily Readiness Assistant prototype](prototypes/daily-r
 - Low, High, rain timing, and explainable clothing changes;
 - Outlook, Google, device, Wayfinder, or ICS destination selection;
 - activity-aware clothing recommendations;
+- tops, bottoms, and socks recommended as types rather than named garments, so the participant keeps the choice;
+- jackets, coats, and footwear recommended individually, because that is where the choice is hard;
+- a change of clothes, shown as a second outfit for the bag, on the days that need one;
+- two clearly labelled example days — a winter indoor run and a swim — for the cases the current week does not produce;
+- a "What to expect" line that says what is different about today, including saying that nothing is;
 - two sensory-safe outfit choices and a participant-initiated "Finished, please check" handoff;
 - live English, Japanese, and Canadian French switching with localized dates and speech;
 - outfit alternatives with plain-language explanations;
@@ -200,14 +205,17 @@ The prototype is a design artifact, not a working application. Some parts run fo
 | --- | --- |
 | Weather forecast | **Real.** Live daily and hourly data from the public Open-Meteo API for the selected date. |
 | Outfit recommendations | **Real.** Computed from the forecast, the activity context, and the wardrobe by the rules in [Weather and clothing rules](docs/product/WEATHER_CLOTHING_RULES.md). |
+| Change of clothes | **Real.** Computed from the same wardrobe, and omitted entirely when the day's outfit already suits every activity. |
+| "What to expect" | **Real.** Chosen in priority order from the schedule and the forecast, not authored per day. |
 | Wardrobe add, edit, remove | **Real.** Stored in browser local storage and used immediately by the recommendation engine. |
-| Barcode and QR scanning | **Simulated.** The button returns a fixed example so the confirmation flow can be evaluated. No scanner is wired up. |
-| Reading a clothing tag (OCR) | **Simulated.** Photographing a tag returns fixed example text. No text recognition runs. |
+| The two example days | **Sample weather, real engine.** The winter run and swim days carry fixed temperatures, labelled on the card as an example rather than a forecast. The outfit and the bag are still computed. |
+| Barcode and QR scanning | **Simulated, and no longer needed.** The button returns a fixed example. The wardrobe model removed the reason to build it. |
+| Reading a clothing tag (OCR) | **Simulated, and no longer needed.** Photographing a tag returns fixed example text. |
 | Classifying a garment from its photo | **Simulated.** A filename keyword check stands in for image classification, and it deliberately reports low confidence rather than guessing. |
 | Schedule import | **Simulated.** Two prepared examples stand in for parsing an uploaded image or PDF. |
 | Weekly schedule photographs and wardrobe photographs | Held outside this repository. The prototype references them by relative path, so anyone else sees text labels instead of images. |
 
-Barcode scanning, OCR, and on-device garment classification are the three capabilities that need real implementations. They should run on the device without uploading a participant's clothing photographs to a third-party service. Candidate libraries have been researched and recorded in [Capture technology](docs/architecture/CAPTURE_TECHNOLOGY.md); nothing has been installed yet.
+Barcode scanning and tag OCR existed to make per-garment onboarding bearable at scale. Since only jackets, coats, and footwear are now modelled individually, a handful of photographs taken once is enough, and neither capability is on the build path. The research is kept in [Capture technology](docs/architecture/CAPTURE_TECHNOLOGY.md) in case the wardrobe model ever widens again. Nothing has been installed.
 
 ---
 

@@ -95,14 +95,17 @@ See [Weather and Clothing Rules](WEATHER_CLOTHING_RULES.md) for the draft temper
 
 ### Digital wardrobe
 
-- I can start quickly from a few group wardrobe photos, then confirm cropped item cards over time.
+- I am told what kind of top, bottom, and socks to wear, and I choose which particular ones. Being told which t-shirt is not help; it removes a decision I can make.
+- I am told which jacket or coat to wear, and which shoes, because those choices are hard and getting them wrong is uncomfortable or unsafe.
+- I can set up quickly, because only jackets, coats, and footwear need a photograph each. A few pictures taken once is enough.
 - I can photograph or select one item when I need a clearer card, but individual retakes are not required for initial setup.
-- I can use a clothing tag photo, barcode/SKU, or retailer receipt/order as optional helpers only when they produce useful garment details or a recognizable image.
 - I can reuse a saved clothing card without taking a new photo each time the item appears in an outfit.
 - I can record category, warmth, rain suitability, formality, sensory tags, fabric touching skin, tag status, and preferred combinations.
 - I can mark an item available, in laundry, wet, damaged, or unavailable.
 - Recommendations exclude unavailable items and explain each choice in plain language.
 - Recommendations exclude items that violate hard sensory constraints.
+- On a day that needs it, I am shown a second outfit to carry in a bag and change into, separately from the things I carry.
+- I am told plainly when I do not own something the day needs, rather than being given a substitute that is not safe.
 - I can compare exactly two valid outfits when a change from my familiar pattern is needed.
 - I can save an outfit template and choose it again.
 
@@ -180,7 +183,7 @@ See [Weather and Clothing Rules](WEATHER_CLOTHING_RULES.md) for the draft temper
 | WF-024 | P1 | Activities | Convert activity context into clothing and bring-item constraints | Prepares the person for what they will actually do |
 | WF-025 | P2 | Automation | Receive trusted location schedules through a participant-controlled email agent | Removes recurring supporter administration |
 | WF-030 | P0 | Weather | Provider adapter, cache, and stale-state UI | Weather informs preparation without fragility |
-| WF-040 | P0 | Wardrobe | Capture group photos, crop item cards, and confirm attributes progressively | Builds a usable personal wardrobe without requiring an onerous photo session |
+| WF-040 | P0 | Wardrobe | Model tops, bottoms, and socks as types, and photograph only jackets, coats, and footwear individually | Builds a usable personal wardrobe from a handful of pictures, and leaves the expressive choices with the participant |
 | WF-041 | P0 | Wardrobe | Availability and laundry state | Avoids impossible recommendations |
 | WF-042 | P0 | Wardrobe | Saved outfit templates | Reduces repeated decisions |
 | WF-043 | P0 | Wardrobe | Enforce fabric-contact and tag-status constraints | Prevents unusable or distressing clothing recommendations |

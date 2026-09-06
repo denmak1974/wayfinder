@@ -76,3 +76,20 @@ Keep it to one or two short sentences.
 ## How success is measured
 
 If this builds independence eight or nine times out of ten, it is a success. The goal is not a perfect recommendation every day. It is that the participant can start his day without having to ask.
+
+## Prototype status
+
+Implemented in `prototypes/daily-readiness.html` on September 6, 2026.
+
+Tops, bottoms and socks are three types each, carrying a `generic` flag and one photograph. Jackets, coats and footwear are unchanged. Doug's photographed wardrobe contains no sweatshirt, so that type is listed with its photograph missing rather than dropped — the same way a missing pair of snow boots is reported.
+
+The change of clothes is computed, and it returns nothing when the worn outfit already suits the activity. The real September week therefore never shows the card, which is the correct answer for that week and also means the feature cannot be seen. Two clearly labelled example days — a winter indoor run and a swim — sit at the end of the plan-day list with fixed sample weather so the case can be shown and tested. The weather card says plainly that the forecast is an example.
+
+"What to expect" is no longer authored per day. It is chosen in priority order: Hub closed or empty, then a change of clothes, then a fact from the schedule that is not in the activity list, then an unusual weather transition, and otherwise "Today is a normal day." The two schedule facts currently encoded both come from the real September 8 Hub schedule: hot dogs at the Hub on the Friday, and the afternoon charter boat on the Wednesday.
+
+### Not yet resolved
+
+- Free and closed days still assume a normal amount of going outside. That may be wrong for Douglas.
+- The three jackets added on September 6 still have no photographs, and jackets are exactly where photographs matter most.
+- The boundary between generic and specific is fixed in code. It should be per-person.
+- The prototype has still never been used with Douglas. That, not another feature, is the next test.

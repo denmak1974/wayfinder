@@ -142,6 +142,8 @@ For preview days, the weather adapter fetches a public daily forecast by coarse 
 
 Wardrobe capture is progressive rather than all-or-nothing. The MVP supports a low-friction inventory pass where a participant or supporter captures group photos by category, then reviews suggested cropped item cards. Individual photos are a refinement path, not a setup prerequisite.
 
+The volume of capture is small by design. Only jackets, coats, and footwear are modelled as individual items; tops, bottoms, and socks are types carrying one representative photograph each. See [Wardrobe model](../product/WARDROBE_MODEL.md). Barcode scanning, tag OCR, and retailer lookup existed to make per-garment onboarding bearable at scale and are consequently not on the build path.
+
 ```mermaid
 flowchart LR
   G[Group or single-item photo] --> M[Strip metadata and store locally]

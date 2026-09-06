@@ -75,6 +75,19 @@ When several items would work, prefer the **lightest** one — the item with the
 
 If no item can fill a required slot — for example snow boots when none are owned — Wayfinder names the gap in the special items list rather than recommending footwear that is unsafe. The rest of the outfit still stands.
 
+### Step 5b: a second outfit when one activity needs different clothes
+
+Some days need a **change of clothes**: a second outfit carried in a bag and changed into partway through. This is not a bring-item, and it is not the day's outfit either. See `docs/product/WARDROBE_MODEL.md`.
+
+It is computed the same way as the worn outfit, from the activity rather than the weather:
+
+| Case | Target used | Result |
+| --- | --- | --- |
+| Vigorous activity indoors | indoor temperature (about 20°C) plus `activityWarmth` for vigorous | base top, bottom and socks for that temperature |
+| Swimming | — | the swim kit, a towel, and dry clothes to change back into |
+
+Only the slots that actually differ from what is being worn are listed, and when nothing differs the section is omitted entirely. Most days do not need one, and that silence is the correct output. A 26°C day whose worn outfit is already a t-shirt and shorts produces no bag.
+
 ### Step 6: the explanation cannot grow
 
 Only **one** driver is named, chosen by priority: snow → rain → wind → temperature spread → vigorous activity → indoor seated → plain conditions. An action line is added only when a layer is meant to come off. Rules may keep growing; the participant-facing output must not.
