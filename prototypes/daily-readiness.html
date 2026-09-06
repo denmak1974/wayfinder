@@ -263,6 +263,21 @@
       font-size: 1.1rem;
     }
 
+    .past-day-banner {
+      margin: 0.6rem 0 0;
+      padding: 0.65rem 0.9rem;
+      border-left: 5px solid var(--cp-text-muted);
+      border-radius: 0.625rem;
+      background: var(--cp-surface-soft);
+      color: var(--cp-text-muted);
+      font-weight: 650;
+    }
+
+    body.viewing-past .hero,
+    body.viewing-past .plan-card {
+      border-style: dashed;
+    }
+
     .plan-date-control {
       display: flex;
       flex-wrap: wrap;
@@ -1102,11 +1117,12 @@
         <p class="eyebrow" data-i18n="dailyPlan">Your daily readiness plan</p>
         <h1 id="page-title" data-i18n="goodMorning">Good morning, Doug</h1>
         <p class="date-line" id="today-date">Thursday, September 3</p>
+        <p class="past-day-banner" id="past-day-banner" role="status" hidden></p>
         <label class="plan-date-control" for="plan-date">
           <span data-i18n="planDay">Plan day</span>
           <select id="plan-date">
-            <option value="2026-09-03" data-i18n="sep3Plan">Thu, Sep 3</option>
-            <option value="2026-09-04" data-i18n="sep4Plan">Fri, Sep 4</option>
+            <option value="2026-09-03">Thu, Sep 3</option>
+            <option value="2026-09-04">Fri, Sep 4</option>
             <option value="2026-09-08">Tue, Sep 8</option>
             <option value="2026-09-09">Wed, Sep 9</option>
             <option value="2026-09-10">Thu, Sep 10</option>
@@ -1617,6 +1633,11 @@
         displaySettings: "Display settings",
         dailyPlan: "Your daily readiness plan",
         goodMorning: "Doug's plan",
+        dayToday: "today",
+        dayTomorrow: "tomorrow",
+        dayYesterday: "yesterday",
+        dayPast: "{count} days ago",
+        pastDayNotice: "This day has already happened ({when}). It is here so you can look back at what you wore.",
         planDay: "Plan day",
         sep3Plan: "Thu, Sep 3",
         sep4Plan: "Fri, Sep 4",
@@ -1719,6 +1740,11 @@
         noteEveryday: "Everyday default",
         notePhotoLater: "Photo not added yet",
         noteAvoid: "Marked uncomfortable",
+        wardrobe_puffTechNavy: "Navy puffer jacket",
+        wardrobe_blousonBlack: "Black windproof jacket",
+        wardrobe_fleeceNavy: "Navy fleece jacket",
+        wardrobe_joggersBlue: "Blue jogger pants",
+        wardrobe_joggersGrey: "Grey jogger pants",
         wardrobe_downVest: "Down vest",
         reasonSnow: "There is snow, so you need boots with grip.",
         reasonWind: "It is windy, so the outer layer blocks the wind.",
@@ -1941,6 +1967,11 @@
         displaySettings: "表示設定",
         dailyPlan: "今日の準備プラン",
         goodMorning: "Dougの予定",
+        dayToday: "今日",
+        dayTomorrow: "明日",
+        dayYesterday: "昨日",
+        dayPast: "{count}日前",
+        pastDayNotice: "この日は終わりました（{when}）。何を着たか振り返るために残しています。",
         planDay: "予定の日",
         sep3Plan: "9月3日 木曜",
         sep4Plan: "9月4日 金曜",
@@ -2043,6 +2074,11 @@
         noteEveryday: "普段の標準",
         notePhotoLater: "写真はまだ",
         noteAvoid: "着心地が悪い",
+        wardrobe_puffTechNavy: "紺のダウンジャケット",
+        wardrobe_blousonBlack: "黒の防風ジャケット",
+        wardrobe_fleeceNavy: "紺のフリース",
+        wardrobe_joggersBlue: "青のジョガーパンツ",
+        wardrobe_joggersGrey: "灰色のジョガーパンツ",
         wardrobe_downVest: "ダウンベスト",
         reasonSnow: "雪があるので、滑りにくいブーツが必要です。",
         reasonWind: "風が強いので、上着で風を防ぎます。",
@@ -2265,6 +2301,11 @@
         displaySettings: "Réglages d'affichage",
         dailyPlan: "Votre plan de préparation quotidienne",
         goodMorning: "Plan de Doug",
+        dayToday: "aujourd'hui",
+        dayTomorrow: "demain",
+        dayYesterday: "hier",
+        dayPast: "il y a {count} jours",
+        pastDayNotice: "Cette journée est passée ({when}). Elle reste ici pour revoir ce que tu as porté.",
         planDay: "Jour du plan",
         sep3Plan: "jeu. 3 sept.",
         sep4Plan: "ven. 4 sept.",
@@ -2367,6 +2408,11 @@
         noteEveryday: "Choix de tous les jours",
         notePhotoLater: "Photo pas encore ajoutée",
         noteAvoid: "Marqué inconfortable",
+        wardrobe_puffTechNavy: "Doudoune marine",
+        wardrobe_blousonBlack: "Blouson coupe-vent noir",
+        wardrobe_fleeceNavy: "Veste polaire marine",
+        wardrobe_joggersBlue: "Pantalon de jogging bleu",
+        wardrobe_joggersGrey: "Pantalon de jogging gris",
         wardrobe_downVest: "Veste sans manches en duvet",
         reasonSnow: "Il y a de la neige; il faut des bottes qui adhèrent.",
         reasonWind: "Il vente; la couche extérieure coupe le vent.",
@@ -2878,9 +2924,16 @@
       { id: "windbreaker", slot: "outer", min: 6, max: 22, waterResistant: true, windResistant: true, photo: "3. Outerwear/Light windbreaker 2.jpg" },
       { id: "downVest", slot: "outer", min: 4, max: 16, photo: "3. Outerwear/Down vest.jpg" },
       { id: "fleece", slot: "outer", min: 1, max: 15, photo: "3. Outerwear/Fleece.jpg" },
-      { id: "lightDown", slot: "outer", min: -8, max: 8, photo: "3. Outerwear/Light down.jpg" },
       { id: "parka", slot: "outer", min: -20, max: 4, waterResistant: true, windResistant: true, snowReady: true, photo: "3. Outerwear/Full-zip Parka.jpg" },
       { id: "heavyDown", slot: "outer", min: -30, max: 0, windResistant: true, photo: "3. Outerwear/Heavy Down Jacket.jpg" },
+
+      // Added Sep. 6, 2026 from photographed Uniqlo tags. Fabric and colour come from the
+      // tag; a garment photograph can be attached later through Edit.
+      { id: "puffTechNavy", slot: "outer", min: -12, max: 6, fabric: "Nylon shell, polyester fill", windResistant: true, photo: "", needsPhoto: true },
+      { id: "blousonBlack", slot: "outer", min: 5, max: 20, fabric: "Recycled nylon, polyester lining", windResistant: true, waterResistant: true, photo: "", needsPhoto: true },
+      { id: "fleeceNavy", slot: "outer", min: 1, max: 15, fabric: "Recycled polyester", photo: "", needsPhoto: true },
+      { id: "joggersBlue", slot: "bottom", min: 8, max: 26, fabric: "Stretch active", activeOk: true, photo: "", needsPhoto: true },
+      { id: "joggersGrey", slot: "bottom", min: 8, max: 26, fabric: "Stretch active", activeOk: true, photo: "", needsPhoto: true },
 
       { id: "walkingShoes", slot: "footwear", min: -10, max: 40, photo: "4. Footwear/Hiking and Walking shoes (Merrell).jpg" },
       { id: "runningShoes", slot: "footwear", min: -5, max: 40, activeOk: true, photo: "4. Footwear/Running and Sports Shoes (Asics).jpg" },
@@ -3234,7 +3287,80 @@
       refreshReadyItems();
     };
 
+    // Days are kept for a week after they happen, so a person can look back at what they
+    // wore, and dropped after that. Past days are always labelled, never shown as if they
+    // were today's plan.
+    const HISTORY_DAYS = 7;
+
+    const startOfDay = (date) => {
+      const copy = new Date(date);
+      copy.setHours(0, 0, 0, 0);
+      return copy;
+    };
+
+    const dayOffset = (isoDate) => {
+      const target = startOfDay(new Date(`${isoDate}T12:00:00`));
+      const today = startOfDay(new Date());
+      return Math.round((target - today) / 86400000);
+    };
+
+    const isPastDate = (isoDate) => dayOffset(isoDate) < 0;
+    const withinHistory = (isoDate) => dayOffset(isoDate) >= -HISTORY_DAYS;
+
+    const dayRelativeLabel = (isoDate) => {
+      const offset = dayOffset(isoDate);
+      if (offset === 0) return t("dayToday");
+      if (offset === 1) return t("dayTomorrow");
+      if (offset === -1) return t("dayYesterday");
+      if (offset < 0) return t("dayPast", { count: Math.abs(offset) });
+      return "";
+    };
+
+    const renderPlanDateOptions = () => {
+      const select = document.querySelector("#plan-date");
+      const available = [...select.options]
+        .map((option) => option.value)
+        .filter((value) => withinHistory(value))
+        .sort();
+
+      select.innerHTML = available
+        .map((value) => {
+          const label = formatDate(value, { weekday: "short", month: "short", day: "numeric" });
+          const relative = dayRelativeLabel(value);
+          return `<option value="${value}">${label}${relative ? ` · ${relative}` : ""}</option>`;
+        })
+        .join("");
+
+      if (!available.includes(state.planDate)) {
+        // The selected day aged out. Fall back to today, or the nearest upcoming day.
+        state.planDate = available.find((value) => dayOffset(value) >= 0) ?? available[available.length - 1];
+      }
+      select.value = state.planDate;
+    };
+
+    // Open on today, or the next upcoming day. Landing on a past day by default would
+    // present a finished day as if it were the plan to prepare for.
+    const initialPlanDate = () => {
+      const values = [...document.querySelectorAll("#plan-date option")]
+        .map((option) => option.value)
+        .filter((value) => withinHistory(value))
+        .sort();
+      return values.find((value) => dayOffset(value) >= 0) ?? values[values.length - 1] ?? state.planDate;
+    };
+
     const renderPlan = () => {
+      const past = isPastDate(state.planDate);
+      const banner = document.querySelector("#past-day-banner");
+      banner.hidden = !past;
+      if (past) {
+        banner.textContent = t("pastDayNotice", { when: dayRelativeLabel(state.planDate) });
+      }
+      document.body.classList.toggle("viewing-past", past);
+      // A past day is a record of what was worn, so the choose and finish actions are
+      // switched off rather than inviting preparation for a day that has gone.
+      document.querySelector("#choose-outfit").disabled = past || state.outfitChosen;
+      document.querySelector("#finish-plan").disabled = past || state.familyCheckRequested;
+
       const plan = currentPlan();
       const forecast = state.weatherForecasts[state.planDate];
       const weather = forecast ? formatPublicWeather(forecast) : null;
@@ -3510,6 +3636,7 @@
     };
 
     const renderDynamicState = () => {
+      renderPlanDateOptions();
       renderPlan();
       renderOutfit();
       renderReadyProgress();
@@ -3532,7 +3659,7 @@
       chooseOutfitButton.textContent = state.outfitChosen
         ? t("outfitChosenButton")
         : t("chooseOutfit");
-      chooseOutfitButton.disabled = state.outfitChosen;
+      chooseOutfitButton.disabled = state.outfitChosen || isPastDate(state.planDate);
 
       if (state.familyCheckRequested) {
         document.querySelector("#finish-plan").textContent = t("checkRequestedButton");
@@ -4173,6 +4300,7 @@
       burstStatus("burstDiscarded");
     });
 
+    state.planDate = initialPlanDate();
     applyLocale("en-CA");
     loadForecastForSelectedDate();
   </script>

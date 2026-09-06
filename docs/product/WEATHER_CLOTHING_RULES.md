@@ -350,6 +350,15 @@ The stored range is the union of the selected bands, and adjacent bands overlap 
 
 This matters for recommendation quality, not just data tidiness. Wide, honest ranges give the engine more valid candidates, so the "lightest item that still works" tiebreak has something to choose between instead of falling back on a single arbitrary match.
 
+### Past days are a record, not a plan
+
+A day that has already happened is still useful. It answers "what did I wear when it was like this?" and it lets a supporter check whether a recommendation actually worked. But it must never be mistaken for the day being prepared for.
+
+- Keep a day for **seven days** after it happens, then drop it.
+- Label every past day in the day picker with how long ago it was, and show a plain statement on the plan itself.
+- Open on today, or the next upcoming day. Never open on a day that has gone.
+- Disable the actions that only make sense for a day ahead, such as choosing an outfit and requesting a family check. The recommendation and the weather stay visible, because those are the record.
+
 ## Adding, editing, and removing clothes
 
 ### Add: cheapest reliable signal first
