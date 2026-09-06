@@ -160,6 +160,7 @@ The initial product and engineering foundation is now available:
 | Draft temperature bands and weather-driven clothing rules | [Weather and clothing rules](docs/product/WEATHER_CLOTHING_RULES.md) |
 | Solution architecture, technology stack, Azure, local-first, mobile, and AI | [Solution architecture](docs/architecture/ARCHITECTURE.md) |
 | Domain entities and data ownership | [Data model](docs/architecture/DATA_MODEL.md) |
+| Barcode, tag OCR, and garment recognition options | [Capture technology](docs/architecture/CAPTURE_TECHNOLOGY.md) |
 | API contract | [OpenAPI](openapi/wayfinder-v1.yaml) |
 | Accessibility requirements | [Accessibility architecture](docs/design/ACCESSIBILITY.md) |
 | English, Japanese, and Canadian French behavior | [Localization architecture](docs/design/LOCALIZATION.md) |
@@ -189,6 +190,23 @@ Open the self-contained [Daily Readiness Assistant prototype](prototypes/daily-r
 - a bounded help flow that keeps the participant in control.
 
 The normalized, privacy-minimized Doug example is available as [JSON](examples/doug-hub-week-2026-08-31.json).
+
+#### What is real and what is simulated
+
+The prototype is a design artifact, not a working application. Some parts run for real and some are deliberately stubbed, so it is worth being explicit before anyone builds on it.
+
+| Behaviour | Status |
+| --- | --- |
+| Weather forecast | **Real.** Live daily and hourly data from the public Open-Meteo API for the selected date. |
+| Outfit recommendations | **Real.** Computed from the forecast, the activity context, and the wardrobe by the rules in [Weather and clothing rules](docs/product/WEATHER_CLOTHING_RULES.md). |
+| Wardrobe add, edit, remove | **Real.** Stored in browser local storage and used immediately by the recommendation engine. |
+| Barcode and QR scanning | **Simulated.** The button returns a fixed example so the confirmation flow can be evaluated. No scanner is wired up. |
+| Reading a clothing tag (OCR) | **Simulated.** Photographing a tag returns fixed example text. No text recognition runs. |
+| Classifying a garment from its photo | **Simulated.** A filename keyword check stands in for image classification, and it deliberately reports low confidence rather than guessing. |
+| Schedule import | **Simulated.** Two prepared examples stand in for parsing an uploaded image or PDF. |
+| Weekly schedule photographs and wardrobe photographs | Held outside this repository. The prototype references them by relative path, so anyone else sees text labels instead of images. |
+
+Barcode scanning, OCR, and on-device garment classification are the three capabilities that need real implementations. They should run on the device without uploading a participant's clothing photographs to a third-party service. Candidate libraries have been researched and recorded in [Capture technology](docs/architecture/CAPTURE_TECHNOLOGY.md); nothing has been installed yet.
 
 ---
 
