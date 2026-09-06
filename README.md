@@ -156,6 +156,7 @@ The initial product and engineering foundation is now available:
 | Area | Document |
 | --- | --- |
 | Product vision, personas, stories, backlog, and 90-day roadmap | [Product foundation](docs/product/PRODUCT.md) |
+| Which garments are modelled generically and which individually | [Wardrobe model](docs/product/WARDROBE_MODEL.md) |
 | Location schedule import, preferred calendars, and future email agent | [Weekly schedule import](docs/product/WEEKLY_SCHEDULE_IMPORT.md) |
 | Draft temperature bands and weather-driven clothing rules | [Weather and clothing rules](docs/product/WEATHER_CLOTHING_RULES.md) |
 | Solution architecture, technology stack, Azure, local-first, mobile, and AI | [Solution architecture](docs/architecture/ARCHITECTURE.md) |

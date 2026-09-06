@@ -2,6 +2,14 @@
 
 ## Status
 
+**Superseded in part, September 6, 2026.** The wardrobe model changed so that only jackets, coats, and footwear are modelled as individual items, while tops, bottoms, and socks are generic types. See [Wardrobe model](../product/WARDROBE_MODEL.md).
+
+Barcode scanning, tag OCR, and retailer product lookup existed to make per-garment onboarding bearable at scale. With only a handful of items modelled individually, that machinery is no longer needed. This research is retained because it remains accurate and may matter if the wardrobe model widens again, but **it is not currently on the build path**.
+
+The findings on licensing traps and CDN dependencies below are worth keeping regardless, since they apply to any future use of these libraries.
+
+## Original status
+
 Research complete. Nothing has been installed. The prototype's scanning, tag reading, and garment classification are simulated, and this document records which real implementations we would adopt and why.
 
 Research date: September 6, 2026.
