@@ -1129,6 +1129,9 @@
           <select id="plan-date">
             <option value="2026-09-03">Thu, Sep 3</option>
             <option value="2026-09-04">Fri, Sep 4</option>
+            <option value="2026-09-05">Sat, Sep 5</option>
+            <option value="2026-09-06">Sun, Sep 6</option>
+            <option value="2026-09-07">Mon, Sep 7</option>
             <option value="2026-09-08">Tue, Sep 8</option>
             <option value="2026-09-09">Wed, Sep 9</option>
             <option value="2026-09-10">Thu, Sep 10</option>
@@ -1643,6 +1646,15 @@
         dayTomorrow: "tomorrow",
         dayYesterday: "yesterday",
         dayPast: "{count} days ago",
+        noPlansTitle: "Nothing from the Hub today.",
+        hubClosedTitle: "The Hub is closed today.",
+        closed_labourDay: "It is Labour Day.",
+        freeWeekend: "It is the weekend.",
+        freeDay: "No activities were sent for today.",
+        noActivity: "No Hub activity",
+        noActivityContext: "Free time",
+        closedExpectation: "The Hub is closed, so there is nothing to get ready for there. The weather and clothes below are still for today, in case you go out.",
+        freeExpectation: "There is nothing from the Hub today. The weather and clothes below are still for today, in case you go out.",
         pastDayNotice: "This day has already happened ({when}). It is here so you can look back at what you wore.",
         pastDayTitle: "What you wore",
         pastDayProgress: "This day is finished.",
@@ -1979,6 +1991,15 @@
         dayTomorrow: "明日",
         dayYesterday: "昨日",
         dayPast: "{count}日前",
+        noPlansTitle: "今日はHubの予定がありません。",
+        hubClosedTitle: "今日はHubが休みです。",
+        closed_labourDay: "レイバーデーです。",
+        freeWeekend: "週末です。",
+        freeDay: "今日の予定は届いていません。",
+        noActivity: "Hubの予定なし",
+        noActivityContext: "自由時間",
+        closedExpectation: "Hubは休みなので、準備することはありません。外に出る時のために、今日の天気と服を表示しています。",
+        freeExpectation: "今日はHubの予定がありません。外に出る時のために、今日の天気と服を表示しています。",
         pastDayNotice: "この日は終わりました（{when}）。何を着たか振り返るために残しています。",
         pastDayTitle: "着たもの",
         pastDayProgress: "この日は終わりました。",
@@ -2315,6 +2336,15 @@
         dayTomorrow: "demain",
         dayYesterday: "hier",
         dayPast: "il y a {count} jours",
+        noPlansTitle: "Rien du Hub aujourd'hui.",
+        hubClosedTitle: "Le Hub est fermé aujourd'hui.",
+        closed_labourDay: "C'est la fête du Travail.",
+        freeWeekend: "C'est la fin de semaine.",
+        freeDay: "Aucune activité n'a été envoyée pour aujourd'hui.",
+        noActivity: "Aucune activité du Hub",
+        noActivityContext: "Temps libre",
+        closedExpectation: "Le Hub est fermé, il n'y a donc rien à préparer. La météo et les vêtements ci-dessous sont quand même pour aujourd'hui, au cas où tu sortirais.",
+        freeExpectation: "Il n'y a rien du Hub aujourd'hui. La météo et les vêtements ci-dessous sont quand même pour aujourd'hui, au cas où tu sortirais.",
         pastDayNotice: "Cette journée est passée ({when}). Elle reste ici pour revoir ce que tu as porté.",
         pastDayTitle: "Ce que tu as porté",
         pastDayProgress: "Cette journée est terminée.",
@@ -2906,6 +2936,9 @@
     const planWeatherLocations = {
       "2026-09-03": "oakville",
       "2026-09-04": "hamiltonBayfront",
+      "2026-09-05": "oakville",
+      "2026-09-06": "oakville",
+      "2026-09-07": "oakville",
       "2026-09-08": "oakville",
       "2026-09-09": "oakville",
       "2026-09-10": "oakville",
@@ -3233,10 +3266,42 @@
       ];
     };
 
+    const hubClosedDays = {
+      "2026-09-07": "labourDay"
+    };
+
+    // Days with no Hub entry still need a plan. Weather and a sensible outfit are shown;
+    // only the schedule is empty. A day the Hub has explicitly closed is labelled as such,
+    // because "closed for Labour Day" is a different fact from "nothing scheduled".
+    const emptyDayPlan = (isoDate) => {
+      const closed = hubClosedDays[isoDate];
+      const weekday = new Date(`${isoDate}T12:00:00`).getDay();
+      const weekend = weekday === 0 || weekday === 6;
+      const reasonKey = closed ? `closed_${closed}` : (weekend ? "freeWeekend" : "freeDay");
+      return {
+        hubReady: `<strong>${t(closed ? "hubClosedTitle" : "noPlansTitle")}</strong> ${t(reasonKey)}`,
+        low: "--",
+        high: "--",
+        weatherSummary: t("loadingForecast"),
+        weatherDetail: "",
+        updated: "",
+        activities: {
+          morning: [t("noActivity"), t("noActivityContext")],
+          afternoon: [t("noActivity"), t("noActivityContext")]
+        },
+        expectation: t(closed ? "closedExpectation" : "freeExpectation"),
+        bringItems: [],
+        speechMorning: t("noActivity"),
+        speechAfternoon: t("noActivity"),
+        isEmptyDay: true
+      };
+    };
+
+
     const currentPlan = () =>
       localizedPlans[state.locale]?.[state.planDate] ??
       localizedPlans["en-CA"][state.planDate] ??
-      localizedPlans["en-CA"]["2026-09-03"];
+      emptyDayPlan(state.planDate);
 
     const locationName = (locationKey) => {
       const location = weatherLocations[locationKey];
@@ -3482,16 +3547,19 @@
       }
     };
 
+    const currentPlanContext = () =>
+      planContexts[state.planDate] ?? {
+        // No schedule for this day. Assume a normal amount of going outside rather than
+        // assuming the person stays in, because under-dressing is the worse failure.
+        indoorSeated: false,
+        periods: [
+          { outdoor: true, intensity: "casual" },
+          { outdoor: true, intensity: "casual" }
+        ]
+      };
+
     const currentOutfits = () =>
-      buildOutfits(
-        planContexts[state.planDate] ?? {
-          periods: [
-            { outdoor: true, intensity: "casual" },
-            { outdoor: true, intensity: "casual" }
-          ]
-        },
-        state.weatherForecasts[state.planDate]
-      );
+      buildOutfits(currentPlanContext(), state.weatherForecasts[state.planDate]);
 
     const currentOutfit = () => {
       const outfits = currentOutfits();

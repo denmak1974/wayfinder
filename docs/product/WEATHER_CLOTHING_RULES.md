@@ -360,6 +360,21 @@ A day that has already happened is still useful. It answers "what did I wear whe
 - **Remove** the forward-looking actions on a past day rather than disabling them. A greyed-out "Choose this outfit" reads as something the person failed to do. The weather, activities, and recommendation stay visible, because those are the record.
 - Change the closing section from "You are getting ready" to "What you wore", so the whole screen agrees about what it is.
 
+### A day with no activities is still a day
+
+Weekends, holidays, and days the location simply did not send anything are normal. They must not produce a blank screen, an error, or a silent jump to a different day.
+
+On a day with no schedule entry, keep the weather and the outfit and empty only the schedule. Assume a normal amount of going outside rather than assuming the person stays in, because under-dressing is the worse failure.
+
+Distinguish two cases, because they are different facts:
+
+| Case | Wording |
+| --- | --- |
+| The location is closed and said so | "The Hub is closed today. It is Labour Day." |
+| Nothing was scheduled | "Nothing from the Hub today. It is the weekend." |
+
+A closed day is information the location provided. An empty day is the absence of information. Saying "no activities" for a public holiday would discard something the schedule actually told us.
+
 ## Adding, editing, and removing clothes
 
 ### Add: cheapest reliable signal first
