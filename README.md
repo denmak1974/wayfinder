@@ -33,11 +33,9 @@ For individuals with executive-function challenges, these seemingly simple decis
 
 Wayfinder aims to reduce that friction.
 
-Not by replacing people.
+Not by replacing caregivers or the people connection.
 
-Not by replacing caregivers.
-
-But by providing practical tools that help individuals successfully navigate everyday life.
+But by providing practical tools that help individuals successfully navigate everyday life and build connections.
 
 ---
 
